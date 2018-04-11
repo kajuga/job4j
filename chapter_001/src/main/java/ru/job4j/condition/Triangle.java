@@ -24,8 +24,7 @@ public class Triangle {
      * @return Полупериметр.
      */
     public double period(double ab, double ac, double bc) {
-        double pp = (ab + ac + bc) / 2.0;
-        return pp;
+        return (ab + ac + bc) / 2.0;
     }
 
     /**
@@ -40,7 +39,6 @@ public class Triangle {
         double bc = this.b.distanceTo(this.c);
         double pp = this.period(ab, ac, bc);
         if (this.exist(ab, ac, bc)) {
-            // написать формулу для расчета площади треугольника.
             rsl = Math.sqrt(pp * (pp - ab) * (pp - ac) * (pp - bc));
         }
         return rsl;
@@ -57,7 +55,7 @@ public class Triangle {
      * @return
      */
     private boolean exist(double ab, double ac, double bc) {
-        return (ab <= bc + ac) && (bc <= ab + ac) && (ac <= ab + bc);
+        return (ab < bc + ac) && (bc < ab + ac) && (ac < ab + bc);
     }
 }
 
