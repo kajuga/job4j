@@ -10,15 +10,12 @@ package ru.job4j.max;
 public class Max {
 
     public int max(int first, int second) {
-        //int max = Math.max(first, second);
-        int max = first > second ? first : second;
-        return max;
+        return first > second ? first : second;
     }
 
     public int max(int first, int second, int third) {
         int res = this.max(first, second);
         int temp = max(res, third);
-        //temp = max(max(a,b), c);
         return temp;
     }
 }
