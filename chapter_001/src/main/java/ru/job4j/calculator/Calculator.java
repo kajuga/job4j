@@ -7,7 +7,7 @@ public class Calculator {
         this.result = first + second;
     }
 
-    public void subtract (double first, double second) {
+    public void subtract(double first, double second) {
         this.result = first - second;
     }
 

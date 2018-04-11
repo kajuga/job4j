@@ -24,7 +24,7 @@ public class Triangle {
      * @return Полупериметр.
      */
     public double period(double ab, double ac, double bc) {
-        double pp = (ab + ac + bc) /2.0;
+        double pp = (ab + ac + bc) / 2.0;
         return pp;
     }
 
@@ -57,7 +57,7 @@ public class Triangle {
      * @return
      */
     private boolean exist(double ab, double ac, double bc) {
-        return (ab <= bc+ac) && (bc <= ab+ac) && (ac <= ab+bc);
+        return (ab <= bc + ac) && (bc <= ab + ac) && (ac <= ab + bc);
     }
 }
 
