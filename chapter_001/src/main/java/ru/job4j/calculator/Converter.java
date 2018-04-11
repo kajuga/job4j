@@ -12,11 +12,7 @@ public class Converter {
      * @return Евро.
      */
     public double rubleToEuro(double value) {
-        if (value > 0) {
-            return value / 70;
-        } else {
-            return 0;
-        }
+        return validate(value) / 60;
     }
 
     /**
@@ -26,11 +22,7 @@ public class Converter {
      * @return Доллоры.
      */
     public double rubleToDollar(double value) {
-        if (value > 0) {
-            return value / 60;
-        } else {
-            return 0;
-        }
+        return validate(value) / 60;
     }
 
     /**
@@ -40,11 +32,7 @@ public class Converter {
      * @return Рубли.
      */
     public double euroToRuble(double value) {
-        if (value > 0) {
-            return value * 70;
-        } else {
-            return 0;
-        }
+            return validate(value) * 70;
     }
 
     /**
@@ -54,10 +42,15 @@ public class Converter {
      * @return Рубли.
      */
     public double dollarToRuble(double value) {
-        if (value > 0) {
-            return value * 60;
-        } else {
-            return 0;
-        }
+            return validate(value) * 60;
+    }
+
+    /**
+     * Вынесенный в отдельный метод упрощенный валидатор.
+     * @param value
+     * @return
+     */
+    private double validate(double value){
+        return value < 0 ? 0 : value;
     }
 }
