@@ -6,7 +6,7 @@ import static org.junit.Assert.assertThat;
 
 public class MatrixTest {
     @Test
-    public void when3on3() {
+    public void when9on9() {
         Matrix matrix = new Matrix();
         int[][] table = matrix.multiple(9);
         int[][] expect = {
