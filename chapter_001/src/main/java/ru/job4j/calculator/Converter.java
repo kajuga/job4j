@@ -50,7 +50,7 @@ public class Converter {
      * @param value
      * @return
      */
-    private double validate(double value){
+    private double validate(double value) {
         return value < 0 ? 0 : value;
     }
 }
