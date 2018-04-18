@@ -21,7 +21,7 @@ public class ArrayCharTest {
     }
 
     @Test
-    public void whenLenghtOfPrefixMoreThanWord(){
+    public void whenLengthOfPrefixMoreThanWord() {
         ArrayChar word = new ArrayChar("hello");
         boolean result = word.startWith("helloc");
         assertThat(result, is(false));
