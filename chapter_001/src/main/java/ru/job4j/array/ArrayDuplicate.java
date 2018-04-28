@@ -7,8 +7,8 @@ import java.util.Arrays;
  * Удаляем дубликаты в массиве
  */
 public class ArrayDuplicate {
+
     /**
-     *
      * @param array Переданный в качестве аргумента массив
      * @return возвращает массив без дубликатов
      */
