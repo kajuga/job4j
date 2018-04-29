@@ -13,18 +13,30 @@ public class ArrayDuplicate {
      * @return возвращает массив без дубликатов
      */
     public String[] remove(String[] array) {
-        for (int i = 0; i < array.length; i++) {
-            for (int j = i + 1; j < array.length;) {
-                if (array[i].equals(array[j])) {
-                    String temp = array[array.length - 1];
-                    array[array.length - 1] = array[j];
-                    array[j] = temp;
-                    array = Arrays.copyOf(array, array.length - 1);
+        int countReshuffle = 0;
+        for (int i = 0; i < array.length - countReshuffle; i++) {
+            for (int j = i + 1; j < array.length - countReshuffle;) {
+                if (comparison(array[i], (array[j]))) {
+                    if (comparison(array[i], array[array.length - countReshuffle - 1])) {
+                        countReshuffle++;
+                    } else {
+                        String temp = array[array.length - countReshuffle - 1];
+                        array[array.length - countReshuffle - 1] = array[i];
+                        array[j] = temp;
+                        countReshuffle++;
+                        j++;
+                    }
                 } else {
                     j++;
                 }
             }
         }
-        return array;
+
+        return Arrays.copyOf(array, (array.length - countReshuffle));
+    }
+
+    public boolean comparison(String str1, String str2) {
+        return str1.equals(str2);
     }
 }
+

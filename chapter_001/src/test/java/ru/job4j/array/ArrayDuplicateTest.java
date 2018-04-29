@@ -11,7 +11,7 @@ public class ArrayDuplicateTest {
     @Test
     public void whenRemoveDuplicatesThenArrayWithoutDuplicate() {
         ArrayDuplicate array = new ArrayDuplicate();
-        String[] input = new String[]{"alpha", "beta", "alpha", "gamma", "beta", "alpha", "beta"};
+        String[] input = new String[]{"alpha", "beta", "alpha", "gamma", "beta", "alpha", "beta", "gamma"};
         String[] result = array.remove(input);
         String[] expect = new String[]{"alpha", "beta", "gamma"};
         assertThat(result, is(expect));
