@@ -21,7 +21,7 @@ public class MaxTest {
         assertThat(result, is(2));
     }
 
-    @Test   //бестолковый тест, но, увы, чем богат.
+    @Test
     public void whenFirstEqualsSecond() {
         Max equal = new Max();
         int result = equal.max(2, 2);

@@ -31,11 +31,10 @@ public class ArrayDuplicate {
                 }
             }
         }
-
         return Arrays.copyOf(array, (array.length - countReshuffle));
     }
 
-    public boolean comparison(String str1, String str2) {
+    private boolean comparison(String str1, String str2) {
         return str1.equals(str2);
     }
 }
