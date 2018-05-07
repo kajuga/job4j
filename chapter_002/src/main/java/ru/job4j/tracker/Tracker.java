@@ -7,17 +7,21 @@ import java.util.*;
  * @since 0.1
  */
 public class Tracker {
-    /**
-     * Массив для хранение заявок.
-     */
-    private final Item[] items = new Item[100];
 
     /**
      * Указатель ячейки для новой заявки.
      */
-    private int position = 0;
     private static final Random RN = new Random();
 
+    /**
+     * Массив для хранения заявок.
+     */
+    private final Item[] items = new Item[100];
+
+    /**
+     * Начальная позиция первой заявки
+     */
+    private int position = 0;
 
     /**
      * Метод реализаущий добавление заявки в хранилище
