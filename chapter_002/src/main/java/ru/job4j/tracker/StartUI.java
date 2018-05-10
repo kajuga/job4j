@@ -97,20 +97,26 @@ public class StartUI {
     private void editItems() throws IOException {
         System.out.println("------------ Редактирование содержимого заявки --------------");
         String oldId = this.input.ask("Введите id редактируемой заявки: ");
+        Item reversoItem = new Item();
         if (oldId != null) {
-            Item newItem = new Item();
-            newItem.setName(this.input.ask("Введите новое имя заявки: "));
-            String newDesc = this.input.ask("Введите новое desc заявки: ");
-            newItem.setDesc(newDesc);
-            Long newCreated = Long.valueOf(this.input.ask("Введите новое created заявки: "));
-            newItem.setCreated(newCreated);
-            String[] newComments = new String[]{this.input.ask("Введите комментарий к новой заявке: ")};
-            newItem.setComments(newComments);
-            tracker.replace(oldId, newItem);
-            System.out.println("------------ Сохранение внесенных изменений... --------------");
-            System.out.println("------------ Сохранение успешно завершено --------------");
+            if (reversoItem == null) {
+                System.out.println("Указанного id не существует, введите корректный Id");
+                editItems();
+            }
+                Item newItem = new Item();
+                newItem.setName(this.input.ask("Введите новое имя заявки: "));
+                String newDesc = this.input.ask("Введите новое desc заявки: ");
+                newItem.setDesc(newDesc);
+                Long newCreated = Long.valueOf(this.input.ask("Введите новое created заявки: "));
+                newItem.setCreated(newCreated);
+                String[] newComments = new String[]{this.input.ask("Введите комментарий к новой заявке: ")};
+                newItem.setComments(newComments);
+                tracker.replace(oldId, newItem);
+                System.out.println("------------ Сохранение внесенных изменений... --------------");
+                System.out.println("------------ Сохранение успешно завершено --------------");
+            }
         }
-    }
+
 
     /**
      * Метод реализует удаление заявки из хранилища.
