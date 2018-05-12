@@ -12,7 +12,6 @@ public class StubInput implements Input {
      */
     private final String[] value;
 
-
     /**
      * Поле считает количество вызовом метода ask.
      * При каждом вызове надо передвинуть указатель на новое число.
@@ -22,7 +21,6 @@ public class StubInput implements Input {
     public StubInput(final String[] value) {
         this.value = value;
     }
-
 
     /**
      * Давайте рассмотрим, как работает этот метод.
