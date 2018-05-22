@@ -65,9 +65,9 @@ public class Tracker {
      * @param id Поле-ключ ячейки this.items.
      */
     public void delete(String id) {
-        int index = Arrays.asList(items).indexOf(findById(id));
-        if (index >= 0 && index < items.length) {
-            items[index] = null;
+        int index = Arrays.asList(this.items).indexOf(findById(id)); //эта херотень конвертит массив item в список и возвращает значение   УТОЧНИТЬ ПРИНЦИП!!!
+        if (index >= 0 && index < this.items.length) {
+            this.items[index] = null;
         }
     }
 
@@ -77,7 +77,7 @@ public class Tracker {
      * @return Возвращаемый массив без null;
      */
     public Item[] findAll() {
-        Item[] result = new Item[items.length];
+        Item[] result = new Item[this.items.length];
         int count = 0;
         for (Item item : this.items) {
             if (item != null) {

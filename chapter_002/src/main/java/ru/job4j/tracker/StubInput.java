@@ -18,6 +18,10 @@ public class StubInput implements Input {
      */
     private int position;
 
+
+
+
+
     public StubInput(final String[] value) {
         this.value = value;
     }
@@ -33,5 +37,12 @@ public class StubInput implements Input {
     @Override
     public String ask(String question) {
         return this.value[this.position++];
+    }
+
+
+    //переопределил метод ask в input новый который мы засунули. Мне кажется такой формат, дополнительный int[] range - защита через жопу.
+    @Override
+    public int ask(String question, int[] range) {
+        return Integer.valueOf(ask(question));
     }
 }
