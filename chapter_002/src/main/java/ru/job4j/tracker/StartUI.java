@@ -31,18 +31,18 @@ public class StartUI {
         menu.fillActions();
         do {
             menu.show();
-            int key = Integer.valueOf(input.ask("Select: "));
+            int key = input.ask("Select: ", new int[]{0, 1, 2, 3, 4, 5});
             menu.select(key);
 
         } while (!"y".equals(this.input.ask("Exit? (y):")));
     }
 
     /**
-     * Запускт программы.
+     * Запуск программы.
      *
      * @param args
      */
     public static void main(String[] args) throws IOException {
-        new StartUI(new ConsoleInput(), new Tracker()).init();
+        new StartUI(new ValidateInput(), new Tracker()).init();
     }
 }

@@ -2,6 +2,9 @@ package ru.job4j.tracker;
 
 import java.io.IOException;
 
+/**
+ * Этот класс управляет объектом Tracker забинденными переменнными от 0 до 5.
+ */
 public class MenuTracker {
 
     private Input input;
@@ -22,7 +25,7 @@ public class MenuTracker {
         this.actions[5] = new FindByNameAction();
     }
 
-    public void select(int key) {
+    public void select(int key) throws IOException {
         this.actions[key].execute(this.input, this.tracker);
     }
 
@@ -162,51 +165,42 @@ public class MenuTracker {
         }
 
         @Override
-        public void execute(Input input, Tracker tracker) {
+        public void execute(Input input, Tracker tracker) throws IOException {
             System.out.println("------------ Редактирование содержимого заявки --------------");
             String oldId = null;
-            try {
-                oldId = input.ask("Введите id редактируемой заявки: ");
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+
+            oldId = input.ask("Введите id редактируемой заявки: ");
+
             Item reversoItem = new Item();
             if (oldId != null) {
                 if (reversoItem == null) {
                     System.out.println("Указанного id не существует, введите корректный Id");
                 }
                 Item newItem = new Item();
-                try {
-                    newItem.setName(input.ask("Введите новое имя заявки: "));
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+
+                newItem.setName(input.ask("Введите новое имя заявки: "));
+
                 String newDesc = null;
-                try {
-                    newDesc = input.ask("Введите новое desc заявки: ");
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+
+                newDesc = input.ask("Введите новое desc заявки: ");
+
                 newItem.setDesc(newDesc);
                 Long newCreated = null;
-                try {
-                    newCreated = Long.valueOf(input.ask("Введите новое created заявки: "));
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+
+                newCreated = Long.valueOf(input.ask("Введите новое created заявки: "));
+
                 newItem.setCreated(newCreated);
                 String[] newComments = new String[0];
-                try {
-                    newComments = new String[]{input.ask("Введите комментарий к новой заявке: ")};
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+
+                newComments = new String[]{input.ask("Введите комментарий к новой заявке: ")};
+
                 newItem.setComments(newComments);
                 tracker.replace(oldId, newItem);
                 System.out.println("------------ Сохранение внесенных изменений... --------------");
                 System.out.println("------------ Сохранение успешно завершено --------------");
             }
         }
+
 
         @Override
         public String info() {
