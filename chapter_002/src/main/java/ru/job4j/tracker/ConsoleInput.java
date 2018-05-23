@@ -7,17 +7,19 @@ import java.io.InputStreamReader;
 public class ConsoleInput implements Input {
     BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
+    @Override
     public String ask(String question) throws IOException {
         System.out.print(question);
         return reader.readLine();
     }
 
     /**
-     * переопределил ask под новые параметры - String вопрос  и числовое значение из набора значений массива int[] range
+     * Проверка ключа на вхождение в диапазон значений, заданных массивом int[]range
      * @param question
      * @param range
      * @return
      */
+    @Override
     public int ask(String question, int[] range) {
         int key = 0;
         try {

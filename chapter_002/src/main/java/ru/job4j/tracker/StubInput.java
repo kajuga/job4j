@@ -1,5 +1,7 @@
 package ru.job4j.tracker;
 
+import java.io.IOException;
+
 public class StubInput implements Input {
     /**
      * Это поле содержит последовательность ответов пользователя.
@@ -39,10 +41,20 @@ public class StubInput implements Input {
         return this.value[this.position++];
     }
 
-
-    //переопределил метод ask в input новый который мы засунули. Мне кажется такой формат, дополнительный int[] range - защита через жопу.
     @Override
     public int ask(String question, int[] range) {
-        return Integer.valueOf(ask(question));
+            int key = Integer.valueOf(this.ask(question));
+        boolean exist = false;
+        for (int value : range) {
+            if (value == key) {
+                exist = true;
+                break;
+            }
+        }
+        if (exist) {
+            return key;
+        } else {
+            throw new MenuOutException("Не в диапазоне");
+        }
     }
 }

@@ -1,16 +1,31 @@
 package ru.job4j.tracker;
 
+import java.io.IOException;
+
 /**
- * Verification types of exception.
+ * Проверка ключа на вхождение в диапазон массива int[] range
+ * теперь с возможностью подсунуть свой input для теста
  */
-public class ValidateInput extends ConsoleInput {
+public class ValidateInput implements Input {
+
+    private final Input input;
+
+    public ValidateInput(final Input input) {
+        this.input = input;
+    }
+
+    @Override
+    public String ask(String question) throws IOException {
+        return this.input.ask(question);
+    }
+
     @Override
     public int ask(String question, int[] range) {
         boolean invalid = true;
         int value = -1;
         do {
             try {
-                value = super.ask(question, range);
+                value = input.ask(question, range);
                 invalid = false;
             } catch (NumberFormatException nfe) {
                 System.out.println("Incorrect value. Please enter correct value: ");
