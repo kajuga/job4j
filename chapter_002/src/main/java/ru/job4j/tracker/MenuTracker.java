@@ -1,5 +1,8 @@
 package ru.job4j.tracker;
 
+import ru.job4j.tracker.actions.BaseAction;
+import ru.job4j.tracker.actions.UserAction;
+
 import java.io.IOException;
 
 /**
@@ -17,7 +20,7 @@ public class MenuTracker {
     }
 
     public void fillActions() {
-        this.actions[0] = this.new CreateAction();
+        this.actions[0] = new CreateAction();
         this.actions[1] = new ShowAction();
         this.actions[2] = new EditActions();
         this.actions[3] = new DeleteAction();
@@ -40,11 +43,10 @@ public class MenuTracker {
     /**
      * Реализация добавления новой заявки в хранилище.
      */
-    public class CreateAction implements UserAction {
+    public class CreateAction extends BaseAction {
 
-        @Override
-        public int key() {
-            return 0;
+        public CreateAction() {
+            super(0, "Add new Item.");
         }
 
         @Override
@@ -62,20 +64,15 @@ public class MenuTracker {
             tracker.add(item);
             System.out.println("------------ Новая заявка с getId : " + item.getId() + "-----------");
         }
-
-        @Override
-        public String info() {
-            return "0. Add new Item";
-        }
     }
 
     /**
      * Реализация отображения всех имеющихся в хранилище заявок.
      */
-    public class ShowAction implements UserAction {
-        @Override
-        public int key() {
-            return 1;
+    public class ShowAction extends BaseAction {
+
+        public ShowAction() {
+            super(1, "Show all Items.");
         }
 
         @Override
@@ -86,20 +83,101 @@ public class MenuTracker {
                 System.out.println(items.toString());
             }
         }
+    }
+
+    /**
+     * Реализация возможности редактирования заявок.
+     */
+    public class EditActions extends BaseAction {
+
+        public EditActions() {
+            super(2, "Edit Item.");
+        }
 
         @Override
-        public String info() {
-            return "1. Show all Items";
+        public void execute(Input input, Tracker tracker) throws IOException {
+            System.out.println("------------ Редактирование содержимого заявки --------------");
+            String oldId = null;
+
+            oldId = input.ask("Введите id редактируемой заявки: ");
+
+            Item reversoItem = new Item();
+            if (oldId != null) {
+                if (reversoItem == null) {
+                    System.out.println("Указанного id не существует, введите корректный Id");
+                }
+                Item newItem = new Item();
+                newItem.setName(input.ask("Введите новое имя заявки: "));
+                String newDesc = null;
+                newDesc = input.ask("Введите новое desc заявки: ");
+                newItem.setDesc(newDesc);
+                Long newCreated = null;
+                newCreated = Long.valueOf(input.ask("Введите новое created заявки: "));
+                newItem.setCreated(newCreated);
+                String[] newComments = new String[0];
+                newComments = new String[]{input.ask("Введите комментарий к новой заявке: ")};
+                newItem.setComments(newComments);
+                tracker.replace(oldId, newItem);
+                System.out.println("------------ Сохранение внесенных изменений... --------------");
+                System.out.println("------------ Сохранение успешно завершено --------------");
+            }
+        }
+    }
+
+    /**
+     * Реализация удаления заявки по Id.
+     */
+    public static class DeleteAction extends BaseAction {
+        public DeleteAction() {
+            super(3, "Delete Item.");
+        }
+
+        @Override
+        public void execute(Input input, Tracker tracker) {
+            System.out.println("------------ Удаление заявки из хранилища --------------");
+            String id = null;
+            try {
+                id = input.ask("Введите id заявки :");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            tracker.delete(id);
+            System.out.println("------------ Заявка с Id : " + id + " удалена.");
+        }
+    }
+
+    /**
+     * Реализация поиска по Id заявки.
+     */
+    class FindByIdAction extends BaseAction {
+        public FindByIdAction() {
+            super(4, "Find Item by Id.");
+        }
+
+        @Override
+        public void execute(Input input, Tracker tracker) {
+            System.out.println("------------ Поиск заявки по id --------------");
+            String id = null;
+            try {
+                id = input.ask("Введите id заявки :");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            Item item = tracker.findById(id);
+            System.out.println("------------ Вывод на экран содержимого заявки: ");
+            System.out.println("name: " + item.getName());
+            System.out.println("desc: " + item.getDesc());
+            System.out.println("created: " + item.getCreated());
+            System.out.println("comments: " + item.getComments());
         }
     }
 
     /**
      * Реализация поиска заявки по name.
      */
-    public class FindByNameAction implements UserAction {
-        @Override
-        public int key() {
-            return 5;
+    public class FindByNameAction extends BaseAction {
+        public FindByNameAction() {
+            super(5, "Find Item by name.");
         }
 
         @Override
@@ -118,125 +196,5 @@ public class MenuTracker {
                 System.out.println("");
             }
         }
-
-        @Override
-        public String info() {
-            return "5. Find Item by name.";
-        }
-    }
-
-    /**
-     * Реализация удаления заявки по Id.
-     */
-    public static class DeleteAction implements UserAction {
-        @Override
-        public int key() {
-            return 3;
-        }
-
-        @Override
-        public void execute(Input input, Tracker tracker) {
-            System.out.println("------------ Удаление заявки из хранилища --------------");
-            String id = null;
-            try {
-                id = input.ask("Введите id заявки :");
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            tracker.delete(id);
-            System.out.println("------------ Заявка с Id : " + id + " удалена.");
-
-        }
-
-        @Override
-        public String info() {
-            return "3. Delete Item.";
-        }
-    }
-
-    /**
-     * Реализация возможности редактирования заявок.
-     */
-    public class EditActions implements UserAction {
-
-        @Override
-        public int key() {
-            return 2;
-        }
-
-        @Override
-        public void execute(Input input, Tracker tracker) throws IOException {
-            System.out.println("------------ Редактирование содержимого заявки --------------");
-            String oldId = null;
-
-            oldId = input.ask("Введите id редактируемой заявки: ");
-
-            Item reversoItem = new Item();
-            if (oldId != null) {
-                if (reversoItem == null) {
-                    System.out.println("Указанного id не существует, введите корректный Id");
-                }
-                Item newItem = new Item();
-
-                newItem.setName(input.ask("Введите новое имя заявки: "));
-
-                String newDesc = null;
-
-                newDesc = input.ask("Введите новое desc заявки: ");
-
-                newItem.setDesc(newDesc);
-                Long newCreated = null;
-
-                newCreated = Long.valueOf(input.ask("Введите новое created заявки: "));
-
-                newItem.setCreated(newCreated);
-                String[] newComments = new String[0];
-
-                newComments = new String[]{input.ask("Введите комментарий к новой заявке: ")};
-
-                newItem.setComments(newComments);
-                tracker.replace(oldId, newItem);
-                System.out.println("------------ Сохранение внесенных изменений... --------------");
-                System.out.println("------------ Сохранение успешно завершено --------------");
-            }
-        }
-
-
-        @Override
-        public String info() {
-            return "2. Edit Item.";
-        }
-    }
-}
-
-/**
- * Реализация поиска по Id заявки.
- */
-class FindByIdAction implements UserAction {
-    @Override
-    public int key() {
-        return 4;
-    }
-
-    @Override
-    public void execute(Input input, Tracker tracker) {
-        System.out.println("------------ Поиск заявки по id --------------");
-        String id = null;
-        try {
-            id = input.ask("Введите id заявки :");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        Item item = tracker.findById(id);
-        System.out.println("------------ Вывод на экран содержимого заявки: ");
-        System.out.println("name: " + item.getName());
-        System.out.println("desc: " + item.getDesc());
-        System.out.println("created: " + item.getCreated());
-        System.out.println("comments: " + item.getComments());
-    }
-
-    @Override
-    public String info() {
-        return "4. Find Item by Id.";
     }
 }
