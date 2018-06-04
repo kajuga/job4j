@@ -23,8 +23,39 @@ public class KingWhite implements Figure {
 
     @Override
     public Cell[] way(Cell source, Cell dest) {
-        return new Cell[] { dest };
+        Cell[] steps = new Cell[0];
+//перемещение по диагонали
+        if (dest.x == source.x + 1 && dest.y == source.y + 1) {
+            steps = new Cell[]{Cell.getCellByXAndY(dest.x, dest.y)};
+        }
+
+        if (dest.x == source.x - 1 && dest.y == source.y - 1) {
+            steps = new Cell[]{Cell.getCellByXAndY(dest.x, dest.y)};
+        }
+
+        if (dest.x == source.x + 1 && dest.y == source.y - 1) {
+            steps = new Cell[]{Cell.getCellByXAndY(dest.x, dest.y)};
+        }
+
+        if (dest.x == source.x - 1 && dest.y == source.y + 1) {
+            steps = new Cell[]{Cell.getCellByXAndY(dest.x, dest.y)};
+        }
+//перемещение по горизонтали/вертикали
+        if (dest.x == source.x && dest.y == source.y + 1) {
+            steps = new Cell[]{Cell.getCellByXAndY(dest.x, dest.y)};
+        }
+        if (dest.x == source.x && dest.y == source.y - 1) {
+            steps = new Cell[]{Cell.getCellByXAndY(dest.x, dest.y)};
+        }
+        if (dest.y == source.y && dest.x == source.x + 1) {
+            steps = new Cell[]{Cell.getCellByXAndY(dest.x, dest.y)};
+        }
+        if (dest.y == source.y && dest.x == source.x - 1) {
+            steps = new Cell[]{Cell.getCellByXAndY(dest.x, dest.y)};
+        }
+        return steps;
     }
+
 
     @Override
     public Figure copy(Cell dest) {

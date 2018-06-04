@@ -17,4 +17,211 @@ public enum Cell {
         this.x = x;
         this.y = y;
     }
+
+    public static Cell getCellByXAndY(int x, int y){
+//Первая вертикалка
+        if (x == 0 && y == 0){
+            return A1;
+        }
+        if (x == 0 && y == 1){
+            return A2;
+        }
+        if (x == 0 && y == 2){
+            return A3;
+        }
+        if (x == 0 && y == 3){
+            return A4;
+        }
+        if (x == 0 && y == 4){
+            return A5;
+        }
+        if (x == 0 && y == 5){
+            return A6;
+        }
+        if (x == 0 && y == 6){
+            return A7;
+        }
+        if (x == 0 && y == 7){
+            return A8;
+        }
+//Вторая
+        if (x == 1 && y == 0){
+            return B1;
+        }
+        if (x == 1 && y == 1){
+            return B2;
+        }
+        if (x == 1 && y == 2){
+            return B3;
+        }
+        if (x == 1 && y == 3){
+            return B4;
+        }
+        if (x == 1 && y == 4){
+            return B5;
+        }
+        if (x == 1 && y == 5){
+            return B6;
+        }
+        if (x == 1 && y == 6){
+            return B7;
+        }
+        if (x == 1 && y == 7){
+            return B8;
+        }
+//Третья
+        if (x == 2 && y == 0){
+            return C1;
+        }
+        if (x == 2 && y == 1){
+            return C2;
+        }
+        if (x == 2 && y == 2){
+            return C3;
+        }
+        if (x == 2 && y == 3){
+            return C4;
+        }
+        if (x == 2 && y == 4){
+            return C5;
+        }
+        if (x == 2 && y == 5){
+            return C6;
+        }
+        if (x == 2 && y == 6){
+            return C7;
+        }
+        if (x == 2 && y == 7){
+            return C8;
+        }
+//Четвертый
+        if (x == 3 && y == 0){
+            return D1;
+        }
+        if (x == 3 && y == 1){
+            return D2;
+        }
+        if (x == 3 && y == 2){
+            return D3;
+        }
+        if (x == 3 && y == 3){
+            return D4;
+        }
+        if (x == 3 && y == 4){
+            return D5;
+        }
+        if (x == 3 && y == 5){
+            return D6;
+        }
+        if (x == 3 && y == 6){
+            return D7;
+        }
+        if (x == 3 && y == 7){
+            return D8;
+        }
+
+// 5
+        if (x == 4 && y == 0){
+            return E1;
+        }
+        if (x == 4 && y == 1){
+            return E2;
+        }
+        if (x == 4 && y == 2){
+            return E3;
+        }
+        if (x == 4 && y == 3){
+            return E4;
+        }
+        if (x == 4 && y == 4){
+            return E5;
+        }
+        if (x == 4 && y == 5){
+            return E6;
+        }
+        if (x == 4 && y == 6){
+            return E7;
+        }
+        if (x == 4 && y == 7){
+            return E8;
+        }
+//6
+        if (x == 5 && y == 0){
+            return F1;
+        }
+        if (x == 5 && y == 1){
+            return F2;
+        }
+        if (x == 5 && y == 2){
+            return F3;
+        }
+        if (x == 5 && y == 3){
+            return F4;
+        }
+        if (x == 5 && y == 4){
+            return F5;
+        }
+        if (x == 5 && y == 5){
+            return F6;
+        }
+        if (x == 5 && y == 6){
+            return F7;
+        }
+        if (x == 5 && y == 7){
+            return F8;
+        }
+//7
+        if (x == 6 && y == 0){
+            return G1;
+        }
+        if (x == 6 && y == 1){
+            return G2;
+        }
+        if (x == 6 && y == 2){
+            return G3;
+        }
+        if (x == 6 && y == 3){
+            return G4;
+        }
+        if (x == 6 && y == 4){
+            return G5;
+        }
+        if (x == 6 && y == 5){
+            return G6;
+        }
+        if (x == 6 && y == 6){
+            return G7;
+        }
+        if (x == 6 && y == 7){
+            return G8;
+        }
+//8
+
+        if (x == 7 && y == 0){
+            return H1;
+        }
+        if (x == 7 && y == 1){
+            return H2;
+        }
+        if (x == 7 && y == 2){
+            return H3;
+        }
+        if (x == 7 && y == 3){
+            return H4;
+        }
+        if (x == 7 && y == 4){
+            return H5;
+        }
+        if (x == 7 && y == 5){
+            return H6;
+        }
+        if (x == 7 && y == 6){
+            return H7;
+        }
+        if (x == 7 && y == 7){
+            return H8;
+        }
+
+        return null;
+    }
 }
