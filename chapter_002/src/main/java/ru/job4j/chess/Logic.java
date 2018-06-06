@@ -25,7 +25,7 @@ public class Logic {
         int index = this.findBy(source);
         if (index != -1) {
             Cell[] steps = this.figures[index].way(source, dest);
-            if (steps.length > 0 && steps[steps.length - 1].equals(dest)) {
+            if (steps.length > 0 && steps[steps.length - 1].equals(dest) && this.isPossibleMove(steps)) {
                 rst = true;
                 this.figures[index] = this.figures[index].copy(dest);
             }
@@ -50,4 +50,21 @@ public class Logic {
         }
         return rst;
     }
+
+    private boolean isPossibleMove (Cell[] steps) {
+        boolean isPossible = true;
+        for (Cell cell : steps){
+            for (Figure figure : this.figures){
+                if (figure.position().equals(cell)){
+                    isPossible = false;
+                    break;
+                }
+            }
+            if (!isPossible){
+                break;
+            }
+        }
+        return isPossible;
+    }
+
 }

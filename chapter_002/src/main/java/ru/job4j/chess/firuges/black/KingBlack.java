@@ -24,29 +24,34 @@ public class KingBlack implements Figure {
     @Override
     public Cell[] way(Cell source, Cell dest) {
         Cell[] steps = new Cell[0];
-        if (dest.x == source.x + 1 && dest.y == source.y - 1){
-            steps = new Cell[]{dest};
+//перемещение по диагонали
+        if (dest.x == source.x + 1 && dest.y == source.y + 1) {
+            steps = new Cell[]{Cell.getCellByXAndY(dest.x, dest.y)};
         }
-        else if (dest.x == source.x + 1 && dest.y == source.y){
-            steps = new Cell[]{dest};
+
+        if (dest.x == source.x - 1 && dest.y == source.y - 1) {
+            steps = new Cell[]{Cell.getCellByXAndY(dest.x, dest.y)};
         }
-        else if (dest.x == source.x && dest.y == source.y - 1) {
-            steps = new Cell[]{dest};
+
+        if (dest.x == source.x + 1 && dest.y == source.y - 1) {
+            steps = new Cell[]{Cell.getCellByXAndY(dest.x, dest.y)};
         }
-        else if (dest.x == source.x - 1 && dest.y == source.y - 1) {
-            steps = new Cell[]{dest};
+
+        if (dest.x == source.x - 1 && dest.y == source.y + 1) {
+            steps = new Cell[]{Cell.getCellByXAndY(dest.x, dest.y)};
         }
-        else if (dest.x == source.x - 1 && dest.y == source.y) {
-            steps = new Cell[]{dest};
+//перемещение по горизонтали/вертикали
+        if (dest.x == source.x && dest.y == source.y + 1) {
+            steps = new Cell[]{Cell.getCellByXAndY(dest.x, dest.y)};
         }
-        else if (dest.x == source.x - 1 && dest.y == source.y + 1) {
-            steps = new Cell[]{dest};
+        if (dest.x == source.x && dest.y == source.y - 1) {
+            steps = new Cell[]{Cell.getCellByXAndY(dest.x, dest.y)};
         }
-        else if (dest.x == source.x && dest.y == source.y + 1) {
-            steps = new Cell[]{dest};
+        if (dest.y == source.y && dest.x == source.x + 1) {
+            steps = new Cell[]{Cell.getCellByXAndY(dest.x, dest.y)};
         }
-        else if (dest.x == source.x + 1 && dest.y == source.y + 1) {
-            steps = new Cell[]{dest};
+        if (dest.y == source.y && dest.x == source.x - 1) {
+            steps = new Cell[]{Cell.getCellByXAndY(dest.x, dest.y)};
         }
         return steps;
     }

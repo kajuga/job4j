@@ -23,34 +23,33 @@ public class KnightBlack implements Figure {
 
     @Override
     public Cell[] way(Cell source, Cell dest) {
-            Cell[] steps = new Cell[0];
-            if (dest.x == source.x + 1 && dest.y == source.y - 2){
-                 steps = new Cell[]{dest};
-            }
-            else if (dest.x == source.x - 1 && dest.y == source.y - 2){
-                steps = new Cell[]{dest};
-            }
-            else if (dest.x == source.x + 2 && dest.y == source.y - 1) {
-                steps = new Cell[]{dest};
-            }
-            else if (dest.x == source.x - 2 && dest.y == source.y - 1) {
-                steps = new Cell[]{dest};
-            }
-            else if (dest.x == source.x + 2 && dest.y == source.y + 1) {
-                steps = new Cell[]{dest};
-            }
-            else if (dest.x == source.x - 2 && dest.y == source.y + 1) {
-                steps = new Cell[]{dest};
-            }
-            else if (dest.x == source.x - 1 && dest.y == source.y + 2) {
-                steps = new Cell[]{dest};
-            }
-            else if (dest.x == source.x + 1 && dest.y == source.y + 2) {
-                steps = new Cell[]{dest};
-            }
-            return steps;
+        Cell[] steps = new Cell[0];
+        if (dest.x == source.x + 1 && dest.y == source.y - 2){
+            steps = new Cell[]{Cell.getCellByXAndY(dest.x, dest.y)};
         }
-
+        else if (dest.x == source.x - 1 && dest.y == source.y - 2){
+            steps = new Cell[]{Cell.getCellByXAndY(dest.x, dest.y)};
+        }
+        else if (dest.x == source.x + 2 && dest.y == source.y - 1) {
+            steps = new Cell[]{Cell.getCellByXAndY(dest.x, dest.y)};
+        }
+        else if (dest.x == source.x - 2 && dest.y == source.y - 1) {
+            steps = new Cell[]{Cell.getCellByXAndY(dest.x, dest.y)};
+        }
+        else if (dest.x == source.x + 2 && dest.y == source.y + 1) {
+            steps = new Cell[]{Cell.getCellByXAndY(dest.x, dest.y)};
+        }
+        else if (dest.x == source.x - 2 && dest.y == source.y + 1) {
+            steps = new Cell[]{Cell.getCellByXAndY(dest.x, dest.y)};
+        }
+        else if (dest.x == source.x - 1 && dest.y == source.y + 2) {
+            steps = new Cell[]{Cell.getCellByXAndY(dest.x, dest.y)};
+        }
+        else if (dest.x == source.x + 1 && dest.y == source.y + 2) {
+            steps = new Cell[]{Cell.getCellByXAndY(dest.x, dest.y)};
+        }
+        return steps;
+    }
 
     @Override
     public Figure copy(Cell dest) {
