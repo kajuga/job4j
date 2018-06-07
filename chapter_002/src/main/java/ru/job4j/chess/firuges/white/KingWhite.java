@@ -2,45 +2,33 @@ package ru.job4j.chess.firuges.white;
 
 import ru.job4j.chess.firuges.Cell;
 import ru.job4j.chess.firuges.Figure;
+import ru.job4j.chess.firuges.ImpossibleMoveException;
 
 /**
- *
- * @author Petr Arsentev (parsentev@yandex.ru)
+ * @author Aleksandr Fedorov (msg2fedorov@gmail.com)
  * @version $Id$
  * @since 0.1
  */
-public class KingWhite implements Figure {
-    private final Cell position;
+public class KingWhite extends Figure {
 
     public KingWhite(final Cell position) {
-        this.position = position;
+        super(position);
     }
 
-    @Override
-    public Cell position() {
-        return this.position;
-    }
-
-    @Override
-    public Cell[] way(Cell source, Cell dest) {
+    public Cell[] way(Cell source, Cell dest) throws ImpossibleMoveException {
         Cell[] steps = new Cell[0];
-//перемещение по диагонали
         if (dest.x == source.x + 1 && dest.y == source.y + 1) {
             steps = new Cell[]{Cell.getCellByXAndY(dest.x, dest.y)};
         }
-
         if (dest.x == source.x - 1 && dest.y == source.y - 1) {
             steps = new Cell[]{Cell.getCellByXAndY(dest.x, dest.y)};
         }
-
         if (dest.x == source.x + 1 && dest.y == source.y - 1) {
             steps = new Cell[]{Cell.getCellByXAndY(dest.x, dest.y)};
         }
-
         if (dest.x == source.x - 1 && dest.y == source.y + 1) {
             steps = new Cell[]{Cell.getCellByXAndY(dest.x, dest.y)};
         }
-//перемещение по горизонтали/вертикали
         if (dest.x == source.x && dest.y == source.y + 1) {
             steps = new Cell[]{Cell.getCellByXAndY(dest.x, dest.y)};
         }
@@ -53,11 +41,13 @@ public class KingWhite implements Figure {
         if (dest.y == source.y && dest.x == source.x - 1) {
             steps = new Cell[]{Cell.getCellByXAndY(dest.x, dest.y)};
         }
-        return steps;
+        if (steps.length == 0) {
+            throw new ImpossibleMoveException();
+        } else {
+            return steps;
+        }
     }
 
-
-    @Override
     public Figure copy(Cell dest) {
         return new KingWhite(dest);
     }

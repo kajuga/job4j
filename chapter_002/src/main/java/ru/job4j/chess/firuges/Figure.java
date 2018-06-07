@@ -1,16 +1,24 @@
 package ru.job4j.chess.firuges;
 
-public interface Figure {
-    Cell position();//возвращает текущую клетку которую занимает
+public abstract class Figure {
 
+    final Cell position;
+
+    public Figure(Cell position) {
+        this.position = position;
+    }
+
+    public Cell position() {
+        return this.position;
+    }
 
     /**
-     Метод должен работать так. dest - задает ячейку, куда следует пойти. Если фигура может туда пойти. то Вернуть массив ячеек. которые должна пройти фигура.
-     Если фигура туда пойти не может. выбросить исключение ImposibleMoveException
+     * Метод должен работать так. dest - задает ячейку, куда следует пойти. Если фигура может туда пойти. то Вернуть массив ячеек. которые должна пройти фигура.
+     * Если фигура туда пойти не может. выбросить исключение ImposibleMoveException
      */
-    Cell[] way(Cell source, Cell dest);
+    public abstract Cell[] way(Cell source, Cell dest) throws ImpossibleMoveException;
 
-    default String icon() {     //загрузка наших иизображений
+    public String icon() {     //загрузка наших иизображений
         return String.format(
                 "%s.png", this.getClass().getSimpleName()       //при помощи java reflection получаем картинку
         );
@@ -26,6 +34,6 @@ public interface Figure {
      }
      }
      */
-    Figure copy(Cell dest); //он делает "перемещение" фигуры - фактически создает новую и перезаписывает ее нахождение
+    public abstract Figure copy(Cell dest); //он делает "перемещение" фигуры - фактически создает новую и перезаписывает ее нахождение
 
 }

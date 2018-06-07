@@ -2,31 +2,27 @@ package ru.job4j.chess.firuges.white;
 
 import ru.job4j.chess.firuges.Cell;
 import ru.job4j.chess.firuges.Figure;
+import ru.job4j.chess.firuges.ImpossibleMoveException;
 
 /**
- * //Движение пешки - НЕ РЕАЛИЗОВАНО перемещение по диагонали при съедании противника
- *
- * @author Petr Arsentev (parsentev@yandex.ru)
+ * @author Aleksandr Fedorov (msg2fedorov@gmail.com)
  * @version $Id$
  * @since 0.1
  */
-public class PawnWhite implements Figure {
-    private final Cell position;
-    int firstStepPawnChecker = 0;
+public class PawnWhite extends Figure {
 
-    public PawnWhite(final Cell position) {
-        this.position = position;
+    public PawnWhite(Cell position) {
+        super(position);
     }
 
-    @Override
-    public Cell position() {
-        return this.position;
-    }
-
-    @Override
-    public Cell[] way(Cell source, Cell dest) {
+    /**
+     * Метод должен работать так. dest - задает ячейку, куда следует пойти. Если фигура может туда пойти. то Вернуть массив ячеек. которые должна пройти фигура.
+     * Если фигура туда пойти не может. выбросить исключение ImposibleMoveException
+     */
+    public Cell[] way(Cell source, Cell dest) throws ImpossibleMoveException {
         //Первый ход пешки - на 1 или 2 клетки
         Cell[] steps = new Cell[0];
+
         if (source.y == 1 && source.x == dest.x) {
             if (dest.y >= source.y && dest.y == source.y + 1) {
                 steps = new Cell[1];
@@ -46,10 +42,22 @@ public class PawnWhite implements Figure {
                 steps[0] = Cell.getCellByXAndY(dest.x, dest.y);
             }
         }
-        return steps;
+        if (steps.length == 0) {
+            throw new ImpossibleMoveException();
+        } else {
+            return steps;
+        }
     }
 
-    @Override
+    /**
+     * он должен создавать объект Figure с координатой Cell dest.
+     * Например. для класса
+     * class Bishop impl Figure {
+     * Figure copy(Cell dest) {
+     * return new Bishop(dest);
+     * }
+     * }
+     */
     public Figure copy(Cell dest) {
         return new PawnWhite(dest);
     }
