@@ -184,7 +184,7 @@ public class BishopWhite extends Figure {
         }
     }
 
-    public Figure copy(Cell dest) {
+    public BishopWhite copy(Cell dest) {
         return new BishopWhite(dest);
     }
 }
