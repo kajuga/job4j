@@ -38,7 +38,7 @@ public class Board {
         return rst;
     }
 
-    private boolean isPossibleMove(Cell[] steps) throws ImpossibleMoveException {
+    private boolean isPossibleMove(Cell[] steps) throws OccupiedWayException {
         boolean isPossible = true;
         for (Cell cell : steps) {
             for (Figure figure : this.figures) {
@@ -48,7 +48,7 @@ public class Board {
                 }
             }
             if (!isPossible) {
-                throw new ImpossibleMoveException();
+                throw new OccupiedWayException();
             }
         }
         return isPossible;

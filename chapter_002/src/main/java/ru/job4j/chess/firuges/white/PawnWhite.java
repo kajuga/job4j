@@ -58,7 +58,7 @@ public class PawnWhite extends Figure {
      * }
      * }
      */
-    public Figure copy(Cell dest) {
+    public PawnWhite copy(Cell dest) {
         return new PawnWhite(dest);
     }
 }

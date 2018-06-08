@@ -3,6 +3,7 @@ package ru.job4j.chess.firuges.white;
 import ru.job4j.chess.firuges.Cell;
 import ru.job4j.chess.firuges.Figure;
 import ru.job4j.chess.firuges.ImpossibleMoveException;
+import ru.job4j.chess.firuges.OccupiedWayException;
 
 /**
  * @author Aleksandr Fedorov (msg2fedorov@gmail.com)
