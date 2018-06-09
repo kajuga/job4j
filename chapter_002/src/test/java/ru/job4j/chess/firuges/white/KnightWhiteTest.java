@@ -97,7 +97,7 @@ public class KnightWhiteTest {
      */
 
     @Test(expected = ImpossibleMoveException.class)
-    public void whenImpossibleMoveException () throws ImpossibleMoveException {
+    public void whenImpossibleMoveException() throws ImpossibleMoveException {
         KnightWhite knightWhite = new KnightWhite(Cell.B1);
         knightWhite.way(Cell.B1, Cell.D6);
     }

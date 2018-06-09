@@ -23,6 +23,8 @@ public class Board {
                 rst = true;
                 this.figures[index] = this.figures[index].copy(dest);
             }
+        } else {
+            throw new FigureNotFoundException();
         }
         return rst;
     }
