@@ -1,5 +1,6 @@
 package ru.job4j.array;
 
+import org.hamcrest.core.Is;
 import org.junit.Test;
 
 import static org.hamcrest.Matchers.is;
@@ -14,5 +15,15 @@ public class ArrayHomeTaskTest {
         int[] input = arrayHomeTask.getUnitedArray(array1, array2);
         int[] expect = new int[]{1, 2, 2, 0, 4, 4, 12, 12, 10, 17, 0, 133, 0, 133, 12, 12, 10, 17, 18, 17, 10};
         assertThat(input, is(expect));
+    }
+
+    @Test
+    public void getUnitedArrayWithBubble() throws Exception {
+        ArrayHomeTask arrayHomeTask = new ArrayHomeTask();
+        int[] one = {1, 2, 3, 5};
+        int[] two = {1, 4, 5, 6};
+        int[] result = arrayHomeTask.getUnitedArrayWithBubble(one, two);
+        int[] expected = {1, 1, 2, 3, 4, 5, 5, 6};
+        assertThat(result, Is.is(expected));
     }
 }
