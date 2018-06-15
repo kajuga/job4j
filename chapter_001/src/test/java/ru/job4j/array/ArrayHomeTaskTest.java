@@ -18,12 +18,22 @@ public class ArrayHomeTaskTest {
     }
 
     @Test
-    public void getUnitedArrayWithBubble() throws Exception {
+    public void getUniTedArrayNoBubble() throws Exception {
         ArrayHomeTask arrayHomeTask = new ArrayHomeTask();
         int[] one = {1, 2, 3, 5};
         int[] two = {1, 4, 5, 6};
         int[] result = arrayHomeTask.getUnitedArrayWithBubble(one, two);
         int[] expected = {1, 1, 2, 3, 4, 5, 5, 6};
+        assertThat(result, Is.is(expected));
+    }
+
+    @Test
+    public void getUnitedArrayWithBubble() throws Exception {
+        ArrayHomeTask arrayHomeTask = new ArrayHomeTask();
+        int[] one = {0, 2, 1, 3};
+        int[] two = {1, 0, 3, 4, 0};
+        int[] result = arrayHomeTask.getUnitedArrayWithBubble(one, two);
+        int[] expected = {0, 0, 0, 1, 1, 2, 3, 3, 4};
         assertThat(result, Is.is(expected));
     }
 }
