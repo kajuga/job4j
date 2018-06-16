@@ -19,19 +19,18 @@ public class BishopWhite extends Figure {
     public Cell[] way(Cell source, Cell dest) throws ImpossibleMoveException {
         int deltaX = dest.x - source.x;
         int deltaY = dest.y - source.y;
-
-        if (Math.abs(deltaX) == Math.abs(deltaY)){
+        if (Math.abs(deltaX) == Math.abs(deltaY)) {
             Cell[] steps = new Cell[Math.abs(deltaX)];
-            if (deltaX > 0 && deltaY > 0) {
-                for (int i = 1; i <= deltaX; i++) {
-                    steps[i - 1] = Cell.getCellByXAndY(source.x + i, source.y + i);
-                }
-            }else if (deltaX < 0 && deltaY < 0){
-                //TODO
-            } else if (deltaX < 0 && deltaY > 0){
-                //TODO
-            } else if (deltaX > 0 && deltaY < 0){
-                //TODO
+            int index = 0;
+//            int xFirst = deltaX > 0 ? source.x + 1 : source.x - 1;
+//            int yFirst = deltaY > 0 ? source.y + 1 : source.y - 1;
+            int stepX = deltaX > 0 ? 1 : -1;
+            int stepY = deltaY > 0 ? 1 : -1;
+            for (int x = deltaX > 0 ? source.x + 1 : source.x - 1,
+                 y = deltaY > 0 ? source.y + 1 : source.y - 1;
+                 (deltaX > 0 ? x <= dest.x : x >= dest.x) && (deltaY > 0 ? y <= dest.y : y >= dest.y);
+                 x = x + stepX, y = y + stepY) {
+                steps[index++] = Cell.getCellByXAndY(x, y);
             }
             return steps;
         }
