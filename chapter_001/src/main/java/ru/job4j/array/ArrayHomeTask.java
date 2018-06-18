@@ -48,13 +48,13 @@ public class ArrayHomeTask {
         int i = 0, j = 0, index = 0;
         while (i < one.length && j < two.length) {
             three[index++] = one[i] < two[j] ? one[i++] : two[j++];
+        }
             if (i < one.length) {
                 System.arraycopy(one, i, three, index, (one.length - i));
             }
             if (j < two.length) {
                 System.arraycopy(two, j, three, index, (two.length - j));
             }
-        }
         return three;
     }
 

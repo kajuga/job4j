@@ -20,10 +20,10 @@ public class ArrayHomeTaskTest {
     @Test
     public void getUniTedArrayNoBubble() throws Exception {
         ArrayHomeTask arrayHomeTask = new ArrayHomeTask();
-        int[] one = {1, 2, 3, 5};
-        int[] two = {1, 4, 5, 6};
+        int[] one = {0, 2, 1, 3, 5};
+        int[] two = {1, 0, 3, 4, 0, 1};
         int[] result = arrayHomeTask.getUnitedArrayWithBubble(one, two);
-        int[] expected = {1, 1, 2, 3, 4, 5, 5, 6};
+        int[] expected = {0, 0, 0, 1, 1, 1, 2, 3, 3, 4, 5};
         assertThat(result, Is.is(expected));
     }
 
