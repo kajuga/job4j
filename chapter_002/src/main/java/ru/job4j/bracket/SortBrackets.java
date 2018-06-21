@@ -27,7 +27,7 @@ public class SortBrackets {
     private final static String SQUIGGLY_BRACKETS = "{}";
 
     public static void main(String[] args) {
-        String str = new String("((())s([fd[ss[dd()]da]aa])d{k})");
+        String str = new String("{}{}((())s([fd[ss[dd()]da]aa])d{k})");
         System.out.println("The string is: " + str);
 
         try {

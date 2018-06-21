@@ -1,4 +1,4 @@
-package ru.job4j.cofeeMaker;
+package ru.job4j.cofeemaker;
 
 public class CofeeMaker {
 
