@@ -29,8 +29,8 @@ public class PhoneDictionary {
         for (Person find : persons) {
             if (find.getName().toLowerCase().contains(key)
                     || (find.getSurname().toLowerCase().contains(key))
-                    || ((find.getPhone().toLowerCase().contains(key)))
-                    || ((find.getAddress().toLowerCase().contains(key))))
+                    || ((find.getPhone().contains(key)))
+                    || ((find.getAddress().contains(key))))
                 result.add(find);
         }
         return result;
