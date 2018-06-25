@@ -20,4 +20,14 @@ public class ConvertMatrix2List {
         }
         return list;
     }
+
+        public List <Integer> toListWithForEach(int[][] array) {
+            List list = new ArrayList <>();
+            for (int [] i : array) {
+                for(int j : i){
+                    list.add(j);
+                }
+            }
+            return list;
+    }
 }
