@@ -1,27 +1,23 @@
 package ru.job4j.list;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
+/**
+ * Конвертация двухмерного массива в Arraylist
+ * @author Fedorov Aleksander (msg2fedorov@gmail.com)
+ * @version $Id$
+ * @since 0.1
+ */
 
 public class ConvertMatrix2List {
-
     public List <Integer> toList(int[][] array) {
         List <Integer> list = new ArrayList <>();
-
-        int flagRow = 0;
-        int flagCell = 0;
-
-        for (Integer set : list) {
-            set = array[flagRow][flagCell++];
-            if (flagCell == 888) {   //вот тут придумать как стоппер присобачить.
-                                     // мб. попробовать переконвертить массив в одномерку, а потом залить в список? хз. как вариант.
-                flagCell = 0;
-                flagRow++;
+        for (int i = 0; i < array.length; i++) {
+            for (int j = 0; j < array[i].length; j++) {
+                list.add(array[i][j]);
             }
         }
         return list;
     }
 }
-
