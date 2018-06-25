@@ -1,5 +1,6 @@
 package ru.job4j.list;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ConvertList2Array {
@@ -22,6 +23,22 @@ public class ConvertList2Array {
             }
         }
         return array;
+    }
+
+    /**
+     *
+     * В этом методе прохожу по всем элементам всех массивов в списке list и добавить их в один общий лист Integer.
+     * @param list
+     * @return
+     */
+    public List<Integer> convert (List<int[]> list){
+        List list1 = new ArrayList<>();
+        for (int[] i: list) {
+            for (int j : i){
+                list1.add(j);
+            }
+        }
+        return list1;
     }
 }
 
