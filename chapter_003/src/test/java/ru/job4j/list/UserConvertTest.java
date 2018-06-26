@@ -4,11 +4,12 @@ import org.junit.Test;
 
 import java.util.*;
 
+import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.*;
 
 public class UserConvertTest {
     @Test
-    public void whenChegotoTamThenCegotoTam() {
+    public void whenMapCompareWithAnother() {
         UserConvert userConvert = new UserConvert();
         List listUser = new ArrayList();
         User user1 = new User(1, "Ванька", "Ленинград");
@@ -23,10 +24,6 @@ public class UserConvertTest {
         expected.put(user1.getId(), user1);
         expected.put(user2.getId(), user2);
         expected.put(user3.getId(), user3);
-
-
+        assertThat(result, is(expected));
     }
 }
-
-
-
