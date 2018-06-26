@@ -6,10 +6,10 @@ import java.util.List;
 public class UserConvert {
 
     /**
-     * В классе UserConvert написать метод public HashMap<Integer, User> process(List<User> list) {},
-     * который принимает в себя список пользователей и конвертирует его в Map с ключом Integer id и соответствующим ему User.
-     * @param list
-     * @return
+     * Конвертация списка в Map с ключом Integer id и соответствующим ему User.
+     * @author Fedorov Aleksander (msg2fedorov@gmail.com)
+     * @version $Id$
+     * @since 0.1
      */
     HashMap<Integer, User> process(List<User> list) {
 

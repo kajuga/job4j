@@ -1,9 +1,7 @@
 package ru.job4j.list;
 
 import org.junit.Test;
-
 import java.util.*;
-
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.*;
 
@@ -18,7 +16,6 @@ public class UserConvertTest {
         listUser.add(user1);
         listUser.add(user2);
         listUser.add(user3);
-
         Map<Integer, User> result = userConvert.process(listUser);
         Map<Integer, User> expected = new HashMap <>();
         expected.put(user1.getId(), user1);
