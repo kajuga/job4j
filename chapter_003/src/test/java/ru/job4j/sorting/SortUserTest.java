@@ -18,8 +18,8 @@ public class SortUserTest {
         userList.add(user1);
         userList.add(user2);
         userList.add(user3);
-        Set<User> result = new TreeSet <>(sortUser.sort(userList));
-        Set<User> expected = new TreeSet <>();
+        Set<User> result = new TreeSet<>(sortUser.sort(userList));
+        Set<User> expected = new TreeSet<>();
         expected.add(user1);
         expected.add(user2);
         expected.add(user3);
