@@ -1,28 +1,52 @@
 package ru.job4j.sorting;
 
-import java.util.List;
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.*;
 
+/**
+ * SortUser - сортировщик юзеров.
+ *
+ * @author Fedorov Aleksander (msg2fedorov@gmail.com)
+ * @version $Id$
+ * @since 0.1
+ */
 public class SortUser {
+
     public Set <User> sort(List <User> list) {
         return new TreeSet <>(list);
     }
 
-
-    //TODO определить Comparator для метода Collections.sort и отсортировать List<User> по длине имени.
-    public List <User> sortNameLength(List <User> user) {
-
-        return null;
+    public List <User> sortNameLength(List <User> list) {
+        Collections.sort(list, new nameLengthComparator());
+        return list;
     }
 
-    //TODO определить Comparator для метода Collections.sort и отсортировать List<User> по обоим полям,
-    // TODO сначала сортировка по имени в лексикографическом порядке, потом по возрасту.
-    public List <User> sortByAllFields(List <User> users) {
-
-
-        return null;
+    public List <User> sortByAllFields(List <User> list) {
+        Collections.sort(list, new nameAndAgeComparator());
+        return list;
     }
 
+    /**
+     * Сравнивает по длине строки
+     */
+    static class nameLengthComparator implements Comparator <User> {
+        @Override
+        public int compare(User a, User b) {
+            return a.name.length() - b.name.length();
+        }
+    }
 
+    /**
+     * Сравнивает лексикографически, затем по возрасту
+     */
+    static class nameAndAgeComparator implements Comparator <User> {
+
+        @Override
+        public int compare(User user, User t1) {
+            int res = user.name.compareTo(t1.name);
+            if (res == 0) {
+                res = user.age - t1.age;
+            }
+            return res;
+        }
+    }
 }

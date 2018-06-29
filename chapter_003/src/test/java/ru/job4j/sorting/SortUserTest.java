@@ -9,6 +9,18 @@ import java.util.TreeSet;
 
 public class SortUserTest {
     @Test
+    public void sort() throws Exception {
+    }
+
+    @Test
+    public void sortNameLength() throws Exception {
+    }
+
+    @Test
+    public void sortByAllFields() throws Exception {
+    }
+
+    @Test
     public void WhenAddThreeEqualThree() {
         SortUser sortUser = new SortUser();
         List<User> userList = new ArrayList<>();
