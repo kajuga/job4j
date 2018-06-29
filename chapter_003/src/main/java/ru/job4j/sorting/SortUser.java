@@ -39,7 +39,6 @@ public class SortUser {
      * Сравнивает лексикографически, затем по возрасту
      */
     static class nameAndAgeComparator implements Comparator <User> {
-
         @Override
         public int compare(User user, User t1) {
             int res = user.name.compareTo(t1.name);
