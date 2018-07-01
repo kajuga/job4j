@@ -19,8 +19,8 @@ import static org.junit.Assert.assertThat;
  */
 public class StartUITest {
     private final String menu = new StringBuilder()
-            .append("0. Add new Item" + System.lineSeparator())
-            .append("1. Show all Items" + System.lineSeparator())
+            .append("0. Add new Item." + System.lineSeparator())
+            .append("1. Show all Items." + System.lineSeparator())
             .append("2. Edit Item." + System.lineSeparator())
             .append("3. Delete Item." + System.lineSeparator())
             .append("4. Find Item by Id." + System.lineSeparator())

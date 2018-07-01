@@ -16,15 +16,12 @@ public class Tracker {
     /**
      * Массив для хранения заявок.
      */
-//    private final Item[] items = new Item[100];
-    private final List<Item> items = new ArrayList(100);
-
+    private final Item[] items = new Item[100];
 
     /**
      * Начальная позиция первой заявки
      */
     private int position = 0;
-
 
     /**
      * Метод реализаущий добавление заявки в хранилище
@@ -33,8 +30,7 @@ public class Tracker {
      */
     public Item add(Item item) {
         item.setId(this.generateId(item));
-//        this.items[this.position++] = item;
-        this.items.add(item);
+        this.items[this.position++] = item;
         return item;
     }
 
@@ -68,11 +64,9 @@ public class Tracker {
      * @param id Поле-ключ ячейки this.items.
      */
     public void delete(String id) {
-        int index = Arrays.asList(this.items).indexOf(findById(id));
-//        if (index >= 0 && index < this.items.length) {
-        if (index >= 0 && index < this.items.size()) {
-//            this.items[index] = null;
-            this.items.clear();
+        int index = Arrays.asList(items).indexOf(findById(id));
+        if (index >= 0 && index < items.length) {
+            items[index] = null;
         }
     }
 
@@ -81,15 +75,15 @@ public class Tracker {
      *
      * @return Возвращаемый массив без null;
      */
-    public ArrayList<Item> findAll() {
-        ArrayList<Item> result = new ArrayList <>();
+    public Item[] findAll() {
+        Item[] result = new Item[items.length];
         int count = 0;
         for (Item item : this.items) {
             if (item != null) {
-                result.add(item);
+                result[count++] = item;
             }
         }
-        return result;
+        return Arrays.copyOf(result, count);
     }
 
     /**
@@ -98,15 +92,15 @@ public class Tracker {
      * @param key поле "name" по которому производится поиск ячейки в this.items.
      * @return
      */
-    public ArrayList<Item> findByName(String key) {
-        ArrayList<Item> temp = new ArrayList <>();
+    public Item[] findByName(String key) {
+        Item[] temp = new Item[this.items.length];
         int count = 0;
         for (Item item : this.items) {
             if (item != null && item.getName() != null && item.getName().equals(key)) {
-                temp.add(item);
+                temp[count++] = item;
             }
         }
-        ArrayList<Item> result = new ArrayList <>();
+        Item[] result = new Item[count];
         System.arraycopy(temp, 0, result, 0, count);
         return result;
     }

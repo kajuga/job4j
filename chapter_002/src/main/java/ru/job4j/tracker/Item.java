@@ -1,14 +1,11 @@
 package ru.job4j.tracker;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-
 public class Item {
     private String id;
     private String name;
     private String desc;
     private long created;
-    private ArrayList<String> comments;
+    private String[] comments;
 
     public Item() {
     }
@@ -16,7 +13,6 @@ public class Item {
     public Item(String name) {
         this.name = name;
     }
-
     public Item(String name, String desc) {
         this.name = name;
         this.desc = desc;
@@ -26,35 +22,6 @@ public class Item {
         this.name = name;
         this.desc = desc;
         this.created = created;
-    }
-
-    public Item(String name, String desc, long created, ArrayList<String> comments) {
-        this.name = name;
-        this.desc = desc;
-        this.created = created;
-        this.comments = comments;
-    }
-
-    public Item(String name, ArrayList<String> comments) {
-        this.name = name;
-        this.comments = comments;
-    }
-
-    @Override
-    public String toString() {
-        return "Item{"
-                + "id='"
-                + id + '\''
-                + ", name='" + name
-                + '\''
-                + ", desc='"
-                + desc
-                + '\''
-                + ", created="
-                + created
-                + ", comments="
-                + comments
-                + '}';
     }
 
     public String getId() {
@@ -89,11 +56,11 @@ public class Item {
         this.created = created;
     }
 
-    public ArrayList<String> getComments() {
+    public String[] getComments() {
         return comments;
     }
 
-    public void setComments(ArrayList<String> comments) {
+    public void setComments(String[] comments) {
         this.comments = comments;
     }
 }
