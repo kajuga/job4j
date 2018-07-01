@@ -3,7 +3,6 @@ package ru.job4j.chess.firuges.white;
 import ru.job4j.chess.firuges.Cell;
 import ru.job4j.chess.firuges.Figure;
 import ru.job4j.chess.firuges.ImpossibleMoveException;
-import ru.job4j.chess.firuges.OccupiedWayException;
 
 /**
  * @author Aleksandr Fedorov (msg2fedorov@gmail.com)
@@ -30,7 +29,7 @@ public class BishopWhite extends Figure {
                  y = deltaY > 0 ? source.y + 1 : source.y - 1;
                  (deltaX > 0 ? x <= dest.x : x >= dest.x) && (deltaY > 0 ? y <= dest.y : y >= dest.y);
                  x = x + stepX, y = y + stepY) {
-                steps[index++] = Cell.getCellByXAndY(x, y);
+                steps[index++] = Cell.getCellByXandY(x, y);
             }
         }
         return steps;

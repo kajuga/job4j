@@ -18,8 +18,33 @@ public enum Cell {
         this.y = y;
     }
 
-    public static Cell getCellByXAndY(int x, int y) {
-//Первая вертикалка
+    public static Cell getCellByXandY(int x, int y) {
+        Cell result = getCellByXandYforA(x, y);
+        if (result == null) {
+            result = getCellByXandYforB(x, y);
+        }
+        if (result == null) {
+            result = getcellbyxandxforc(x, y);
+        }
+        if (result == null) {
+            result = getCellByXandYforD(x, y);
+        }
+        if (result == null) {
+            result = getCellByXandYforE(x, y);
+        }
+        if (result == null) {
+            result = getCellByXandYforF(x, y);
+        }
+        if (result == null) {
+            result = getCellByXandYforG(x, y);
+        }
+        if (result == null) {
+            result = getCellByXandYforH(x, y);
+        }
+        return result;
+    }
+
+    private static Cell getCellByXandYforA(int x, int y) {
         if (x == 0 && y == 0) {
             return A1;
         }
@@ -44,7 +69,10 @@ public enum Cell {
         if (x == 0 && y == 7) {
             return A8;
         }
-//Вторая
+        return null;
+    }
+
+    private static Cell getCellByXandYforB(int x, int y) {
         if (x == 1 && y == 0) {
             return B1;
         }
@@ -69,7 +97,10 @@ public enum Cell {
         if (x == 1 && y == 7) {
             return B8;
         }
-//Третья
+        return null;
+    }
+
+    private static Cell getcellbyxandxforc(int x, int y) {
         if (x == 2 && y == 0) {
             return C1;
         }
@@ -94,7 +125,10 @@ public enum Cell {
         if (x == 2 && y == 7) {
             return C8;
         }
-//Четвертый
+        return null;
+    }
+
+    private static Cell getCellByXandYforD(int x, int y) {
         if (x == 3 && y == 0) {
             return D1;
         }
@@ -119,7 +153,10 @@ public enum Cell {
         if (x == 3 && y == 7) {
             return D8;
         }
-// 5
+        return null;
+    }
+
+    private static Cell getCellByXandYforE(int x, int y) {
         if (x == 4 && y == 0) {
             return E1;
         }
@@ -144,7 +181,10 @@ public enum Cell {
         if (x == 4 && y == 7) {
             return E8;
         }
-//6
+        return null;
+    }
+
+    private static Cell getCellByXandYforF(int x, int y) {
         if (x == 5 && y == 0) {
             return F1;
         }
@@ -169,7 +209,10 @@ public enum Cell {
         if (x == 5 && y == 7) {
             return F8;
         }
-//7
+        return null;
+    }
+
+    private static Cell getCellByXandYforG(int x, int y) {
         if (x == 6 && y == 0) {
             return G1;
         }
@@ -194,7 +237,10 @@ public enum Cell {
         if (x == 6 && y == 7) {
             return G8;
         }
-//8
+        return null;
+    }
+
+    private static Cell getCellByXandYforH(int x, int y) {
         if (x == 7 && y == 0) {
             return H1;
         }
@@ -222,3 +268,6 @@ public enum Cell {
         return null;
     }
 }
+
+
+

@@ -18,28 +18,28 @@ public class KingWhite extends Figure {
     public Cell[] way(Cell source, Cell dest) throws ImpossibleMoveException {
         Cell[] steps = new Cell[0];
         if (dest.x == source.x + 1 && dest.y == source.y + 1) {
-            steps = new Cell[]{Cell.getCellByXAndY(dest.x, dest.y)};
+            steps = new Cell[]{Cell.getCellByXandY(dest.x, dest.y)};
         }
         if (dest.x == source.x - 1 && dest.y == source.y - 1) {
-            steps = new Cell[]{Cell.getCellByXAndY(dest.x, dest.y)};
+            steps = new Cell[]{Cell.getCellByXandY(dest.x, dest.y)};
         }
         if (dest.x == source.x + 1 && dest.y == source.y - 1) {
-            steps = new Cell[]{Cell.getCellByXAndY(dest.x, dest.y)};
+            steps = new Cell[]{Cell.getCellByXandY(dest.x, dest.y)};
         }
         if (dest.x == source.x - 1 && dest.y == source.y + 1) {
-            steps = new Cell[]{Cell.getCellByXAndY(dest.x, dest.y)};
+            steps = new Cell[]{Cell.getCellByXandY(dest.x, dest.y)};
         }
         if (dest.x == source.x && dest.y == source.y + 1) {
-            steps = new Cell[]{Cell.getCellByXAndY(dest.x, dest.y)};
+            steps = new Cell[]{Cell.getCellByXandY(dest.x, dest.y)};
         }
         if (dest.x == source.x && dest.y == source.y - 1) {
-            steps = new Cell[]{Cell.getCellByXAndY(dest.x, dest.y)};
+            steps = new Cell[]{Cell.getCellByXandY(dest.x, dest.y)};
         }
         if (dest.y == source.y && dest.x == source.x + 1) {
-            steps = new Cell[]{Cell.getCellByXAndY(dest.x, dest.y)};
+            steps = new Cell[]{Cell.getCellByXandY(dest.x, dest.y)};
         }
         if (dest.y == source.y && dest.x == source.x - 1) {
-            steps = new Cell[]{Cell.getCellByXAndY(dest.x, dest.y)};
+            steps = new Cell[]{Cell.getCellByXandY(dest.x, dest.y)};
         }
         if (steps.length == 0) {
             throw new ImpossibleMoveException();

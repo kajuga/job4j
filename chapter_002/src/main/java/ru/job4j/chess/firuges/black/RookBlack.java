@@ -22,12 +22,12 @@ public class RookBlack extends Figure {
                 if (dest.y > source.y) {
                     steps = new Cell[dest.y - source.y];
                     for (int y = source.y + 1, i = 0; y <= dest.y; y++, i++) {
-                        steps[i] = Cell.getCellByXAndY(source.x, y);
+                        steps[i] = Cell.getCellByXandY(source.x, y);
                     }
                 } else {
                     steps = new Cell[source.y - dest.y];
                     for (int y = source.y - 1, i = 0; y >= dest.y; y--, i++) {
-                        steps[i] = Cell.getCellByXAndY(source.x, y);
+                        steps[i] = Cell.getCellByXandY(source.x, y);
                     }
                 }
             }
@@ -37,12 +37,12 @@ public class RookBlack extends Figure {
                 if (dest.x > source.x) {
                     steps = new Cell[dest.x - source.x];
                     for (int x = source.x + 1, i = 0; x <= dest.x; x++, i++) {
-                        steps[i] = Cell.getCellByXAndY(x, source.y);
+                        steps[i] = Cell.getCellByXandY(x, source.y);
                     }
                 } else {
                     steps = new Cell[source.x - dest.x];
                     for (int x = source.x - 1, i = 0; x >= dest.x; x--, i++) {
-                        steps[i] = Cell.getCellByXAndY(x, source.y);
+                        steps[i] = Cell.getCellByXandY(x, source.y);
                     }
                 }
             }
