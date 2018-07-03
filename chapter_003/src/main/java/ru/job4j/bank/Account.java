@@ -2,22 +2,22 @@ package ru.job4j.bank;
 
 public class Account {
     private double cash;
-    private int account;
+    private int details;
 
 
     public double getCash() {
         return cash;
     }
 
-    public void setCash(int cash) {
+    public void setCash(double cash) {
         this.cash = cash;
     }
 
-    public int getAccount() {
-        return account;
+    public int getDetails() {
+        return details;
     }
 
-    public void setAccount(int account) {
-        this.account = account;
+    public void setDetails(int details) {
+        this.details = details;
     }
 }
