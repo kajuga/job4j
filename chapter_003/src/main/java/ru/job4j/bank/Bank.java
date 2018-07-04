@@ -75,7 +75,7 @@ import java.util.Map;
             boolean check = false;
             if (sourceId != null && sourceAccount != null && destId != null && destAccount != null && remittance > 0) {
                 Account accSrc = this.GetAccountById(sourceId, sourceAccount);
-                Account accDest = this.GetAccountById(destAccount, destId);
+                Account accDest = this.GetAccountById(destId, destAccount);
                 if (accSrc.getCash() >= remittance && accDest != null) {
                     accSrc.setCash(accSrc.getCash() - remittance);
                     accDest.setCash(accDest.getCash() + remittance);
@@ -85,12 +85,12 @@ import java.util.Map;
             return check;
         }
 
-    /**
-     * Поиск конкретного account user'a по ID  и банк. реквизитам (int details)
-     * @param id
-     * @param details
-     * @return
-     */
+        /**
+        * Поиск конкретного account user'a по ID  и банк. реквизитам (int details)
+        * @param id
+        * @param details
+        * @return
+        */
         private Account GetAccountById(String id, String details){
             Account result = null;
             for (Map.Entry <User, List<Account>> entry : users.entrySet()){
@@ -106,4 +106,3 @@ import java.util.Map;
             return result;
         }
     }
-

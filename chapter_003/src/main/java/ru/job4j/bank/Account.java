@@ -4,7 +4,6 @@ public class Account {
     private double cash;
     private String details;
 
-
     public double getCash() {
         return cash;
     }
