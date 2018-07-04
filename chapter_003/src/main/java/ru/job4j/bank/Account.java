@@ -2,7 +2,7 @@ package ru.job4j.bank;
 
 public class Account {
     private double cash;
-    private int details;
+    private String details;
 
 
     public double getCash() {
@@ -13,11 +13,11 @@ public class Account {
         this.cash = cash;
     }
 
-    public int getDetails() {
+    public String getDetails() {
         return details;
     }
 
-    public void setDetails(int details) {
+    public void setDetails(String details) {
         this.details = details;
     }
 }
