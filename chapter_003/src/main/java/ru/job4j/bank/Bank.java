@@ -1,7 +1,5 @@
 package ru.job4j.bank;
 
-import com.sun.javafx.collections.MappingChange;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -55,7 +53,7 @@ import java.util.Map;
          * @param id
          * @return
          */
-        public List <Account> getUserAccount(String id) {
+        public List<Account> getUserAccount(String id) {
             List <Account> result = new ArrayList <>();
             for (User user : users.keySet()) {
                 if (user.getId().equals(id)) {
@@ -71,11 +69,32 @@ import java.util.Map;
          *
          * @return
          */
-        public boolean TransferMoney(String sourceId, String sourceAccount, String destId, String destAccount, double remittance) {
+        public boolean transferMoney(String sourceId, String sourceDetails, String destId, String destDetails, double
+                remittance) {
             boolean check = false;
-            if (sourceId != null && sourceAccount != null && destId != null && destAccount != null && remittance > 0) {
-                Account accSrc = this.GetAccountById(sourceId, sourceAccount);
-                Account accDest = this.GetAccountById(destId, destAccount);
+            if (sourceId != null && sourceDetails != null && destId != null && destDetails != null && remittance > 0) {
+                Account accSrc = null;
+                Account accDest = null;
+                for (Map.Entry<User, List<Account>> entry : users.entrySet()) {
+                    if (entry.getKey().getId().equals(sourceId)) {
+                        for (Account account : entry.getValue()) {
+                            if (account.getDetails().equals(sourceDetails)) {
+                                accSrc = account;
+                                break;
+                            }
+                        }
+                    }
+                    if (entry.getKey().getId().equals(destId)) {
+                        for (Account account : entry.getValue()) {
+                            if (account.getDetails().equals(destDetails)) {
+                                accDest = account;
+                                break;
+                            }
+                        }
+                    }
+                }
+
+                //вот тут косяк
                 if (accSrc.getCash() >= remittance && accDest != null) {
                     accSrc.setCash(accSrc.getCash() - remittance);
                     accDest.setCash(accDest.getCash() + remittance);
@@ -84,25 +103,5 @@ import java.util.Map;
             }
             return check;
         }
-
-        /**
-        * Поиск конкретного account user'a по ID  и банк. реквизитам (int details)
-        * @param id
-        * @param details
-        * @return
-        */
-        private Account GetAccountById(String id, String details){
-            Account result = null;
-            for (Map.Entry <User, List<Account>> entry : users.entrySet()){
-                if (entry.getKey().getId().equals(id)){
-                    for (Account account : entry.getValue()){
-                        if (account.getDetails().equals(details)){
-                            result = account;
-                            break;
-                        }
-                    }
-                }
-            }
-            return result;
-        }
     }
+

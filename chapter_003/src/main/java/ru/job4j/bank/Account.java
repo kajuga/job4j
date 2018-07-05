@@ -1,8 +1,15 @@
 package ru.job4j.bank;
 
 public class Account {
-    private double cash;
     private String details;
+    private double cash;
+
+
+
+    public Account(String details, double cash) {
+        this.details = details;
+        this.cash = cash;
+    }
 
     public double getCash() {
         return cash;

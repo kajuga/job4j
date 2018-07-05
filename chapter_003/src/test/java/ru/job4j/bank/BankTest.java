@@ -15,21 +15,20 @@ public class BankTest {
     public void whenOneTransferMoneyTother() throws Exception {
         Bank bank = new Bank();
         Map<User, List<Account>> users = new HashMap<>();
-        User userOne = new User("Jamie Lee Curtis", "BUD15735");
-        Account accountOne = new Account("111222", 31233.50);
+        User userOne = new User("2Pac", "AUE1971");
+        Account accountOne = new Account("333/444", 500.00);
         List<Account> listAccOne = new ArrayList <>();
         listAccOne.add(accountOne);
         users.put(userOne, listAccOne);
 
-        User userTwo = new User("2Pac", "AUE17976");
+        User userTwo = new User("Jamie Lee Curtis", "JLC1958");
         List<Account> listAccTwo = new ArrayList<>();
-        Account accountTwo = new Account("333444", 5675.30);
-        listAccOne.add(accountTwo);
+        Account accountTwo = new Account("111/222", 200.00);
+        listAccTwo.add(accountTwo);
         users.put(userTwo, listAccTwo);
 
-        boolean result = bank.transferMoney("BUD15735", "accountOne", "AUE17976", "accountTwo", 100.00);
+        boolean result = bank.transferMoney("AUE1971", "333/444", "JLC1958", "111/222", 100.00);
         boolean expected = true;
-        Assert.assertTrue(result == expected && accountOne.getCash() == 31133.50 && accountTwo.getCash() == 5775.30);
+        Assert.assertTrue(result == expected && accountOne.getCash() == 400.00 && accountTwo.getCash() == 300.00);
     }
-
 }
