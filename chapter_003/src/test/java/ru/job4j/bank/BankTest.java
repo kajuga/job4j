@@ -65,4 +65,24 @@ public class BankTest {
         Assert.assertTrue(result == expected && accountOne.getCash() == 400.00 && accountTwo.getCash() == 300.00);
         Assert.assertTrue(result == expected && accountOne.writeOff(100.00) && accountTwo.refill(100.00));
     }
+
+    /**
+     * Проверка трансфера денег с одного счета на другой (*при недостатке средств на счете-доноре)
+     * @throws Exception
+     */
+    @Test
+    public void whenOneTransferMoneyTotherButNotHaveEnoughMoney() throws Exception {
+        Bank bank = new Bank();
+        User userOne = new User("2Pac", "AUE1971");
+        Account accountOne = new Account("333/444", 100.00);
+        bank.addUser(userOne);
+        bank.addAccountToUser(userOne.getId(), accountOne);
+        User userTwo = new User("Jamie Lee Curtis", "JLC1958");
+        Account accountTwo = new Account("111/222", 200.00);
+        bank.addUser(userTwo);
+        bank.addAccountToUser(userTwo.getId(), accountTwo);
+        boolean result = bank.transferMoney("AUE1971", "333/444", "JLC1958", "111/222", 101.00);
+        boolean expected = false;
+        Assert.assertTrue(result == expected && accountOne.getCash() == 100.00 && accountTwo.getCash() == 200.00);
+    }
 }

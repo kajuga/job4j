@@ -90,10 +90,11 @@ import java.util.Map;
                 remittance) {
             boolean check = false;
             if (sourceId != null && sourceDetails != null && destId != null && destDetails != null && remittance > 0) {
-                getAccById(sourceId, sourceDetails).writeOff(remittance);
-                getAccById(destId, destDetails).refill(remittance);
-                check = true;
+                if (getAccById(sourceId, sourceDetails).writeOff(remittance)){
+                    getAccById(destId, destDetails).refill(remittance);
+                    check = true;
                 }
+            }
             return check;
         }
     }
