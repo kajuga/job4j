@@ -9,16 +9,8 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>chapter_003</artifactId>
-    <packaging>pom</packaging>
-
-    <dependencies>
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.12</version>
-        </dependency>
-    </dependencies>
+    <groupId>ru.job4j</groupId>
+    <artifactId>chapter_004</artifactId>
 
 
 </project>

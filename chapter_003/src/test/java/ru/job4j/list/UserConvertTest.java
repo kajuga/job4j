@@ -17,7 +17,7 @@ public class UserConvertTest {
         listUser.add(user2);
         listUser.add(user3);
         Map<Integer, User> result = userConvert.process(listUser);
-        Map<Integer, User> expected = new HashMap <>();
+        Map<Integer, User> expected = new HashMap<>();
         expected.put(user1.getId(), user1);
         expected.put(user2.getId(), user2);
         expected.put(user3.getId(), user3);

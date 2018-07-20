@@ -33,7 +33,7 @@ public class Account {
      */
     public boolean refill(double cash) {
         boolean result = false;
-        if (this.cash >= 0 && cash >= 0){
+        if (this.cash >= 0 && cash >= 0) {
             this.cash += cash;
             result = true;
         }

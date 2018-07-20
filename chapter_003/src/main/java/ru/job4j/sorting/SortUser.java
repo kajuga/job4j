@@ -11,24 +11,24 @@ import java.util.*;
  */
 public class SortUser {
 
-    public Set <User> sort(List <User> list) {
-        return new TreeSet <>(list);
+    public Set<User> sort(List<User> list) {
+        return new TreeSet<>(list);
     }
 
-    public List <User> sortNameLength(List <User> list) {
-        Collections.sort(list, new nameLengthComparator());
+    public List<User> sortNameLength(List<User> list) {
+        Collections.sort(list, new CompName());
         return list;
     }
 
-    public List <User> sortByAllFields(List <User> list) {
-        Collections.sort(list, new nameAndAgeComparator());
+    public List<User> sortByAllFields(List<User> list) {
+        Collections.sort(list, new CompNameAndAge());
         return list;
     }
 
     /**
      * Сравнивает по длине строки
      */
-    static class nameLengthComparator implements Comparator <User> {
+    static class CompName implements Comparator<User> {
         @Override
         public int compare(User a, User b) {
             return a.name.length() - b.name.length();
@@ -38,7 +38,7 @@ public class SortUser {
     /**
      * Сравнивает лексикографически, затем по возрасту
      */
-    static class nameAndAgeComparator implements Comparator <User> {
+    static class CompNameAndAge implements Comparator<User> {
         @Override
         public int compare(User user, User t1) {
             int res = user.name.compareTo(t1.name);

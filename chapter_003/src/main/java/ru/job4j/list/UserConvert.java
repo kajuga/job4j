@@ -13,7 +13,7 @@ public class UserConvert {
      */
     HashMap<Integer, User> process(List<User> list) {
 
-        HashMap <Integer, User> mapUser = new HashMap <>();
+        HashMap<Integer, User> mapUser = new HashMap<>();
         for (User i : list) {
             Integer key = i.getId();
             if (!mapUser.containsKey(key)) {

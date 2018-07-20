@@ -59,7 +59,7 @@ public class ConvertList2ArrayTest {
 
 
     @Test
-    public void when3ArrayThenOne(){
+    public void when3ArrayThenOne() {
         ConvertList2Array list = new ConvertList2Array();
         List integers = new ArrayList();
         integers.add(new int[]{1, 2});

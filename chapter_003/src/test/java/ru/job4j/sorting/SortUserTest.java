@@ -52,7 +52,7 @@ public class SortUserTest {
     }
 
     @Test
-    public void WhenAddThreeEqualThree() {
+    public void whenAddThreeEqualThree() {
         SortUser sortUser = new SortUser();
         List<User> userList = new ArrayList<>();
         User user1 = new User("Ванька", 1);

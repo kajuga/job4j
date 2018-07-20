@@ -12,7 +12,7 @@ import java.util.List;
  */
 
 public class PhoneDictionary {
-    private List <Person> persons = new ArrayList <Person>();
+    private List<Person> persons = new ArrayList<Person>();
 
     public void add(Person person) {
         this.persons.add(person);
@@ -24,8 +24,8 @@ public class PhoneDictionary {
      * @param key Ключ поиска.
      * @return Список подощедщих пользователей.
      */
-    public List <Person> find(String key) {
-        List <Person> result = new ArrayList <Person>();
+    public List<Person> find(String key) {
+        List<Person> result = new ArrayList<Person>();
         for (Person find : persons) {
             if (find.getName().toLowerCase().contains(key)
                     || (find.getSurname().toLowerCase().contains(key))

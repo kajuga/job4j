@@ -12,7 +12,7 @@ import java.util.Map;
     * @since 0.1
     */
     public class Bank {
-        private Map <User, List <Account>> users = new HashMap <>();
+        private Map<User, List<Account>> users = new HashMap<>();
 
         /**
         * Добавляет user
@@ -20,7 +20,7 @@ import java.util.Map;
         * @param user
         */
         public void addUser(User user) {
-            this.users.put(user, new ArrayList <Account>());
+            this.users.put(user, new ArrayList<Account>());
         }
 
         /**
@@ -52,7 +52,7 @@ import java.util.Map;
         * @return
         */
         public List<Account> getUserAccount(String id) {
-            List <Account> result = new ArrayList <>();
+            List<Account> result = new ArrayList<>();
             for (User user : users.keySet()) {
                 if (user.getId().equals(id)) {
                     result = users.get(user);
@@ -68,12 +68,12 @@ import java.util.Map;
         * @param details
         * @return
         */
-        public Account getAccById(String id, String details){
+        public Account getAccById(String id, String details) {
             Account result = null;
-            for (Map.Entry<User, List <Account>> entry : users.entrySet()){
-                if (entry.getKey().getId().equals(id)){
-                    for (Account account : entry.getValue()){
-                        if (account.getDetails().equals(details)){
+            for (Map.Entry<User, List<Account>> entry : users.entrySet()) {
+                if (entry.getKey().getId().equals(id)) {
+                    for (Account account : entry.getValue()) {
+                        if (account.getDetails().equals(details)) {
                             result = account;
                         }
                     }
@@ -90,7 +90,7 @@ import java.util.Map;
                 remittance) {
             boolean check = false;
             if (sourceId != null && sourceDetails != null && destId != null && destDetails != null && remittance > 0) {
-                if (getAccById(sourceId, sourceDetails).writeOff(remittance)){
+                if (getAccById(sourceId, sourceDetails).writeOff(remittance)) {
                     getAccById(destId, destDetails).refill(remittance);
                     check = true;
                 }

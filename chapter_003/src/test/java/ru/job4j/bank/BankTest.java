@@ -24,7 +24,7 @@ public class BankTest {
         bank.addUser(userOne);
         bank.addAccountToUser(userOne.getId(), accountOne);
         List<Account> result = bank.getUserAccount("AUE1971");
-        List<Account> expected = new ArrayList <>();
+        List<Account> expected = new ArrayList<>();
         expected.add(accountOne);
         Assert.assertEquals(result, expected);
     }

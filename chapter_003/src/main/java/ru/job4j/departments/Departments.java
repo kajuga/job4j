@@ -13,7 +13,7 @@ public class Departments {
     public static void main(String[] args) {
 
         String[] income = {"K1\\SK1", "K1\\SK2", "K1\\SK1\\SSK1", "K1\\SK1\\SSK2", "K2", "K2\\SK1\\SSK1", "K2\\SK1\\SSK2"};
-        List <String> list = Arrays.asList(income);
+        List<String> list = Arrays.asList(income);
 
         System.out.println("");
         System.out.println("До сортировки: ");
@@ -41,7 +41,7 @@ public class Departments {
      * Получение отсортированного по возрастанию массива вх. массив -> treeSet -> итоговый массив.
      */
     public String[] sortDeposAsc(String[] arr) {
-        Set <String> pullOutNameDepts = new TreeSet <>();
+        Set<String> pullOutNameDepts = new TreeSet<>();
         for (int i = 0; i < arr.length; i++) {
             String[] temp = arr[i].split("\\\\");
             if (temp.length > 0) {
@@ -52,7 +52,6 @@ public class Departments {
             }
             pullOutNameDepts.add(arr[i]);
         }
-
         return pullOutNameDepts.toArray(new String[pullOutNameDepts.size()]);
     }
 
@@ -62,7 +61,7 @@ public class Departments {
     public String[] sortDeposDesc(String[] arr) {
         String[] pullOutNameDepts = sortDeposAsc(arr);
 
-        Comparator <String> comparatorDesc = new Comparator <String>() {
+        Comparator<String> comparatorDesc = new Comparator<String>() {
             @Override
             public int compare(String s1, String s2) {
                 String[] tempS1 = s1.split("\\\\");

@@ -31,10 +31,10 @@ public class ConvertList2Array {
      * @param list
      * @return
      */
-    public List<Integer> convert (List<int[]> list){
+    public List<Integer> convert(List<int[]> list) {
         List list1 = new ArrayList<>();
         for (int[] i: list) {
-            for (int j : i){
+            for (int j : i) {
                 list1.add(j);
             }
         }
