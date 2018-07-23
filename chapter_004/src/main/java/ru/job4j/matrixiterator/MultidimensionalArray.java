@@ -3,6 +3,14 @@ package ru.job4j.matrixiterator;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
+
+/**
+ * Iterator - модифицируем итератор под свои нужды
+ * @author Fedorov Aleksander (msg2fedorov@gmail.com)
+ * @version $Id$
+ * @since 0.1
+ */
+
 public class MultidimensionalArray implements Iterable <Integer> {
     private int[][] value;
 
@@ -33,7 +41,6 @@ public class MultidimensionalArray implements Iterable <Integer> {
                         indexColumn = 0;
                         indexRow++;
                     }
-
                     return result;
                 } catch (ArrayIndexOutOfBoundsException e) {
                     throw new NoSuchElementException();
