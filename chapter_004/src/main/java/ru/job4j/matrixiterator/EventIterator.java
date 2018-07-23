@@ -26,8 +26,6 @@ public class EventIterator implements Iterator<Integer> {
         }catch (IndexOutOfBoundsException e){
             throw new NoSuchElementException();
         }
-
-
     }
 
     private void movePosition(){
