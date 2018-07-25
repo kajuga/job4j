@@ -6,9 +6,12 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 /**
- * вот эту куевину нужно реализовать - класс Converter с методом convert
- * 1. должен принимать итератор
+ * Класс-итератор, позволяющий пробегаться по содержимому передаваемых итераторов.
+ * @author Fedorov Aleksander (msg2fedorov@gmail.com)
+ * @version $Id$
+ * @since 0.1
  */
+
 class Converter implements Iterator<Integer> {
     private Iterator[] iterators;
     private int index = 0;
