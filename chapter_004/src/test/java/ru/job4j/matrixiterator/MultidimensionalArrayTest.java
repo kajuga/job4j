@@ -12,7 +12,7 @@ public class MultidimensionalArrayTest {
     private Iterator it;
 
     @Before
-    public void setUp(){
+    public void setUp() {
         it = new MultidimensionalArray(new int[][]{{1, 2, 3}, {4, 5, 6}}).iterator();
     }
 

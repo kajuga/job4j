@@ -23,13 +23,13 @@ public class EventIterator implements Iterator<Integer> {
             Integer result = value[index++];
             movePosition();
             return result;
-        }catch (IndexOutOfBoundsException e){
+        } catch (IndexOutOfBoundsException e) {
             throw new NoSuchElementException();
         }
     }
 
-    private void movePosition(){
-        while (index < value.length && value[index] %2 != 0){
+    private void movePosition() {
+        while (index < value.length && value[index] % 2 != 0) {
             index++;
         }
     }

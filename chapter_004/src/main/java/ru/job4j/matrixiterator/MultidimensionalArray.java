@@ -11,7 +11,7 @@ import java.util.NoSuchElementException;
  * @since 0.1
  */
 
-public class MultidimensionalArray implements Iterable <Integer> {
+public class MultidimensionalArray implements Iterable<Integer> {
     private int[][] value;
 
     public MultidimensionalArray(int[][] value) {
