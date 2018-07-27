@@ -31,20 +31,19 @@ public class MultidimensionalArray implements Iterable<Integer> {
 
             @Override
             public Integer next() {
-                try {
+                    if (indexRow < value.length && indexColumn < value[indexRow].length){
                     Integer result = value[indexRow][indexColumn];
                     if (indexColumn < value[indexRow].length) {
                         indexColumn++;
                     }
-
                     if (indexColumn == value[indexRow].length) {
                         indexColumn = 0;
                         indexRow++;
                     }
                     return result;
-                } catch (ArrayIndexOutOfBoundsException e) {
-                    throw new NoSuchElementException();
-                }
+                    }else {
+                        throw new NoSuchElementException();
+                    }
             }
         };
         return it;
