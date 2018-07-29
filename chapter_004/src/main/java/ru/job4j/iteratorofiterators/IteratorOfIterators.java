@@ -13,46 +13,37 @@ import java.util.NoSuchElementException;
  */
 
 class Converter implements Iterator<Integer> {
-    private Iterator[] iterators;
-    private int index = 0;
-
+    private Iterator<Iterator<Integer>> iterators;
+    private Iterator<Integer> index;
 
     @Override
     public boolean hasNext() {
         boolean hasNext = false;
-
-        while (iterators != null && index < iterators.length) {
-            hasNext = iterators[index].hasNext();
-            if (!hasNext) {
-                index++;
-            } else {
-                break;
-            }
+        if (index != null) {
+            hasNext = index.hasNext();
+        }
+        while (!hasNext && iterators.hasNext()){
+            index = iterators.next();
+            hasNext = index.hasNext();
         }
         return hasNext;
     }
 
     @Override
     public Integer next() {
-
-        try {
-            if (iterators[index].hasNext()) {
-                return (Integer) iterators[index].next();
+            if(hasNext()) {
+                return index.next();
             } else {
-                return (Integer) iterators[++index].next();
+                throw new NoSuchElementException();
             }
-        } catch (IndexOutOfBoundsException e) {
-            throw new NoSuchElementException();
-        }
     }
 
     Iterator<Integer> convert(Iterator<Iterator<Integer>> it) {
-        List<Iterator<Integer>> list = new ArrayList<>();
-        while (it.hasNext()) {
-            list.add(it.next());
-        }
         Converter converter = new Converter();
-        converter.iterators = list.toArray(new Iterator[list.size()]);
+        converter.iterators = it;
+        if (it.hasNext()) {
+            converter.index = it.next();
+        }
         return converter;
     }
 }
