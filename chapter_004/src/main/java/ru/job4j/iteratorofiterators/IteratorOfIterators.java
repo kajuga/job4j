@@ -22,7 +22,7 @@ class Converter implements Iterator<Integer> {
         if (index != null) {
             hasNext = index.hasNext();
         }
-        while (!hasNext && iterators.hasNext()){
+        while (!hasNext && iterators.hasNext()) {
             index = iterators.next();
             hasNext = index.hasNext();
         }
@@ -31,7 +31,7 @@ class Converter implements Iterator<Integer> {
 
     @Override
     public Integer next() {
-            if(hasNext()) {
+            if (hasNext()) {
                 return index.next();
             } else {
                 throw new NoSuchElementException();

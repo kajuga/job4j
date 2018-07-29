@@ -31,7 +31,7 @@ public class MultidimensionalArray implements Iterable<Integer> {
 
             @Override
             public Integer next() {
-                    if (indexRow < value.length && indexColumn < value[indexRow].length){
+                    if (indexRow < value.length && indexColumn < value[indexRow].length) {
                     Integer result = value[indexRow][indexColumn];
                     if (indexColumn < value[indexRow].length) {
                         indexColumn++;
@@ -41,7 +41,7 @@ public class MultidimensionalArray implements Iterable<Integer> {
                         indexRow++;
                     }
                     return result;
-                    }else {
+                    } else {
                         throw new NoSuchElementException();
                     }
             }

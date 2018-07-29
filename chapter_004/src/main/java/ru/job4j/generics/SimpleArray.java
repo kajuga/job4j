@@ -3,28 +3,29 @@ package ru.job4j.generics;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-public class SimpleArray<T> implements Iterable <T> {
+public class SimpleArray<T> implements Iterable<T> {
     private T[] model;
     private int index;
 
-    public T add(T model) {
+    public void add(T model) {
         try {
-            return (T) (this.model[index++] = model);
+            this.model[index++] = model;
         } catch (IndexOutOfBoundsException e) {
             throw new NoSuchElementException();
         }
     }
 
-    public T set(int index, T model) {
-        return (T) (this.model[index] = model);
+    public void set(int index, T model) {
+        this.model[index] = model;
     }
 
     public void delete(int index) {
         System.arraycopy(model, index + 1, model, index, model.length - 1 - index);
+        model[model.length - 1] = null;
     }
 
     public T get(int index) {
-        return (T) this.model[index];
+        return this.model[index];
     }
 
     @Override

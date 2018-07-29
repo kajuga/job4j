@@ -44,7 +44,7 @@ public class EventIterator implements Iterator<Integer> {
      */
     @Override
     public Integer next() {
-        if (hasNext()){
+        if (hasNext()) {
             Integer result = value[index++];
             movePosition();
             return result;
