@@ -3,8 +3,10 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 public class SimpleArray<T> implements Iterable<T> {
-    private T[] model;
+    private Object[] model = new Object[10];
     private int index;
+
+
 
     public void add(T model) {
         try {
@@ -24,21 +26,23 @@ public class SimpleArray<T> implements Iterable<T> {
     }
 
     public T get(int index) {
-        return this.model[index];
+        return (T)this.model[index];
     }
 
     @Override
     public Iterator<T> iterator() {
         return new Iterator<T>() {
 
+            private int current;
+
             @Override
             public boolean hasNext() {
-                return model.length > index;
+                return model.length > current;
             }
 
             @Override
             public T next() {
-                return model[index++];
+                return (T)model[current++];
             }
         };
     }
