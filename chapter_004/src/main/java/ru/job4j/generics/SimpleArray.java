@@ -3,15 +3,15 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 /**
- * @author Fedorov Aleksander (msg2fedorov@gmail.com)
- * @version $Id$
+ *@author Fedorov Alexander (msg2fedorov@gmail.com)
+ *@version $Id$
  * @since 0.1
  */
-public class SimpleArray<T> implements Iterable<T> {
+public class SimpleArray<T> implements Iterable<T>{
     private Object[] model = new Object[10];
     private int index;
 
-    public void add(T model) {
+    public void add(T model){
         try {
             this.model[index++] = model;
         } catch (IndexOutOfBoundsException e) {
@@ -19,22 +19,32 @@ public class SimpleArray<T> implements Iterable<T> {
         }
     }
 
-    public void set(int index, T model) {
-        this.model[index] = model;
+    public boolean set(int index, T model){
+        boolean set = false;
+        if (index >= 0 && index < this.model.length) {
+            this.model[index] = model;
+            set = true;
+        }
+        return set;
     }
 
-    public void delete(int index) {
-        System.arraycopy(model, index + 1, model, index, model.length - 1 - index);
-        model[model.length - 1] = null;
+    public boolean delete(int index){
+        boolean del = false;
+        if (index >= 0 && index < this.model.length) {
+            System.arraycopy(model, index + 1, model, index, model.length - 1 - index);
+            model[model.length - 1] = null;
+            del = true;
+        }
+        return del;
     }
 
     public T get(int index) {
-        return (T)this.model[index];
+            return (T) this.model[index];
     }
 
     @Override
-    public Iterator<T> iterator() {
-        return new Iterator<T>() {
+    public Iterator<T> iterator(){
+        return new Iterator <T>() {
             private int current;
 
             @Override
@@ -44,7 +54,7 @@ public class SimpleArray<T> implements Iterable<T> {
 
             @Override
             public T next() {
-                return (T)model[current++];
+                return (T) model[current++];
             }
         };
     }
