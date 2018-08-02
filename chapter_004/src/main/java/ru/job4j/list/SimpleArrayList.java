@@ -1,8 +1,8 @@
 package ru.job4j.list;
 
 /**
- * @author Fedorov Aleksander (msg2fedorov@gmail.com)
- * @version $Id$
+ * @author Fedorov Alrksander (msg2fedorov@gmail.com)
+ * @version #IdS
  * @since 0.1
  */
 public class SimpleArrayList<E> {
@@ -10,8 +10,8 @@ public class SimpleArrayList<E> {
     private Node<E> first;
 
     /**
-     * Метод вставляет в начало списка данные.
-     */
+    * Метод вставляет данные в начало списка
+    */
     public void add(E date) {
         Node<E> newLink = new Node<>(date);
         newLink.next = this.first;
@@ -20,17 +20,17 @@ public class SimpleArrayList<E> {
     }
 
     /**
-     * Реализовать метод удаления первого элемент в списке.
+     * Удаление первого элемента списка (может boolean сделать... не знаю)
      */
     public E delete() {
-        Node <E> deleted = this.first;
+        Node<E> deleted = this.first;
         this.first = deleted.next;
         deleted.next = null;
         return deleted.date;
     }
 
     /**
-     * Метод получения элемента по индексу.
+     * Метод получения элемента по индексу
      */
     public E get(int index) {
         Node<E> result = this.first;
@@ -41,20 +41,21 @@ public class SimpleArrayList<E> {
     }
 
     /**
-     * Метод получения размера коллекции.
+     * Метод получения размера списка
      */
     public int getSize() {
         return this.size;
     }
 
     /**
-     * Класс предназначен для хранения данных.
+     * Класс предназначен для хранения данных и хранения ссылки (Node<E> next) на следующий экземпляр
+     * @param <E>
      */
-    private static class Node<E> {
+    private class Node<E> {
         E date;
-        Node <E> next;
+        Node<E> next;
 
-        Node(E date) {
+        public Node(E date) {
             this.date = date;
         }
     }

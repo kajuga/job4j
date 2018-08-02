@@ -6,4 +6,4 @@ package ru.job4j.generics;
  * @version $Id$
  * @since 0.1
  */
-public class UserStore extends AbstractStore<User> {}
+public class UserStore extends AbstractStore<User> { }

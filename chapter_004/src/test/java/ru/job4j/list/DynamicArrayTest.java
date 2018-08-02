@@ -11,25 +11,25 @@ public class DynamicArrayTest {
     private DynamicArray<Integer> list;
 
     @Before
-    public void BeforTest(){
-        list = new DynamicArray <>();
+    public void beforeTest() {
+        list = new DynamicArray<>();
         list.add(1);
         list.add(5);
         list.add(7);
     }
 
     @Test
-    public void whennAddedThreeSizeIsThree(){
+    public void whenAddedThreeSizeIsThree() {
         assertThat(list.size(), is(3));
     }
 
     @Test
-    public void whenAddedThreeThenGetThird(){
-        assertThat(list.get(2), is(7) );
+    public void whenAddedThreeThenGetThird() {
+        assertThat(list.get(2), is(7));
     }
 
     @Test
-    public void whenAddedThreeThenAddTenSizeIsThirteen(){
+    public void whenAddedThreeThenAddTenSizeIsThirteen() {
         list.add(12);
         list.add(12);
         list.add(12);
@@ -44,8 +44,7 @@ public class DynamicArrayTest {
     }
 
     @Test(expected = ConcurrentModificationException.class)
-    public void ConcurrentModificationExceptionTest(){
-        //DynamicArray arr = new DynamicArray();
+    public void concurrentModificationExceptionTest() {
         Iterator<Integer> it = list.iterator();
         it.next();
         it.next();

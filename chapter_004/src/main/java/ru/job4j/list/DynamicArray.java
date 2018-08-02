@@ -8,11 +8,11 @@ import java.util.Iterator;
  * @version $Id$
  * @since 0.1
  */
-public class DynamicArray <E> implements Iterable<E> {
+public class DynamicArray<E> implements Iterable<E> {
     private E[] values;
     private int modCount;
 
-    DynamicArray(){
+    DynamicArray() {
         values = (E[]) new Object[0];
     }
 
@@ -21,15 +21,15 @@ public class DynamicArray <E> implements Iterable<E> {
      * @param e
      * @return
      */
-    public boolean add (E e){
-        try{
+    public boolean add(E e) {
+        try {
             E[] temp = values;
             values = (E[]) new Object[temp.length + 1];
             System.arraycopy(temp, 0, values, 0, temp.length);
             values[values.length - 1] = e;
             modCount++;
             return true;
-        } catch (ClassCastException ex){
+        } catch (ClassCastException ex) {
             ex.printStackTrace();
         }
         return false;
@@ -48,20 +48,19 @@ public class DynamicArray <E> implements Iterable<E> {
      * Получение размера контейнера
      * @return
      */
-    public int size(){
+    public int size() {
         return values.length;
     }
 
     @Override
-    public Iterator<E> iterator(){
+    public Iterator<E> iterator() {
         return new DynamicArrayIterator<>(values, modCount);
     }
 
     /**
      * Итератор для контейнера
-     * @param <E>
      */
-    private class DynamicArrayIterator<E> implements Iterator<E>{
+    private class DynamicArrayIterator<E> implements Iterator<E> {
         private int index = 0;
         private E[]values;
         private int expectedModCount;
@@ -78,7 +77,7 @@ public class DynamicArray <E> implements Iterable<E> {
 
         @Override
         public E next() {
-            if (expectedModCount != modCount){
+            if (expectedModCount != modCount) {
                 throw new ConcurrentModificationException();
             }
             return values[index++];

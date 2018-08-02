@@ -58,9 +58,10 @@ public class AbstractStore<T extends Base> implements Store<T> {
         Iterator<T> iterator = simpleArray.iterator();
         while (iterator.hasNext()) {
             T result = iterator.next();
-            if (result.getId().equals(id)) ;
-            iterator.remove();
-            break;
+            if (result.getId().equals(id)) {
+                iterator.remove();
+                break;
+            }
         }
     }
 

@@ -24,7 +24,7 @@ public class SimpleArrayTest {
     }
 
     @Test
-    public void testThatCallTwoIteratorsDoNotMakeProblems(){
+    public void testThatCallTwoIteratorsDoNotMakeProblems() {
         it.next();
         int res1 = it.next();
         it2.next();

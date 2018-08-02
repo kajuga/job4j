@@ -27,7 +27,7 @@ public class SimpleArrayListTest {
     }
 
     @Test
-    public void whenAddThreeElementsThenDeleteFirst(){
+    public void whenAddThreeElementsThenDeleteFirst() {
         list.delete();
         assertThat(list.get(0), is(2));
     }

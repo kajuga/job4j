@@ -7,11 +7,11 @@ import java.util.NoSuchElementException;
  *@version $Id$
  * @since 0.1
  */
-public class SimpleArray<T> implements Iterable<T>{
+public class SimpleArray<T> implements Iterable<T> {
     private Object[] model = new Object[10];
     private int index;
 
-    public void add(T model){
+    public void add(T model) {
         try {
             this.model[index++] = model;
         } catch (IndexOutOfBoundsException e) {
@@ -19,7 +19,7 @@ public class SimpleArray<T> implements Iterable<T>{
         }
     }
 
-    public boolean set(int index, T model){
+    public boolean set(int index, T model) {
         boolean set = false;
         if (index >= 0 && index < this.model.length) {
             this.model[index] = model;
@@ -28,7 +28,7 @@ public class SimpleArray<T> implements Iterable<T>{
         return set;
     }
 
-    public boolean delete(int index){
+    public boolean delete(int index) {
         boolean del = false;
         if (index >= 0 && index < this.model.length) {
             System.arraycopy(model, index + 1, model, index, model.length - 1 - index);
@@ -43,8 +43,8 @@ public class SimpleArray<T> implements Iterable<T>{
     }
 
     @Override
-    public Iterator<T> iterator(){
-        return new Iterator <T>() {
+    public Iterator<T> iterator() {
+        return new Iterator<T>() {
             private int current;
 
             @Override
