@@ -15,7 +15,6 @@ public class EventIterator implements Iterator<Integer> {
 
     public EventIterator(int[] value) {
         this.value = value;
-        movePosition();
     }
 
     /**
@@ -24,38 +23,23 @@ public class EventIterator implements Iterator<Integer> {
      */
     @Override
     public boolean hasNext() {
-        /*boolean result = false;
-        int counter = 0;
-        for(int i = index; i < value.length; i++){
-            if(value[i] % 2 == 0){
-                counter++;
-            }
-            if (counter > 0){
-                result = true;
-                break;
-            }
-        }*/
+        while (index < value.length && value[index] % 2 != 0) {
+            index++;
+        }
         return index < value.length;
     }
 
     /**
-     * Перемещаюсь по четным элементам массива
+     * Перемещаюсь по элементам массива
      * @return
      */
     @Override
     public Integer next() {
         if (hasNext()) {
             Integer result = value[index++];
-            movePosition();
             return result;
         } else  {
             throw new NoSuchElementException();
-        }
-    }
-
-    private void movePosition() {
-        while (index < value.length && value[index] % 2 != 0) {
-            index++;
         }
     }
 }
