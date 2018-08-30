@@ -36,4 +36,14 @@ public class ArrayHomeTaskTest {
         int[] expected = {0, 0, 0, 1, 1, 2, 3, 3, 4};
         assertThat(result, Is.is(expected));
     }
+
+    @Test
+    public void getUnitedArrayWithBubbleVersusTwo() throws Exception {
+        ArrayHomeTask arrayHomeTask = new ArrayHomeTask();
+        int[] one = {2, 1, 7};
+        int[] two = {8, 4, 3};
+        int[] result = arrayHomeTask.getUnitedArrayWithBubble(one, two);
+        int[] expected = {1, 2, 3, 4, 7, 8};
+        assertThat(result, Is.is(expected));
+    }
 }

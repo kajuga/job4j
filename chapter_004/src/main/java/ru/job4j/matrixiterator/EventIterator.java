@@ -43,3 +43,13 @@ public class EventIterator implements Iterator<Integer> {
         }
     }
 }
+
+/*
+оформите так как в трекере if-else-throw
+
+        if (exist) {
+            return key;
+        } else {
+            throw new MenuOutException("Не в диапазоне");
+        }
+ */
