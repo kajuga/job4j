@@ -12,7 +12,7 @@ public class Converter {
      * @return Евро.
      */
     public double rubleToEuro(double value) {
-        return validate(value) / 60;
+        return validate(value) / 70;
     }
 
     /**
