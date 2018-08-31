@@ -1,5 +1,10 @@
 package ru.job4j.loop;
 
+/**
+ * @Fedorov Aleksandr (msg2fedorov@gmail.com)
+ * метод производит вычисление факуториала числа - произведение всех неотрицательных чисел от 1 до искомого числа
+ */
+
 public class Factorial {
 
     public int calc(int n) {
