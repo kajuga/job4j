@@ -25,7 +25,3 @@ public class CofeeMaker {
         return result;
     }
 }
-
-
-
-
