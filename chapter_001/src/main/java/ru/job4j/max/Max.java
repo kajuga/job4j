@@ -5,11 +5,11 @@ package ru.job4j.max;
  *
  * @author Aleksandr Fedorov (msg2fedorov@gmail.com)
  * @version $Id$
+ * метод вычисляет максимальное из двух значений
  * @since 0.1
  */
 public class Max {
-
-    public int max(int first, int second) {
+    public int max (int first, int second) {
         return first > second ? first : second;
     }
 

@@ -8,7 +8,6 @@ import java.util.Stack;
 
 /**
  * Парсер скобок
- *
  * @author Fedorov Aleksander (msg2fedorov@gmail.com)
  * @version $Id$
  * @since 0.1
@@ -53,17 +52,18 @@ public class SortBrackets {
         Stack<Bracket> stackSquiggly = new Stack<>();
         Stack<Bracket> stackRound = new Stack<>();
         List<Bracket> result = new ArrayList<>();
+
         for (int i = 0; i < symbols.length; i++) {
             if (symbols[i] == '[') {
-                Bracket myBracket = new Bracket(SQUARE_BRACKETS, i);
-                stackSquare.push(myBracket);
+                Bracket myBracket = new Bracket(SQUARE_BRACKETS, i); //создал скобку в конструктор к ней запхнул "[], i"
+                stackSquare.push(myBracket);                         //запушил скобку в стек с начальной позицией (i)
             } else if (symbols[i] == ']' && stackSquare.empty()) {
                 throw new NoValidException();
             } else if (symbols[i] == ']' && !stackSquare.empty()) {
-                Bracket endSquare = stackSquare.pop();
-                if (endSquare != null && endSquare.getSymbol().equals(SQUARE_BRACKETS)) {
-                    endSquare.setEnd(i);
-                    result.add(endSquare);
+                Bracket endSquare = stackSquare.pop();              //создаю ссылку на выдранную из стека скобку типа ("[]", i)
+                if (endSquare != null && endSquare.getSymbol().equals(SQUARE_BRACKETS)) {   //ежели она соответствует [] то
+                    endSquare.setEnd(i);            //у ранее выдратой из стека скобки задаю end
+                    result.add(endSquare);          //вот тут не совсем понял ЧТО ИМЕННО добавляется в итоговый List<Bracket> result
                 }
             }
             if (symbols[i] == '(') {
