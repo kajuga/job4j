@@ -41,13 +41,12 @@ class Converter {
 
             @Override
             public Integer next() {
-                if (hasNext()) {
+                    if (!hasNext()) {
+                        throw new NoSuchElementException();
+                    }
                     return index.next();
-                } else {
-                    throw new NoSuchElementException();
                 }
-            }
-        };
+            };
         return converter;
     }
 }
