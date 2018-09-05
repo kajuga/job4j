@@ -6,44 +6,48 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 /**
+ * Задача 5.1.4. Создать convert(Iterator<Iterator>)
  * Класс-итератор, позволяющий пробегаться по содержимому передаваемых итераторов.
  * @author Fedorov Aleksander (msg2fedorov@gmail.com)
  * @version $Id$
  * @since 0.1
  */
-
-class Converter implements Iterator<Integer> {
-    private Iterator<Iterator<Integer>> iterators;
-    private Iterator<Integer> index;
-
-    @Override
-    public boolean hasNext() {
-        boolean hasNext = false;
-        if (index != null) {
-            hasNext = index.hasNext();
-        }
-        while (!hasNext && iterators.hasNext()) {
-            index = iterators.next();
-            hasNext = index.hasNext();
-        }
-        return hasNext;
-    }
-
-    @Override
-    public Integer next() {
-            if (hasNext()) {
-                return index.next();
-            } else {
-                throw new NoSuchElementException();
-            }
-    }
+class Converter {
 
     Iterator<Integer> convert(Iterator<Iterator<Integer>> it) {
-        Converter converter = new Converter();
-        converter.iterators = it;
-        if (it.hasNext()) {
-            converter.index = it.next();
-        }
+        Iterator<Integer> converter = new Iterator <Integer>() {
+            private Iterator<Iterator<Integer>> iterators;
+            private Iterator<Integer> index;
+
+            {
+                iterators = it;
+                if (it.hasNext()) {
+                    index = it.next();
+                }
+            }
+
+            @Override
+            public boolean hasNext() {
+                boolean hasNext = false;
+                if (index != null) {
+                    hasNext = index.hasNext();
+                }
+                while (!hasNext && iterators.hasNext()) {
+                    index = iterators.next();
+                    hasNext = index.hasNext();
+                }
+                return hasNext;
+            }
+
+            @Override
+            public Integer next() {
+                if (hasNext()) {
+                    return index.next();
+                } else {
+                    throw new NoSuchElementException();
+                }
+            }
+        };
         return converter;
     }
 }
