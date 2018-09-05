@@ -38,18 +38,7 @@ public class EventIterator implements Iterator<Integer> {
         if (hasNext()) {
             Integer result = value[index++];
             return result;
-        } else  {
-            throw new NoSuchElementException();
         }
+        throw new NoSuchElementException();
     }
 }
-
-/*
-оформите так как в трекере if-else-throw
-
-        if (exist) {
-            return key;
-        } else {
-            throw new MenuOutException("Не в диапазоне");
-        }
- */

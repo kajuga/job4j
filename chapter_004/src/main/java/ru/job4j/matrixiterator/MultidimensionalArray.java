@@ -5,6 +5,7 @@ import java.util.NoSuchElementException;
 
 
 /**
+ * Создаем итератор для двухмерного массива.
  * Iterator - модифицируем итератор под свои нужды
  * @author Fedorov Aleksander (msg2fedorov@gmail.com)
  * @version $Id$
