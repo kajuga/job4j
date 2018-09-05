@@ -35,10 +35,11 @@ public class EventIterator implements Iterator<Integer> {
      */
     @Override
     public Integer next() {
-        if (hasNext()) {
-            Integer result = value[index++];
-            return result;
+        if (!hasNext()) {
+            throw new NoSuchElementException();
+        } else {
+        Integer result = value[index++];
+        return result;
         }
-        throw new NoSuchElementException();
     }
 }
