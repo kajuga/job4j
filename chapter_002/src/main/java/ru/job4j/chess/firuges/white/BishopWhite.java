@@ -19,9 +19,7 @@ public class BishopWhite extends Figure {
         int deltaX = dest.x - source.x;
         int deltaY = dest.y - source.y;
         Cell[] steps = new Cell[Math.abs(deltaX)];
-        if (Math.abs(deltaX) != Math.abs(deltaY)) {
-            throw new ImpossibleMoveException();
-        } else {
+        if (Math.abs(deltaX) == Math.abs(deltaY)) {
             int index = 0;
             int stepX = deltaX > 0 ? 1 : -1;
             int stepY = deltaY > 0 ? 1 : -1;
@@ -31,8 +29,9 @@ public class BishopWhite extends Figure {
                  x = x + stepX, y = y + stepY) {
                 steps[index++] = Cell.getCellByXandY(x, y);
             }
+            return steps;
         }
-        return steps;
+        throw new ImpossibleMoveException();
     }
 
     public BishopWhite copy(Cell dest) {
