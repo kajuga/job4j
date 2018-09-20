@@ -15,7 +15,7 @@ import java.util.NoSuchElementException;
 class Converter {
 
     Iterator<Integer> convert(Iterator<Iterator<Integer>> it) {
-        Iterator<Integer> converter = new Iterator <Integer>() {
+        Iterator<Integer> converter = new Iterator<Integer>() {
             private Iterator<Iterator<Integer>> iterators;
             private Iterator<Integer> index;
 
