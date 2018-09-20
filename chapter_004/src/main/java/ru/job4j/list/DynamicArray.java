@@ -35,7 +35,7 @@ public class DynamicArray<E> implements Iterable<E> {
      * Optimisation for modCount location after comment on my first variant.
      * @param modCount
      */
-    private void modCountAdder (int modCount){
+    private void modCountAdder(int modCount) {
         this.modCount++;
     }
 
