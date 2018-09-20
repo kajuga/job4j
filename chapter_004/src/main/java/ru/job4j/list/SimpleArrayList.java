@@ -26,6 +26,7 @@ public class SimpleArrayList<E> {
         Node<E> deleted = this.first;
         this.first = deleted.next;
         deleted.next = null;
+        this.size--;
         return deleted.date;
     }
 
@@ -45,6 +46,14 @@ public class SimpleArrayList<E> {
      */
     public int getSize() {
         return this.size;
+    }
+
+    /**
+     * Set List size
+     * @param size
+     */
+    public void setSize(int size) {
+        this.size = size;
     }
 
     /**
