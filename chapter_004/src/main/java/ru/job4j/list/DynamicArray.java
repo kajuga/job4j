@@ -2,6 +2,7 @@ package ru.job4j.list;
 
 import java.util.ConcurrentModificationException;
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 /** Реализация динамически расширяющегося контейнера
  * @author Fedorov Aleksander (msg2fedorov@gmail.com)
@@ -22,17 +23,20 @@ public class DynamicArray<E> implements Iterable<E> {
      * @return
      */
     public boolean add(E e) {
-        try {
             E[] temp = values;
             values = (E[]) new Object[temp.length + 1];
             System.arraycopy(temp, 0, values, 0, temp.length);
             values[values.length - 1] = e;
-            modCount++;
+            modCountAdder(modCount);
             return true;
-        } catch (ClassCastException ex) {
-            ex.printStackTrace();
-        }
-        return false;
+    }
+
+    /**
+     * Optimisation for modCount location after comment on my first variant.
+     * @param modCount
+     */
+    private void modCountAdder (int modCount){
+        this.modCount++;
     }
 
     /**
@@ -72,13 +76,17 @@ public class DynamicArray<E> implements Iterable<E> {
 
         @Override
         public boolean hasNext() {
+            if (expectedModCount != modCount) {
+                throw new ConcurrentModificationException();
+            }
             return index < values.length;
+
         }
 
         @Override
         public E next() {
-            if (expectedModCount != modCount) {
-                throw new ConcurrentModificationException();
+            if (!hasNext()) {
+                throw new NoSuchElementException();
             }
             return values[index++];
         }
