@@ -14,7 +14,7 @@ public class DynamicArray<E> implements Iterable<E> {
     private int modCount;
 
     DynamicArray() {
-        values = (E[]) new Object[0];
+        values = (E[]) new Object[16];
     }
 
     /**
@@ -23,12 +23,15 @@ public class DynamicArray<E> implements Iterable<E> {
      * @return
      */
     public boolean add(E e) {
-            E[] temp = values;
-            values = (E[]) new Object[temp.length + 1];
+
+        E[] temp = values;
+        if (modCount >= values.length){
+            values = (E[]) new Object[temp.length * 2];
             System.arraycopy(temp, 0, values, 0, temp.length);
-            values[values.length - 1] = e;
-            modCountAdder(modCount);
-            return true;
+        }
+        values[modCount] = e;
+        modCountAdder(modCount);
+        return true;
     }
 
     /**
