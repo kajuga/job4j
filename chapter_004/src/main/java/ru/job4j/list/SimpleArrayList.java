@@ -60,11 +60,11 @@ public class SimpleArrayList<E> {
      * Класс предназначен для хранения данных и хранения ссылки (Node<E> next) на следующий экземпляр
      * @param <E>
      */
-    private class Node<E> {
+    public class Node<E> {
         E date;
         Node<E> next;
 
-        public Node(E date) {
+        private Node(E date) {
             this.date = date;
         }
     }

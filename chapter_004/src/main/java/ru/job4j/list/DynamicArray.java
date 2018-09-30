@@ -25,7 +25,7 @@ public class DynamicArray<E> implements Iterable<E> {
     public boolean add(E e) {
 
         E[] temp = values;
-        if (modCount >= values.length){
+        if (modCount >= values.length) {
             values = (E[]) new Object[temp.length * 2];
             System.arraycopy(temp, 0, values, 0, temp.length);
         }
