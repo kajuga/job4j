@@ -19,6 +19,7 @@ private LinkedArrayList<Integer> list;
         list.add(22);
     }
 
+
     @Test
         public void whenAddedThreeSizeIsThree() {
         assertThat(list.getSize(), is(4));
@@ -41,4 +42,11 @@ private LinkedArrayList<Integer> list;
             list.add(2);
             it.next();
         }
+
+    @Test
+    public void whenAddFourElementsThenDeleteFirstAndLast() {
+        assertThat(list.dropLast(), is(22));
+        assertThat(list.dropFirst(), is(11));
+        assertThat(list.get(0), is(77));
+    }
 }

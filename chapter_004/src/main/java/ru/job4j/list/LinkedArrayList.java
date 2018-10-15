@@ -15,38 +15,31 @@ public class LinkedArrayList<E> implements Iterable {
     private int modCount;
 
     /**
-     * Added a new element in own dynamic LinkedArrayList
-     * @param value - date
+     * Added a new element in dynamic LinkedArrayList
+     * @param date - date
      */
-    public void add(E value) {
-        Node<E> newLink = new Node<>(value);
-        if (firstNode != null) {
-            lastNode.next = newLink;
+    public void add(E date) {
+        addLast(date);
+    }
+
+    /**
+     * Метод addLast - добавляет в конец.
+     * @param date элемент.
+     */
+    private void addLast(E date) {
+        Node<E> lastNode = this.lastNode;
+        Node<E> newNode = new Node<>(lastNode, date, null);
+        this.lastNode = newNode;
+        if (lastNode != null) {
+            lastNode.next = newNode;
         } else {
-            firstNode = newLink;
+            this.firstNode = newNode;
         }
-        lastNode = newLink;
-        sizeAdder(modCount);
+        sizeAdder();
     }
 
     /**
-     * Returns current size of own dynamic LinkedArray structure
-     * @return
-     */
-    public int getSize() {
-        return this.modCount;
-    }
-
-    /**
-     * increment variable madCount method
-     * @param size
-     */
-    private void sizeAdder(int size) {
-        this.modCount++;
-    }
-
-    /**
-     * Getting element from own dynamic LinkedArray structure
+     * Getting Node`s date from own dynamic LinkedArray structure
      */
     public E get(int index) {
         Node<E> result = this.firstNode;
@@ -57,17 +50,74 @@ public class LinkedArrayList<E> implements Iterable {
     }
 
     /**
-     * node realisation in own dynamic LinkedArray structure
-     * @param <E>
+     * Удаляет первый объект из списка.
+     * @return удаляемый объект.
      */
-     private class Node<E> {
-        E date;
-        Node<E> next;
-//        not this time
-//        Node<E> previous;
+    public E dropFirst() {
+        E result = this.firstNode.date;
+        if (modCount > 1) {
+            this.firstNode.next.prev = null;
+            this.firstNode = this.firstNode.next;
+        } else {
+            this.firstNode = null;
+            this.lastNode = null;
+        }
+        sizeDecreaser();
+        return result;
+    }
 
-        private Node(E date) {
+    /**
+     * Удаляет последний объект из списка.
+     * @return удаляемый объект.
+     */
+    public E dropLast() {
+        E result = this.lastNode.date;
+        if (modCount > 1) {
+            this.lastNode.prev.next = null;
+            this.lastNode = this.lastNode.prev;
+        } else {
+            this.firstNode = null;
+            this.lastNode = null;
+        }
+        sizeDecreaser();
+        return result;
+    }
+
+    /**
+     * Return current size of own dynamic LinkedArray structure
+     * @return
+     */
+    public int getSize() {
+        return this.modCount;
+    }
+
+    /**
+     * increment variable madCount method
+     */
+    private void sizeAdder() {
+        this.modCount++;
+    }
+
+    /**
+     * decrement variable madCount method
+     */
+    private void sizeDecreaser() {
+        this.modCount--;
+    }
+
+    /**
+     * node realisation in own dynamic LinkedArray structure
+     * @param <E> параметр определенный при создании класса
+     */
+     private static class Node<E> {
+        E date;
+        Node<E> prev;
+        Node<E> next;
+
+        private Node(Node<E> prev, E date, Node<E> next) {
+            this.prev = prev;
             this.date = date;
+            this.next = next;
         }
     }
 
