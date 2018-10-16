@@ -23,7 +23,6 @@ public class DynamicArray<E> implements Iterable<E> {
      * @return
      */
     public boolean add(E e) {
-
         E[] temp = values;
         if (modCount >= values.length) {
             values = (E[]) new Object[temp.length * 2];
