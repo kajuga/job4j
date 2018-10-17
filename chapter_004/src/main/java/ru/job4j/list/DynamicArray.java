@@ -13,7 +13,7 @@ public class DynamicArray<E> implements Iterable<E> {
     private E[] values;
     private int modCount;
 
-    DynamicArray() {
+    public DynamicArray() {
         values = (E[]) new Object[16];
     }
 
