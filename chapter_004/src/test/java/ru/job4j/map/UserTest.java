@@ -1,17 +1,14 @@
 package ru.job4j.map;
 
 import org.junit.Test;
-
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.Map;
-
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.*;
 
 public class UserTest {
-
     /**
      * Добавляю двух юзеров с одинаковыми полями (не переопределяя hashcode() и equals()) в hashMap'у + проверка добавления, * value - некие Object's, не суть важно что в них.
      * результат = 2 объекта с разными адресами памяти, соответственно - false при сравнении 2 *ихних* хешей и false при сравнении equals() ссылок на эти объекты.
@@ -51,4 +48,20 @@ public class UserTest {
         assertThat(userOne.equals(userTwo), is(false));
     }
 
+    /**
+     * 4. Переопределить только equals
+     * Добавляю в map двух юзеров с переопределенным equals(),  не переопределив hashCode();
+     */
+    @Test
+    public void whenTwoSameUsersWithOverriverEqualsOnly() {
+        Calendar date = new GregorianCalendar(2001, Calendar.FEBRUARY, 12);
+        UserEqualsOverrided userOne = new UserEqualsOverrided("Sashoker", 1, date);
+        UserEqualsOverrided userTwo = new UserEqualsOverrided("Sashoker", 1, date);
+        Map<User, Object> map = new HashMap <>();
+        map.put(userOne, new Object());
+        map.put(userTwo, new Object());
+        assertThat(map.size(), is(2));
+        assertThat(userOne.hashCode() == userTwo.hashCode(), is(false));
+        assertThat(userOne.equals(userTwo), is(true));
+    }
 }
