@@ -35,18 +35,19 @@ public class UserTest {
      * не противоречит принципу *2 разных объекта могут иметть одинаковый хэш (коллизия), но по логике, которая мне нужна - это не разные объекты и в дальнейшем
      * мне нужно будет также переопределить equals().
      */
-    @Test
-    public void whenTwoSameUsersWithOverriverHashCodeOnly() {
-        Calendar date = new GregorianCalendar(2000, Calendar.FEBRUARY, 12);
-        UserHashOverrided userOne = new UserHashOverrided("Sashoker", 1, date);
-        UserHashOverrided userTwo = new UserHashOverrided("Sashoker", 1, date);
-        Map<User, Object> map = new HashMap <>();
-        map.put(userOne, new Object());
-        map.put(userTwo, new Object());
-        assertThat(map.size(), is(2));
-        assertThat(userOne.hashCode() == userTwo.hashCode(), is(true));
-        assertThat(userOne.equals(userTwo), is(false));
-    }
+//    @Test
+//    public void whenTwoSameUsersWithOverriverHashCodeOnly() {
+//        Calendar date = new GregorianCalendar(2000, Calendar.FEBRUARY, 12);
+//        UserHashOverrided userOne = new UserHashOverrided("Sashoker", 1, date);
+//        UserHashOverrided userTwo = new UserHashOverrided("Sashoker", 1, date);
+//        Map<User, Object> map = new HashMap <>();
+//        map.put(userOne, new Object());
+//        map.put(userTwo, new Object());
+//        assertThat(map.size(), is(2));
+//        assertThat(userOne.hashCode() == userTwo.hashCode(), is(true));
+//        assertThat(userOne.equals(userTwo), is(false));
+//        assertThat(map.get(userTwo), is(java.lang.Object@3f8f9d));
+//    }
 
     /**
      * 4. Переопределить только equals
