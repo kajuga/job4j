@@ -7,19 +7,23 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.*;
 
 public class HashMapTest {
-    HashMap<String, String> stringHashMap;
+    HashMap<String, Integer> stringHashMap;
 
     @Before
     public void beforeTest() {
         stringHashMap = new HashMap <>();
-        stringHashMap.insert("aaa", "bbbbb");
-        stringHashMap.insert("xxx", "yyyyy");
-        stringHashMap.insert("ccc", "ddddd");
+        stringHashMap.insert("bob", 15);
+        stringHashMap.insert("qwerty", 777);
+        stringHashMap.insert("terminator", 888);
     }
 
     @Test
     public void whenGetValueByKey() {
-        assertThat(stringHashMap.get("aaa"), is("yyyyy"));
+        assertThat(stringHashMap.get("bob"), is(15));
+        stringHashMap.insert("bob", 888);
+        assertThat(stringHashMap.get("bob"), is(888));
+//        assertThat(stringHashMap.get("qwerty"), is(777));
+
     }
 
 

@@ -50,8 +50,8 @@ public class HashMap<K, V> implements Map<K, V> {
             arrayDoubling();
         }
         //создается нода, присваевается номер бакета (index), куда ее поместить; если не занято, то simpleAdd() реализует добавление
-        Node<K, V> newNode = new Node<> (key, value);
-        int index = newNode.hash;
+        Node<K, V> newNode = new Node<>(key, value);
+        int index = hash(key);
         if(hashTable[index] == null) {
             return simpleAdd(index, newNode);
         }
@@ -176,7 +176,7 @@ public class HashMap<K, V> implements Map<K, V> {
      *
      * @return номер корзины внутреннего массива.
      */
-    public int hash(K key) {
+    private int hash(K key) {
         return hashCode() % hashTable.length;
     }
 
