@@ -44,7 +44,7 @@ public class TreeTest {
     }
 
     /**
-     * Test iterator
+     * Test iterator.
      */
     @Test
     public void whenGetIteratorThenReturnIterator() {
@@ -73,7 +73,7 @@ public class TreeTest {
     }
 
     /**
-     * Test iterator
+     * Test iterator.
      */
     @Test(expected = ConcurrentModificationException.class)
     public void whenCallNextAfterAddNewElementThenReturnException() {
@@ -84,7 +84,7 @@ public class TreeTest {
     }
 
     /**
-     * Test iterator
+     * Test iterator.
      */
     @Test(expected = NoSuchElementException.class)
     public void whenCallNextInEmptyTreeThenReturnException() {
@@ -92,5 +92,22 @@ public class TreeTest {
         Iterator<Integer> it = tree.iterator();
         it.next();
         it.next();
+    }
+
+    /**
+     * isBinary.
+     */
+    @Test
+    public void whenTreeIsNotBinaryThenReturnFalse() {
+        Tree<Integer> tree = new Tree<>(1);
+        tree.add(1, 2);
+        tree.add(1, 3);
+        tree.add(2, 4);
+        assertThat(tree.isBinary(), is(true));
+        tree.add(2, 5);
+        tree.add(3, 6);
+        tree.add(3, 7);
+        tree.add(3, 8);
+        assertThat(tree.isBinary(), is(false));
     }
 }

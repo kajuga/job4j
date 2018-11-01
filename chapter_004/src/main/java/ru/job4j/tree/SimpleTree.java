@@ -5,6 +5,7 @@ import java.util.Optional;
 public interface SimpleTree<E extends Comparable<E>> extends Iterable<E> {
     /**
      * Method add - add child for parent if parent present
+     *
      * @param parent
      * @param child
      * @return
@@ -13,8 +14,16 @@ public interface SimpleTree<E extends Comparable<E>> extends Iterable<E> {
 
     /**
      * Method findBy - find node by value
+     *
      * @param value
      * @return
      */
-    Optional<Node<E>> findBy(E value);
+    Optional <Node <E>> findBy(E value);
+
+    /**
+     * Method isBinary - return true, if tree is binary
+     *
+     * @return
+     */
+    boolean isBinary();
 }
