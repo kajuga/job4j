@@ -4,6 +4,7 @@ import java.util.*;
 
 /**
  * @author Aleksandr Fedorov (msg2fedorov@gmail.com)
+ * Simple Tree realisation/
  */
 public class Tree<E extends Comparable<E>> implements SimpleTree<E> {
     private Node<E> root;
@@ -19,6 +20,12 @@ public class Tree<E extends Comparable<E>> implements SimpleTree<E> {
         return this.size;
     }
 
+    /**
+     * add child to parent node.
+     * @param parent
+     * @param child
+     * @return
+     */
     @Override
     public boolean add(E parent, E child) {
         boolean result = false;
@@ -35,6 +42,11 @@ public class Tree<E extends Comparable<E>> implements SimpleTree<E> {
         return result;
     }
 
+    /**
+     * find node by value using queue features.
+     * @param value
+     * @return
+     */
     @Override
     public Optional<Node<E>> findBy(E value) {
         Optional<Node<E>> result = Optional.empty();

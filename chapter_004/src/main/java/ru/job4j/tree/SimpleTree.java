@@ -3,7 +3,6 @@ package ru.job4j.tree;
 import java.util.Optional;
 
 public interface SimpleTree<E extends Comparable<E>> extends Iterable<E> {
-
     /**
      * Method add - add child for parent if parent present
      * @param parent
