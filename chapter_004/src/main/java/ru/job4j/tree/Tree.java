@@ -89,40 +89,30 @@ public class Tree<E extends Comparable<E>> implements SimpleTree<E> {
     }
 
     final class TreeIterator<E extends Comparable<E>> implements Iterator<E> {
-
-        Queue<Node<E>> data;
-
-        int expectedModCount = modCount;
-
-        @SuppressWarnings("unchecked")
-        public TreeIterator() {
-            this.data = new LinkedList<>();
-            this.data.offer((Node<E>) root);
-            Queue<Node<E>> temp = new LinkedList<>();
-            temp.offer((Node<E>) root);
-            while (!temp.isEmpty()) {
-                Node<E> element = temp.poll();
-                for (Node<E> child : element.leaves()) {
-                    this.data.offer(child);
-                    temp.offer(child);
-                }
-            }
-        }
+        boolean isRoot = false;
+        Queue<Node<E>> data = new LinkedList<>();
 
         @Override
         public boolean hasNext() {
-            return !this.data.isEmpty();
+            return !data.isEmpty() || !isRoot;
         }
 
         @Override
         public E next() {
-            if (!hasNext()) {
+            Node<E> result;
+            if(!hasNext()) {
                 throw new NoSuchElementException();
             }
-            if (this.expectedModCount != modCount) {
-                throw new ConcurrentModificationException();
+            if(!isRoot) {
+                result = (Node<E>) root;
+                isRoot = true;
+            }else {
+                result = data.poll();
             }
-            return this.data.poll().getValue();
+            for (Node<E> child : result.leaves()) {
+                data.offer(child);
+            }
+            return result.getValue();
         }
     }
 }
