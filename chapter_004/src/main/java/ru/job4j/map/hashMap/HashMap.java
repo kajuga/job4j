@@ -37,7 +37,7 @@ public class HashMap<K, V> implements Map<K, V> {
         }
 
         Node<K, V> newNode = new Node<>(key, value);
-        int index = hash(key);
+        int index = indexFor(key);
         if (hashTable[index] == null) {
             return simpleAdd(index, newNode);
         }
@@ -129,7 +129,7 @@ public class HashMap<K, V> implements Map<K, V> {
      */
     @Override
     public boolean delete(final K key) {
-        int index = hash(key);
+        int index = indexFor(key);
             if(hashTable[index] == null) {
                 return false;
             }
@@ -154,7 +154,7 @@ public class HashMap<K, V> implements Map<K, V> {
      */
     @Override
     public V get(final K key) {
-        int index = hash(key);
+        int index = indexFor(key);
         if(index < hashTable.length &&
                 hashTable[index] != null) {
             if (hashTable[index].getNodes().size() == 1) {
@@ -183,11 +183,11 @@ public class HashMap<K, V> implements Map<K, V> {
     }
 
     /**
-     * Переопределил hash ключа для равномерного заполнения hashTable.
+     * Переопределил indexFor ключа для равномерного заполнения hashTable.
      * @param key
      * @return
      */
-    private int hash(final K key) {
+    private int indexFor(final K key) {
         int hash = 31;
         hash = hash * 17 + key.hashCode();
         return hash % hashTable.length;
@@ -238,7 +238,7 @@ public class HashMap<K, V> implements Map<K, V> {
      * Релизация нод в корзине таблицы. Каждая  - LinkedList.
      * @param <K> key.
      * @param <V> value.
-     *  hash - определяет методом % в какую корзину будет записана нода.
+     *  indexFor - определяет методом % в какую корзину будет записана нода.
      */
     private class Node<K, V> {
         private List<Node<K, V>> nodes;
@@ -260,7 +260,7 @@ public class HashMap<K, V> implements Map<K, V> {
             return nodes;
         }
 
-//        private int hash() {
+//        private int indexFor() {
 //            return hashCode() % hashTable.length;
 //        }
 
