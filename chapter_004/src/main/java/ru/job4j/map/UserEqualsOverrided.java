@@ -7,7 +7,7 @@ import java.util.Calendar;
  * Резализация User с переопределенным методом equals().
  */
 
-public class UserEqualsOverrided extends User{
+public class UserEqualsOverrided extends User {
     private String name;
     private int children;
 

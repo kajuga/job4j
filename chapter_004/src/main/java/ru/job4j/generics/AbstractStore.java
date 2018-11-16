@@ -4,7 +4,7 @@ import java.util.Iterator;
 
 
 /**
- * Class for store of objects extends Base.
+ * Class for statistics of objects extends Base.
  * @author Fedorov Aleksander (msg2fedorov@gmail.com)
  * @version $Id$
  * @since 0.1
@@ -12,7 +12,7 @@ import java.util.Iterator;
 public class AbstractStore<T extends Base> implements Store<T> {
 
     /**
-     * Object for store.
+     * Object for statistics.
      */
     private SimpleArray<T> simpleArray = new SimpleArray<>();
 

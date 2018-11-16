@@ -89,30 +89,31 @@ public class Tree<E extends Comparable<E>> implements SimpleTree<E> {
     }
 
     final class TreeIterator<E extends Comparable<E>> implements Iterator<E> {
-        boolean isRoot = false;
-        Queue<Node<E>> data = new LinkedList<>();
+        int expectedModCount = modCount;
+        private LinkedList<Node<E>> childs = new LinkedList(Collections.singletonList(root));
+        private boolean nextExist = root != null;
 
         @Override
         public boolean hasNext() {
-            return !data.isEmpty() || !isRoot;
+            return nextExist;
         }
 
         @Override
         public E next() {
-            Node<E> result;
-            if(!hasNext()) {
+            if (expectedModCount != modCount) {
+                throw new ConcurrentModificationException();
+            }
+            if (!hasNext()) {
                 throw new NoSuchElementException();
             }
-            if(!isRoot) {
-                result = (Node<E>) root;
-                isRoot = true;
-            }else {
-                result = data.poll();
+            E result = null;
+            if (childs.size() != 0) {
+                Node<E> firstOfChilds = childs.pollFirst();
+                childs.addAll(firstOfChilds.leaves());
+                result = firstOfChilds.getValue();
+                nextExist = childs.size() != 0;
             }
-            for (Node<E> child : result.leaves()) {
-                data.offer(child);
-            }
-            return result.getValue();
+            return result;
         }
     }
 }
