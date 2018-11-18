@@ -2,7 +2,6 @@ package ru.job4j.pingpong;
 
 import javafx.scene.shape.Rectangle;
 
-
 /**
  * Rectangle moving realisation
  */
@@ -20,9 +19,10 @@ public class RectangleMove implements Runnable {
             checkMove();
             move();
             try {
-                Thread.sleep(10);
+                Thread.sleep(50);
             } catch (InterruptedException e) {
                 e.printStackTrace();
+                Thread.currentThread().interrupt();
             }
         }
     }
