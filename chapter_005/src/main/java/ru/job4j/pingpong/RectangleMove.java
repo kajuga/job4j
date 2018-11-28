@@ -15,7 +15,7 @@ public class RectangleMove implements Runnable {
     @Override
     public void run() {
         boolean moveStraight = true;
-        while (true) {
+        while (!Thread.currentThread().isInterrupted()) {
             if (this.rect.getX() == 290) {
                 moveStraight = false;
             }
