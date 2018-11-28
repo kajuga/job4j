@@ -7,7 +7,6 @@ import javafx.scene.shape.Rectangle;
  */
 public class RectangleMove implements Runnable {
     private final Rectangle rect;
-    private boolean moveStraight = true;
 
     public RectangleMove(Rectangle rect) {
         this.rect = rect;
@@ -15,38 +14,25 @@ public class RectangleMove implements Runnable {
 
     @Override
     public void run() {
-        while (true) {
-            checkMove();
-            move();
+        boolean moveStraight = true;
+        while (!Thread.currentThread().isInterrupted()) {
+            if (this.rect.getX() == 290) {
+                moveStraight = false;
+            }
+            if (this.rect.getX() == 0) {
+                moveStraight = true;
+            }
+            if (moveStraight) {
+                this.rect.setX(this.rect.getX() + 1);
+            } else {
+                this.rect.setX(this.rect.getX() - 1);
+            }
             try {
-                Thread.sleep(50);
+                Thread.sleep(30);
             } catch (InterruptedException e) {
                 e.printStackTrace();
                 Thread.currentThread().interrupt();
             }
-        }
-    }
-
-    /**
-     * Mooving checker
-     */
-    private void checkMove(){
-        if (this.rect.getX() == 290) {
-            moveStraight = false;
-        }
-        if (this.rect.getX() == 0) {
-            moveStraight = true;
-        }
-    }
-
-    /**
-     * Moover
-     */
-    private void move(){
-        if (moveStraight) {
-            this.rect.setX(this.rect.getX() + 1);
-        } else {
-            this.rect.setX(this.rect.getX() - 1);
         }
     }
 }
