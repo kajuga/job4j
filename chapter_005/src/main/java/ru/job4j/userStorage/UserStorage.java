@@ -12,7 +12,7 @@ public class UserStorage {
     /**
      * Addind user into storage
      */
-    synchronized boolean add(User user) {
+    public synchronized boolean add(User user) {
         if (!userCheck(user)) {
             this.users.put(user.getId(), user);
             return true;
@@ -24,7 +24,7 @@ public class UserStorage {
     /**
      * Update user's amount
      */
-    synchronized boolean update(User user) {
+    public synchronized boolean update(User user) {
         if (userCheck(user)) {
             this.users.put(user.getId(), new User(user.getId(), user.getAmount()));
             return true;
@@ -36,7 +36,7 @@ public class UserStorage {
     /**
      * Delete user from storage
      */
-    synchronized boolean delete(User user) {
+    public synchronized boolean delete(User user) {
         if (userCheck(user)) {
             users.remove(user.getId());
             return true;
@@ -48,7 +48,7 @@ public class UserStorage {
     /**
      * Transfer money
      */
-    synchronized boolean transfer(int fromId, int toId, int amount) {
+    public synchronized boolean transfer(int fromId, int toId, int amount) {
         boolean result = false;
         if (users.containsKey(fromId) && users.containsKey(toId)) {
             if (users.get(fromId).getAmount() > amount) {
@@ -65,7 +65,7 @@ public class UserStorage {
     /**
      * Проверка наличия usera в storage
      */
-    synchronized boolean userCheck(User user) {
+    public synchronized boolean userCheck(User user) {
         if (users.containsKey(user.getId())) {
             return true;
         } else return false;
