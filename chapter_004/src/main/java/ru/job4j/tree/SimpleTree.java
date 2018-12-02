@@ -18,7 +18,7 @@ public interface SimpleTree<E extends Comparable<E>> extends Iterable<E> {
      * @param value
      * @return
      */
-    Optional <Node <E>> findBy(E value);
+    Optional<Node<E>> findBy(E value);
 
     /**
      * Method isBinary - return true, if tree is binary

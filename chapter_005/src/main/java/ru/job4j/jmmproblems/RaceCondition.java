@@ -1,4 +1,4 @@
-package ru.job4j.jmmProblems;
+package ru.job4j.jmmproblems;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,6 +36,11 @@ public class RaceCondition {
             gamer3.start();
 
             while (!isWinnerFound) {
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
             gamer1.interrupt();
             gamer2.interrupt();
@@ -54,8 +59,8 @@ public class RaceCondition {
         @Override
         public void run() {
             try {
-                if(!OnlineGame.isWinnerFound) {
-                    for(String sstr : OnlineGame.steps) {
+                if (!OnlineGame.isWinnerFound) {
+                    for (String sstr : OnlineGame.steps) {
                         sleep(1000 / rating);
                         System.out.println(getName() + " " + sstr);
                     }

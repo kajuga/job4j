@@ -55,7 +55,7 @@ public class DynamicArray<E> implements Iterable<E> {
      * @return
      */
     public int size() {
-        return values.length;
+        return modCount;
     }
 
     @Override

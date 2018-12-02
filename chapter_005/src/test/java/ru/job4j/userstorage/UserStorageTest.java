@@ -1,6 +1,5 @@
-package ru.job4j.userStorage;
+package ru.job4j.userstorage;
 
-import org.junit.Before;
 import org.junit.Test;
 
 

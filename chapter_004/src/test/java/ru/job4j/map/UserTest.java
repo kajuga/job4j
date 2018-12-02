@@ -10,7 +10,7 @@ import static org.junit.Assert.*;
 
 public class UserTest {
     /**
-     * Добавляю двух юзеров с одинаковыми полями (не переопределяя hashcode() и equals()) в hashMap'у + проверка добавления, * value - некие Object's, не суть важно что в них.
+     * Добавляю двух юзеров с одинаковыми полями (не переопределяя hashcode() и equals()) в hashmap'у + проверка добавления, * value - некие Object's, не суть важно что в них.
      * результат = 2 объекта с разными адресами памяти, соответственно - false при сравнении 2 *ихних* хешей и false при сравнении equals() ссылок на эти объекты.
      */
 
@@ -19,7 +19,7 @@ public class UserTest {
         Calendar date = new GregorianCalendar(2000, Calendar.FEBRUARY, 12);
         User userOne = new User("Sashok", 0, date);
         User userTwo = new User("Sashok", 0, date);
-        Map<User, Object> map = new HashMap <>();
+        Map<User, Object> map = new HashMap<>();
         map.put(userOne, new Object());
         map.put(userTwo, new Object());
         assertThat(map.size(), is(2));
@@ -58,7 +58,7 @@ public class UserTest {
         Calendar date = new GregorianCalendar(2001, Calendar.FEBRUARY, 12);
         UserEqualsOverrided userOne = new UserEqualsOverrided("Sashoker", 1, date);
         UserEqualsOverrided userTwo = new UserEqualsOverrided("Sashoker", 1, date);
-        Map<User, Object> map = new HashMap <>();
+        Map<User, Object> map = new HashMap<>();
         map.put(userOne, new Object());
         map.put(userTwo, new Object());
         assertThat(map.size(), is(2));

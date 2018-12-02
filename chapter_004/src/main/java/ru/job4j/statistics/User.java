@@ -42,7 +42,7 @@ public class User {
         if (this == o) {
             return true;
         }
-        if(o instanceof User) {
+        if (o instanceof User) {
             User user = (User) o;
             return (Objects.equals(name, user.getName()) && Objects.equals(id, user.getId()));
         }

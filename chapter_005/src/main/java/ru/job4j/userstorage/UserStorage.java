@@ -1,4 +1,4 @@
-package ru.job4j.userStorage;
+package ru.job4j.userstorage;
 
 import net.jcip.annotations.ThreadSafe;
 
@@ -7,7 +7,7 @@ import java.util.Map;
 
 @ThreadSafe
 public class UserStorage {
-    private volatile Map <Integer, User> users = new HashMap <>();
+    private volatile Map<Integer, User> users = new HashMap<>();
 
     /**
      * Addind user into storage
@@ -66,9 +66,11 @@ public class UserStorage {
      * Проверка наличия usera в storage
      */
     public synchronized boolean userCheck(User user) {
+        boolean result  = false;
         if (users.containsKey(user.getId())) {
-            return true;
-        } else return false;
+            result =  true;
+        }
+        return result;
     }
 
     /**

@@ -11,20 +11,19 @@ import java.util.Map;
 
 public class Store {
 
-    public static Info differences(List <User> previous, List <User> current) {
+    public static Info differences(List<User> previous, List<User> current) {
         int added = 0;
         int changed = 0;
         int deleted = 0;
 
-        Map<Integer, String> userMap = new HashMap<> (current.size());
+        Map<Integer, String> userMap = new HashMap<>(current.size());
         for (User user : current) {
             userMap.put(user.getId(), user.getName());
         }
         for (User prev : previous) {
-            if(!userMap.containsKey(prev.getId())) {
+            if (!userMap.containsKey(prev.getId())) {
                 deleted++;
-            }
-            else if (!prev.getName().equals(userMap.get(prev.getId()))) {
+            } else if (!prev.getName().equals(userMap.get(prev.getId()))) {
                 changed++;
             }
         }

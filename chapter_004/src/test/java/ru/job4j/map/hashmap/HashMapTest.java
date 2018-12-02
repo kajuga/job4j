@@ -1,4 +1,4 @@
-package ru.job4j.map.hashMap;
+package ru.job4j.map.hashmap;
 
 import org.junit.Test;
 import static org.hamcrest.CoreMatchers.is;
@@ -8,7 +8,7 @@ public class HashMapTest {
 
     @Test
     public void whenAddKeySetThenGetValueByKey() {
-        HashMap<String, String> stringHashMap = new HashMap <>();
+        HashMap<String, String> stringHashMap = new HashMap<>();
         stringHashMap.insert("bob", "AAA");
         assertThat(stringHashMap.get("bob"), is("AAA"));
         stringHashMap.insert("bob", "BBB");
@@ -20,7 +20,7 @@ public class HashMapTest {
 
     @Test
     public void whenArrayIsFilledThenGrownTwice() {
-        HashMap<String, String> stringHashMap = new HashMap <>();
+        HashMap<String, String> stringHashMap = new HashMap<>();
         stringHashMap.insert("1", "a");
         stringHashMap.insert("2", "b");
         stringHashMap.insert("3", "c");

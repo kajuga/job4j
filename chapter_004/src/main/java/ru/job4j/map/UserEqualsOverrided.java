@@ -37,19 +37,21 @@ public class UserEqualsOverrided extends User {
 
     @Override
     public boolean equals(Object o) {
-        if(o == null)
-        {
+        if (o == null) {
             return false;
         }
-        if (o == this)
-        {
+        if (o == this) {
             return true;
         }
-        if (getClass() != o.getClass())
-        {
+        if (getClass() != o.getClass()) {
             return false;
         }
         UserEqualsOverrided e = (UserEqualsOverrided) o;
         return (this.getName() == e.getName() && (this.getChildren() == getChildren()));
+    }
+
+    @Override
+    public int hashCode() {
+        return super.hashCode();
     }
 }
