@@ -1,5 +1,6 @@
 package ru.job4j.list;
 
+import net.jcip.annotations.ThreadSafe;
 import java.util.ConcurrentModificationException;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
@@ -9,6 +10,7 @@ import java.util.NoSuchElementException;
  * @version $Id$
  * @since 0.1
  */
+@ThreadSafe
 public class DynamicArray<E> implements Iterable<E> {
     private E[] values;
     private int modCount;
@@ -22,7 +24,7 @@ public class DynamicArray<E> implements Iterable<E> {
      * @param e
      * @return
      */
-    public boolean add(E e) {
+    public synchronized boolean add(E e) {
         E[] temp = values;
         if (modCount >= values.length) {
             values = (E[]) new Object[temp.length * 2];
