@@ -30,7 +30,7 @@ public class ThreadSafeDynamicArray<E> implements Iterable<E> {
         return this.dynamicArray.get(index);
     }
 
-    private DynamicArray<E> snapShot(DynamicArray<E> from) {
+    private synchronized DynamicArray<E> snapShot(DynamicArray<E> from) {
         DynamicArray<E> copy = new DynamicArray<>();
         for (int i = 0; i < from.size(); i++) {
             copy.add(from.get(i));
