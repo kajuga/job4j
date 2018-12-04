@@ -31,7 +31,7 @@ public class SimpleBlockingQueue<E> {
 
     //customer
     public synchronized E poll() throws InterruptedException {
-        while (isEmpty()) {
+        while (this.queue.isEmpty()) {
             wait();
         }
         if (queue.size() > 0) {
