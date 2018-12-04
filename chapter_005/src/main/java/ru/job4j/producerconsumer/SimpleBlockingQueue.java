@@ -15,7 +15,7 @@ public class SimpleBlockingQueue<E> {
     private Queue<E> queue;
 
     public SimpleBlockingQueue() {
-        this.queue = new LinkedList <>();
+        this.queue = new LinkedList<>();
     }
 
     //produser

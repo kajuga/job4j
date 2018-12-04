@@ -18,20 +18,20 @@ public class ThreadSafeDynamicArray<E> implements Iterable<E> {
         this.dynamicArray = dynamicArray;
     }
 
-    public synchronized boolean add (E e) {
+    public synchronized boolean add(E e) {
         return this.dynamicArray.add(e);
     }
 
-    public synchronized int size () {
+    public synchronized int size() {
         return this.dynamicArray.size();
     }
 
-    public synchronized E get (int index) {
+    public synchronized E get(int index) {
         return this.dynamicArray.get(index);
     }
 
     private DynamicArray<E> snapShot(DynamicArray<E> from) {
-        DynamicArray<E> copy = new DynamicArray <>();
+        DynamicArray<E> copy = new DynamicArray<>();
         for (int i = 0; i < from.size(); i++) {
             copy.add(from.get(i));
         }
