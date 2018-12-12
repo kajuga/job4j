@@ -81,6 +81,14 @@
                     </execution>
                 </executions>
             </plugin>
+            <!--<plugin>-->
+                <!--<groupId>com.zenjava</groupId>-->
+                <!--<artifactId>javafx-maven-plugin</artifactId>-->
+                <!--<version>8.8.3</version>-->
+                <!--<configuration>-->
+                    <!--<mainClass>com.kutas.u.Main</mainClass>-->
+                <!--</configuration>-->
+            <!--</plugin>-->
         </plugins>
     </build> 
 </project>

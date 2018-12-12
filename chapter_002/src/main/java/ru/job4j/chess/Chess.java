@@ -18,7 +18,6 @@ import ru.job4j.chess.firuges.white.*;
 
 public class Chess extends Application {
     private static final String JOB4J = "Шахматы на www.job4j.ru";
-    private final int size = 8;
     private final Logic logic = new Logic();
 
     private Rectangle buildRectangle(int x, int y, int size, boolean white) {
@@ -73,8 +72,9 @@ public class Chess extends Application {
 
     private Group buildGrid() {
         Group panel = new Group();
-        for (int y = 0; y != this.size; y++) {
-            for (int x = 0; x != this.size; x++) {
+        int size = 8;
+        for (int y = 0; y != size; y++) {
+            for (int x = 0; x != size; x++) {
                 panel.getChildren().add(
                         this.buildRectangle(x, y, 40, (x + y) % 2 == 0)
                 );
