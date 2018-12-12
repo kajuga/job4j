@@ -11,6 +11,7 @@
 
     <groupId>ru.job4j</groupId>
     <artifactId>chapter_004</artifactId>
+    <packaging>jar</packaging>
 
     <dependencies>
         <dependency>
