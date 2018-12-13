@@ -1,7 +1,5 @@
 package ru.job4j.statistics;
 
-import static org.junit.Assert.*;
-
 import org.junit.Before;
 import org.junit.Test;
 
@@ -20,7 +18,6 @@ import static org.junit.Assert.assertThat;
 public class StoreTest {
     private List<User> previous = new ArrayList<>();
     private List<User> current = new ArrayList<>();
-    private Info info;
 
     @Before
     public void beforeTest() {
@@ -48,7 +45,7 @@ public class StoreTest {
      */
     @Test
     public void whenCallDiffMethodThenReturnStatistics() {
-        info = Store.differences(previous, current);
+        Info info = Store.differences(previous, current);
         assertThat(info.getAddCounter(), is(4));
         assertThat(info.getChangeCounter(), is(2));
         assertThat(info.getDelCounter(), is(3));
