@@ -1,7 +1,7 @@
 package ru.job4j.producerconsumer;
 
 public class Producer extends Thread {
-    private volatile SimpleBlockingQueue<Integer> queue;
+    private SimpleBlockingQueue<Integer> queue;
 
     public Producer(SimpleBlockingQueue queue) {
         this.queue = queue;

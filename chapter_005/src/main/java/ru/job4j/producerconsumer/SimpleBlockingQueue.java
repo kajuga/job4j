@@ -12,24 +12,24 @@ import java.util.Queue;
 
 @ThreadSafe
 public class SimpleBlockingQueue<E> {
-    private Queue<E> queue;
+    private volatile Queue<E> queue;
 
-    public SimpleBlockingQueue() {
+    private SimpleBlockingQueue() {
         this.queue = new LinkedList<>();
     }
 
-    //produser
     public synchronized void offer(E e) throws InterruptedException {
-        int limitChecker = 3;
-        while (this.queue.size() == limitChecker) {
+        int limitCheck = 3;
+        while (this.queue.size() == limitCheck) {
             wait();
-        } if (this.queue.size() < limitChecker) {
+        }
+        if(this.queue.size() < limitCheck) {
             notify();
         }
         this.queue.add(e);
     }
 
-    //customer
+
     public synchronized E poll() throws InterruptedException {
         while (this.queue.isEmpty()) {
             wait();
@@ -40,8 +40,6 @@ public class SimpleBlockingQueue<E> {
         return this.queue.remove();
     }
 
-    //isEmpty checker
-    public synchronized boolean isEmpty() {
-        return this.queue.isEmpty();
-    }
+
+
 }

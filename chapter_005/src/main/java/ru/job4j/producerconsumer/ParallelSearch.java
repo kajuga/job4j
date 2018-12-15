@@ -10,14 +10,16 @@ public class ParallelSearch {
 
     public static void main(String[] args) {
         SimpleBlockingQueue<Integer> queue = new SimpleBlockingQueue<>();
-        final Thread consumer = new Thread(
-                () -> {
-                    while (!Thread.currentThread().isInterrupted()) {
-                        try {
-                            System.out.println(queue.poll());
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                            Thread.currentThread().interrupt();
+        final Thread consumer = new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        while (!Thread.currentThread().isInterrupted()) {
+                            try {
+                                System.out.println(queue.poll());
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                                Thread.currentThread().interrupt();
+                            }
                         }
                     }
                 }

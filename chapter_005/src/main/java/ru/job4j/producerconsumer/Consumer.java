@@ -1,7 +1,7 @@
 package ru.job4j.producerconsumer;
 
 public class Consumer extends Thread {
-    private SimpleBlockingQueue queue;
+    private SimpleBlockingQueue<Integer> queue;
 
     public Consumer(SimpleBlockingQueue queue) {
         this.queue = queue;
@@ -17,7 +17,6 @@ public class Consumer extends Thread {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-
         }
     }
 }
