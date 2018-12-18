@@ -1,7 +1,13 @@
 package ru.job4j.producerconsumer;
 
+import java.util.Random;
+
+/**
+ * Class produser - add 10 any random values in my queue.
+ */
 public class Producer extends Thread {
-    private SimpleBlockingQueue<Integer> queue;
+    private SimpleBlockingQueue <Integer> queue;
+    private Random rnd = new Random();
 
     public Producer(SimpleBlockingQueue queue) {
         this.queue = queue;
@@ -9,12 +15,13 @@ public class Producer extends Thread {
 
     @Override
     public void run() {
-        int product = 0;
         int counter = 0;
+        int product = 0;
         while (counter < 10) {
             counter++;
             try {
-                queue.offer(++product);
+                System.out.println("Размер queue: " + ((queue.sizeInformer() + 1) + ", засунуто число: " + ++product));
+                queue.offer(product);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

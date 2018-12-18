@@ -1,46 +1,34 @@
 package ru.job4j.producerconsumer;
 
+import org.junit.Before;
 import org.junit.Test;
-import java.util.Arrays;
-import java.util.concurrent.CopyOnWriteArrayList;
-import java.util.stream.IntStream;
 
 import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertThat;
 
 public class SimpleBlockingQueueTest {
+    private SimpleBlockingQueue<Integer> queue;
+
+    @Before
+    public void beforeTest() {
+        queue = new SimpleBlockingQueue<>();
+    }
+
+    /**
+     * Test Producer and Consumer with some visualisation added.
+     */
     @Test
-    public void whenFetchAllThenGetIt() throws InterruptedException {
-        final CopyOnWriteArrayList<Integer> buffer = new CopyOnWriteArrayList<>();
-        final SimpleBlockingQueue<Integer> queue = new SimpleBlockingQueue<>();
-        Thread producer = new Thread(
-                () -> IntStream.range(0, 5).forEach(
-                        i -> {
-                            try {
-                                queue.offer(i);
-                            } catch (InterruptedException ie) {
-                                ie.printStackTrace();
-                            }
-                        }
-                )
-        );
+    public void whenRunProducerAndConsumerAsThreadsThenAnyThreadBlockSharedQueue() {
+        Producer producer = new Producer(queue);
+        Consumer consumer = new Consumer(queue);
         producer.start();
-        Thread consumer = new Thread(
-                () -> {
-                    while (!queue.isEmpty() || !Thread.currentThread().isInterrupted()) {
-                        try {
-                            buffer.add(queue.poll());
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                            Thread.currentThread().interrupt();
-                        }
-                    }
-                }
-        );
         consumer.start();
-        producer.join();
-        consumer.interrupt();
-        consumer.join();
-        assertThat(buffer, is(Arrays.asList(0, 1, 2, 3, 4)));
+        try {
+            producer.join();
+            consumer.join();
+        } catch (InterruptedException ie) {
+            ie.printStackTrace();
+        }
+        assertThat(queue.isEmpty(), is(true));
     }
 }

@@ -6,7 +6,7 @@ import java.util.Queue;
 
 /**
  * @author Aleksandr Fedorov (msg2fedorov@gmail.com)
- * synchronized multithreadung strure - queue.
+ * synchronized multithreadung strucure - queue as LinkedList realisation.
  * @param <E>
  */
 
@@ -14,12 +14,20 @@ import java.util.Queue;
 public class SimpleBlockingQueue<E> {
     private volatile Queue<E> queue;
 
-    private SimpleBlockingQueue() {
+    /**
+     * Constructor.
+     */
+    public SimpleBlockingQueue() {
         this.queue = new LinkedList<>();
     }
 
+    /**
+     * fill queue with checker.
+     * @param e - putted element.
+     * @throws InterruptedException
+     */
     public synchronized void offer(E e) throws InterruptedException {
-        int limitCheck = 3;
+        int limitCheck = 10;
         while (this.queue.size() == limitCheck) {
             wait();
         }
@@ -29,7 +37,11 @@ public class SimpleBlockingQueue<E> {
         this.queue.add(e);
     }
 
-
+    /**
+     * Getting element from queue.
+     * @return element.
+     * @throws InterruptedException
+     */
     public synchronized E poll() throws InterruptedException {
         while (this.queue.isEmpty()) {
             wait();
@@ -40,6 +52,12 @@ public class SimpleBlockingQueue<E> {
         return this.queue.remove();
     }
 
+    public int sizeInformer(){
+        return this.queue.size();
+    }
 
-
+    //isEmpty checker
+    public synchronized boolean isEmpty() {
+        return this.queue.isEmpty();
+    }
 }

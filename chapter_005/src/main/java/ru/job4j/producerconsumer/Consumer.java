@@ -13,7 +13,8 @@ public class Consumer extends Thread {
         while (counter < 10) {
             counter++;
             try {
-                queue.poll();
+//                queue.poll();
+                System.out.println("Размер queue: " + (queue.sizeInformer() - 1) + ", вытащено число: " + queue.poll());
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
