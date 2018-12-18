@@ -9,7 +9,6 @@ import java.util.Queue;
  * synchronized multithreadung strucure - queue as LinkedList realisation.
  * @param <E>
  */
-
 @ThreadSafe
 public class SimpleBlockingQueue<E> {
     private volatile Queue<E> queue;

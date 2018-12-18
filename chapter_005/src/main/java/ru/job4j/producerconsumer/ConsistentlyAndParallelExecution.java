@@ -4,7 +4,6 @@ package ru.job4j.producerconsumer;
  * @author Aleksandr Fedorov (msg2fedorov@gmail.com)
  * Реализация последовательной работы связки "producer-consumer"
  */
-
 public class ConsistentlyAndParallelExecution {
     public static void main(String[] args) throws InterruptedException {
         SimpleBlockingQueue<Integer> queue = new SimpleBlockingQueue<>();
