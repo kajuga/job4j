@@ -11,9 +11,12 @@ public class ConsistentlyAndParallelExecution {
         Thread comsumer = new Thread(new Consumer(queue));
         //запуск поседовательно:
         producer.run();
+        producer.join();
+        Thread.sleep(1000);
         comsumer.run();
+        comsumer.join();
         System.out.println("Size my queue is: " + queue.sizeInformer());
         System.out.println("Последовательный запуск завершен!");
-        Thread.sleep(3000);
+        Thread.sleep(2000);
     }
 }

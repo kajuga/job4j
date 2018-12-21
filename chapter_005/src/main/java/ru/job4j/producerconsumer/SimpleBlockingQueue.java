@@ -10,8 +10,9 @@ import java.util.Queue;
  * @param <E>
  */
 @ThreadSafe
-public class SimpleBlockingQueue<E> {
+public class SimpleBlockingQueue<E> implements BlackFlag {
     private volatile Queue<E> queue;
+    volatile boolean alldone = BlackFlag.alldone;
 
     /**
      * Constructor.
@@ -25,15 +26,16 @@ public class SimpleBlockingQueue<E> {
      * @param e - putted element.
      * @throws InterruptedException
      */
-    public synchronized void offer(E e) throws InterruptedException {
-        int limitCheck = 10;
-        while (this.queue.size() == limitCheck) {
-            wait();
+    public void offer(E e) throws InterruptedException {
+        synchronized (this) {
+            while (alldone) {
+                this.wait();
+            }
+            if (isEmpty()) {
+                this.notify();
+            }
+            this.queue.add(e);
         }
-        if(this.queue.size() < limitCheck) {
-            notify();
-        }
-        this.queue.add(e);
     }
 
     /**
@@ -41,14 +43,16 @@ public class SimpleBlockingQueue<E> {
      * @return element.
      * @throws InterruptedException
      */
-    public synchronized E poll() throws InterruptedException {
-        while (this.queue.isEmpty()) {
-            wait();
+    public  E poll() throws InterruptedException {
+        synchronized (this) {
+            while (isEmpty()) {
+                this.wait();
+            }
+            if (!isEmpty()) {
+                this.notify();
+            }
+            return this.queue.remove();
         }
-        if (queue.size() > 0) {
-            notify();
-        }
-        return this.queue.remove();
     }
 
     public int sizeInformer(){
