@@ -1,10 +1,19 @@
 package ru.job4j.nonblockingcache;
 
-public class Base {
-    String name;
-    int id;
-    int ver;
+/**
+ * Class Base with getters, setters and other stuff;
+ */
 
+public class Base {
+    private String name;
+    private int id;
+    private int ver;
+
+    /**
+     * constructor
+     * @param id
+     * @param name
+     */
     public Base(int id, String name) {
         this.name = name;
         this.id = id;
@@ -26,7 +35,11 @@ public class Base {
         this.name = name;
     }
 
-    int countVersion(){
+    public void setVer(int ver) {
+        this.ver = ver;
+    }
+
+    public int countVersion(){
        return ver++;
     }
 }

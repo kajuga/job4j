@@ -2,14 +2,12 @@ package ru.job4j.nonblockingcache;
 
 import org.junit.Before;
 import org.junit.Test;
-
-import java.util.concurrent.atomic.AtomicReference;
-
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.IsNull.nullValue;
 import static org.junit.Assert.*;
 
 public class NonBlockingCacheTest {
+    private volatile boolean optimisticExceptionIsOn = false;
     private NonBlockingCache nonBlockingCache = new NonBlockingCache();
 
     @Before
@@ -66,64 +64,41 @@ public class NonBlockingCacheTest {
         assertThat(nonBlockingCache.getModel(1).getName(), is("Pedro"));
     }
 
-
     /**
-     * Test update in threads
+     * Test update in threads -
      */
     @Test
-    public void whenRun2ThreadsForUpdateOneObjectInCacheThenVersionChanged() {
-        AtomicReference <Exception> ex = new AtomicReference <>();
-        Thread threadOne = new Thread(() -> {
-            int counter = 0;
-            while (counter < 10) {
-                counter++;
-                Base model = nonBlockingCache.getModel(1);
-                model.setName("Semen");
-//                Base modelCopy = new Base(model.id, model.name);
-//                modelCopy.countVersion();
-//                modelCopy.setName("Atos");
+    public void nonblockingOptimisticExceptionTest() {
+        Base modelForTestThreads = nonBlockingCache.getModel(1);
+        nonBlockingCache.add(modelForTestThreads);
+
+        Runnable r = () -> {
+            while(!Thread.currentThread().isInterrupted()) {
+                modelForTestThreads.setVer(modelForTestThreads.getVer() + 1);
                 try {
-                    nonBlockingCache.update(model);
+                    nonBlockingCache.update(modelForTestThreads);
                 } catch (OptimisticException e) {
-                    ex.set(e);
-                }
-//
-//                model = nonBlockingCache.getModel(2);
-//                model.setName("Barbos");
-//                nonBlockingCache.update(model);
-            }
-        });
-
-
-        Thread threadTwo = new Thread(() -> {
-            int counter = 0;
-            while (counter < 10) {
-                counter++;
-                Base model = nonBlockingCache.getModel(1);
-                Base modelCopy = new Base(model.id, model.name);
-                modelCopy.countVersion();
-                modelCopy.setName("Atos");
-
-//                model.setName("BAtos");
-                try {
-                    nonBlockingCache.update(modelCopy);
-                } catch (OptimisticException e) {
-                    ex.set(e);
+                    optimisticExceptionIsOn = true;
+                    break;
                 }
             }
-        });
-        threadOne.start();
-        threadTwo.start();
+        };
+
+        Thread firstThread = new Thread(r);
+        Thread secondThread = new Thread(r);
+
+        firstThread.start();
+        secondThread.start();
+
         try {
-            threadOne.join();
-            threadTwo.join();
+            Thread.sleep(2000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        assertThat(nonBlockingCache.getModel(1).getName(), is("Semen"));
-//        assertThat(cache.get(2).getName(), is("Oleg"));
-        assertThat(nonBlockingCache.getModel(1).getVer(), is(10));
-//        assertThat(nonBlockingCache.get(2).getVersion(), is(10));
+
+        firstThread.interrupt();
+        secondThread.interrupt();
+
+        assertTrue(optimisticExceptionIsOn);
     }
 }
-
