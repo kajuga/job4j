@@ -17,12 +17,7 @@ public class FunctionEvaluation {
 
     public static void main(String[] args) {
         FunctionEvaluation funcEva = new FunctionEvaluation();
-        funcEva.diapason(5, 8, new Function <Integer>() {
-            @Override
-            public Integer calc(Integer x) {
-                return 2 * x + 1;
-            }
-        });
+        funcEva.diapason(5, 8, (x) -> 2 * x + 1);
     }
 }
 
