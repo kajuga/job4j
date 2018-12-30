@@ -2,15 +2,16 @@ package ru.job4j.lambda;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.UnaryOperator;
 //import java.util.function.Function;
 
 public class FunctionEvaluation {
 
 
-    List <Integer> diapason(int start, int end, Function<Integer> func) {
-        List <Integer> result = new ArrayList <>();
+    List<Integer> diapason(int start, int end, UnaryOperator<Integer> unar) {
+        List<Integer> result = new ArrayList<>();
         for (int index = start; index != end; index++) {
-            result.add(func.calc(index));
+            result.add(unar.apply(index));
         }
         return result;
     }
@@ -27,6 +28,10 @@ public class FunctionEvaluation {
 /*
 List<Double> diapason(int start, int end, Function<Double, Double> func);
 Линейной называется функция вида y=kx+by=kx+b, где kk и bb ­– любые числа (они называются коэффициентами).
-Другими словами, линейная функция – это такая зависимость, что функция прямо пропорциональна аргументу.
+
+Квадратичной функцией называется функция вида y=ax2+bx+c, где a,b,c - числа, причем a≠0
+
+Функцию, заданную формулой  y=logax , называют логарифмической функцией с основанием  a .
+(a>0,a≠1) .
 
  */
