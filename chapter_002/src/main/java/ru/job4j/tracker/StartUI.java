@@ -1,8 +1,13 @@
 package ru.job4j.tracker;
 
 import java.io.IOException;
+import java.util.function.Consumer;
 
 public class StartUI {
+    /**
+     *...
+     */
+    private final Consumer<String> output;
     /**
      * Получение данных от пользователя.
      */
@@ -18,16 +23,17 @@ public class StartUI {
      * @param input   ввод данных.
      * @param tracker хранилище заявок.
      */
-    public StartUI(Input input, Tracker tracker) {
+    public StartUI(Input input, Tracker tracker, Consumer<String> output) {
         this.input = input;
         this.tracker = tracker;
+        this.output = output;
     }
 
     /**
      * Основой цикл программы.
      */
     public void init() throws IOException {
-        MenuTracker menu = new MenuTracker(this.input, this.tracker);
+        MenuTracker menu = new MenuTracker(this.input, this.tracker, this.output);
         menu.fillActions();
         do {
             menu.show();
@@ -43,6 +49,6 @@ public class StartUI {
      * @param args
      */
     public static void main(String[] args) throws IOException {
-        new StartUI(new ValidateInput(new ConsoleInput()), new Tracker()).init();
+        new StartUI(new ValidateInput(new ConsoleInput()), new Tracker(), System.out::println).init();
     }
 }

@@ -1,5 +1,10 @@
 package ru.job4j.tracker.actions;
 
+import ru.job4j.tracker.Input;
+import ru.job4j.tracker.Tracker;
+
+import java.io.IOException;
+
 public abstract class BaseAction implements UserAction {
 
     private final int key;
@@ -9,6 +14,13 @@ public abstract class BaseAction implements UserAction {
         this.key = key;
         this.name = name;
     }
+
+    @Override
+    public void execute(Input input, Tracker tracker) throws IOException {
+
+    }
+
+
 
     @Override
     public int key() {

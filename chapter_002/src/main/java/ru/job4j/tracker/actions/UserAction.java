@@ -4,6 +4,7 @@ import ru.job4j.tracker.Input;
 import ru.job4j.tracker.Tracker;
 
 import java.io.IOException;
+import java.util.function.Consumer;
 
 public interface UserAction {
     int key();
