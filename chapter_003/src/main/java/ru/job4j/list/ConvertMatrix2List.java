@@ -1,7 +1,9 @@
 package ru.job4j.list;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Конвертация двухмерного массива в Arraylist
@@ -11,14 +13,16 @@ import java.util.List;
  */
 
 public class ConvertMatrix2List {
+    /**
+     * Метод конвертирует двумерный массив в ArrayList
+     * @param array входной двумерный массив с данными.
+     * @return ArrayList.
+     */
     public List<Integer> toList(int[][] array) {
-        List<Integer> list = new ArrayList<>();
-        for (int i = 0; i < array.length; i++) {
-            for (int j = 0; j < array[i].length; j++) {
-                list.add(array[i][j]);
-            }
-        }
-        return list;
+        return Arrays.stream(array)
+                .flatMapToInt(Arrays::stream)
+                .boxed()
+                .collect(Collectors.toCollection(ArrayList::new));
     }
 
         public List<Integer> toListWithForEach(int[][] array) {

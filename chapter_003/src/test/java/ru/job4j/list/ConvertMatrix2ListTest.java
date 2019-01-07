@@ -22,6 +22,15 @@ public class ConvertMatrix2ListTest {
     }
 
     @Test
+    public void when2on2ArrayThenList4ver2() {
+        ConvertMatrix2List matrix = new ConvertMatrix2List();
+        int[][] arr = {{1, 2, 3}, {4, 5, 6}};
+        List<Integer> result = matrix.toList(arr);
+        List<Integer> expect = Arrays.asList(1, 2, 3, 4, 5, 6);
+        assertThat(expect, is(result));
+    }
+
+    @Test
     public void when2on2ArrayThenList4WithForEach() {
         ConvertMatrix2List list = new ConvertMatrix2List();
         int[][] input = {
