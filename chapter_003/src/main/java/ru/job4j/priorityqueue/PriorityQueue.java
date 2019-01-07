@@ -1,5 +1,6 @@
 package ru.job4j.priorityqueue;
 
+import java.util.Comparator;
 import java.util.LinkedList;
 
 public class PriorityQueue {
@@ -18,14 +19,8 @@ public class PriorityQueue {
     }
 
     public Task take() {
-        return this.tasks.poll();
+        return this.tasks.stream()
+//                .sorted((x, y) -> x.getPriority()-y.getPriority()).findFirst().get();
+                .sorted(Comparator.comparingInt(Task::getPriority)).findFirst().get();
     }
 }
-
-/*
-public List<Person> find(String key) {
-        return this.persons.stream()
-                .filter(p -> p.getName().contains(key) || p.getAddress().contains(key) || p.getPhone().contains(key) || p.getSurname().contains(key))
-                .collect(Collectors.toList());
-    }
- */
