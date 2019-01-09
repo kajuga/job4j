@@ -1,7 +1,5 @@
 package ru.job4j.tracker;
 
-import java.io.IOException;
-
 public class StubInput implements Input {
     /**
      * Это поле содержит последовательность ответов пользователя.
@@ -19,10 +17,6 @@ public class StubInput implements Input {
      * При каждом вызове надо передвинуть указатель на новое число.
      */
     private int position;
-
-
-
-
 
     public StubInput(final String[] value) {
         this.value = value;

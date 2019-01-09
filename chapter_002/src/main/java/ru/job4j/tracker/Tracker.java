@@ -1,6 +1,8 @@
 package ru.job4j.tracker;
 
 import java.util.*;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 /**
  * @version $Id$
@@ -93,33 +95,23 @@ public class Tracker {
      * @return
      */
     public Item[] findByName(String key) {
-        Item[] temp = new Item[this.items.length];
-        int count = 0;
-        for (Item item : this.items) {
-            if (item != null && item.getName() != null && item.getName().equals(key)) {
-                temp[count++] = item;
-            }
-        }
-        Item[] result = new Item[count];
-        System.arraycopy(temp, 0, result, 0, count);
-        return result;
+            return Arrays.stream(items)
+                .filter(p -> p != null && p.getName() != null && p.getName().equals(key))
+                .toArray(Item[]::new);
+
     }
 
     /**
      * Метод проверяет в цикле все элементы массива this.items,
      * сравнивая id с аргументом String id и возвращает найденный Item.
+     * UPD Переделал на Stream
      *
      * @param id
      * @return
      */
     public Item findById(String id) {
-        Item result = null;
-        for (Item item : items) {
-            if (item != null && item.getId().equals(id)) {
-                result = item;
-                break;
-            }
-        }
-        return result;
+        return  Arrays.stream(items)
+                .filter(p -> p.getId().equals(id))
+                .findAny().get();
     }
 }
