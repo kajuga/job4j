@@ -74,18 +74,13 @@ public class Tracker {
 
     /**
      * Метод public Item[] findAll() возвращает копию массива this.items без null элементов.
-     *
+     * Переделал на stream
      * @return Возвращаемый массив без null;
      */
     public Item[] findAll() {
-        Item[] result = new Item[items.length];
-        int count = 0;
-        for (Item item : this.items) {
-            if (item != null) {
-                result[count++] = item;
-            }
-        }
-        return Arrays.copyOf(result, count);
+        return Arrays.stream(items)
+                .filter(p -> p != null)
+                .toArray(Item[]::new);
     }
 
     /**
