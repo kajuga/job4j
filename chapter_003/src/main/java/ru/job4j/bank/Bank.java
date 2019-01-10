@@ -1,11 +1,9 @@
 package ru.job4j.bank;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
 
-    /**
+/**
     * Bank - перевод суммы со счета на счет
     * @author Fedorov Aleksander (msg2fedorov@gmail.com)
     * @version $Id$
@@ -48,18 +46,15 @@ import java.util.Map;
 
         /**
         * Получить список счетов user'a
+         * Исправил на stream API
         * @param id
         * @return
         */
         public List<Account> getUserAccount(String id) {
-            List<Account> result = new ArrayList<>();
-            for (User user : users.keySet()) {
-                if (user.getId().equals(id)) {
-                    result = users.get(user);
-                    break;
-                }
-            }
-            return result;
+            return users.entrySet().stream()
+                    .filter(p -> p.getKey().getId().equals(id))
+                    .findAny()
+                    .map(p -> p.getValue()).get();
         }
 
         /**
@@ -69,17 +64,11 @@ import java.util.Map;
         * @return
         */
         public Account getAccById(String id, String details) {
-            Account result = null;
-            for (Map.Entry<User, List<Account>> entry : users.entrySet()) {
-                if (entry.getKey().getId().equals(id)) {
-                    for (Account account : entry.getValue()) {
-                        if (account.getDetails().equals(details)) {
-                            result = account;
-                        }
-                    }
-                }
-            }
-            return result;
+            return users.entrySet().stream()
+                    .filter(p -> p.getKey().getId().equals(id))
+                    .flatMap(p -> p.getValue().stream())
+                    .filter(account -> account.getDetails().equals(details))
+                    .findFirst().get();
         }
 
         /**
