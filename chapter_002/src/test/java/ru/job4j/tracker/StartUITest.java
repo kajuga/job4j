@@ -15,6 +15,7 @@ import static org.junit.Assert.assertThat;
 
 /**
  * @author Aleksandr Fedorov (msg2fedorov@gmail.com)
+ * Consumer task edition
  * @version $Id$
  * @since 0.1
  */
