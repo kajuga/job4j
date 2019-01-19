@@ -29,7 +29,7 @@ public class ByteStreamAuditorTest {
      * Поток считвывает целое нечетное число
      */
     @Test
-    public void whenInputStreamReadOddThenIsNumberIsTrue() {
+    public void whenInputStreamReadOddThenIsNumberIsFalse() {
         int value = 123456789;
         byte[] bytes = ByteBuffer.allocate(4).putInt(value).array();
         ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(bytes);
