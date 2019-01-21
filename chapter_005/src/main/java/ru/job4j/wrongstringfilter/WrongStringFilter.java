@@ -1,7 +1,6 @@
 package ru.job4j.wrongstringfilter;
 
 import java.io.*;
-import java.util.Scanner;
 
 /**
  * Реализация функционала фильтрации строкового потока
@@ -10,24 +9,19 @@ import java.util.Scanner;
 public class WrongStringFilter {
 
     public void dropAbuses(InputStream in, OutputStream out, String[] abuse) {
-        try {
-            Scanner scanner = new Scanner(in);
-            while (scanner.hasNext()) {
-                String temp = scanner.next();
-                boolean isAbuse = false;
-                for (int i = 0; i < abuse.length; i++) {
-                    if (abuse[i].equals(temp)) {
-                        isAbuse = true;
-                    }
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(in));
+             BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(out))) {
+            while (br.ready()) {
+                String stringLine = br.readLine();
+                for (String str : abuse) {
+                    stringLine = stringLine.replaceAll(str + " ", "");             //с регулярными выражениями мучался-мучался в итоге вот так вот оставил
                 }
-                if (!isAbuse) {
-                    temp += " ";
-                    out.write(temp.getBytes());
-                }
+                bw.write(stringLine);
             }
-            out.close();
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println(e);
+        } catch (NullPointerException e) {
+            throw e;
         }
     }
 }

@@ -8,7 +8,7 @@ import static org.junit.Assert.*;
 
 public class WrongStringFilterTest {
     private WrongStringFilter wrongStringFilter = new WrongStringFilter();
-    private String[] abuse = {"five", "three", "four"};
+    private String[] abuse = {"one", "three", "four"};
 
     @Test
     public void whenFindAbuseWordsShouldDelete() {
@@ -17,9 +17,9 @@ public class WrongStringFilterTest {
 
         System.setOut(new PrintStream(out));
         wrongStringFilter.dropAbuses(in, out, abuse);
-        assertThat(out.toString(), is("one two "));
+        assertThat(out.toString(), is("two five"));
 
-        final String target = "one two ";
+        final String target = "two five";
         assertThat(out.toString(), is(target));
 
         } catch (IOException e) {
