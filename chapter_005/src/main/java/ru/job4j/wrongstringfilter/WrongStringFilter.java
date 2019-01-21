@@ -1,6 +1,7 @@
 package ru.job4j.wrongstringfilter;
 
 import java.io.*;
+import java.util.Arrays;
 
 /**
  * Реализация функционала фильтрации строкового потока
@@ -13,10 +14,11 @@ public class WrongStringFilter {
              BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(out))) {
             while (br.ready()) {
                 String stringLine = br.readLine();
-                for (String str : abuse) {
-                    stringLine = stringLine.replaceAll(str + " ", "");             //с регулярными выражениями мучался-мучался в итоге вот так вот оставил
+                for (String str : stringLine.split("\\W")) {
+                    if (Arrays.stream(abuse).noneMatch(x -> str.equals(x))) {
+                        bw.write(str + " ");
+                    }
                 }
-                bw.write(stringLine);
             }
         } catch (IOException e) {
             System.out.println(e);

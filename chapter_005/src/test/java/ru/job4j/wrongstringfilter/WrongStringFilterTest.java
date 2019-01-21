@@ -12,14 +12,14 @@ public class WrongStringFilterTest {
 
     @Test
     public void whenFindAbuseWordsShouldDelete() {
-        try (InputStream in = new ByteArrayInputStream("one two three four five".getBytes());
+        try (InputStream in = new ByteArrayInputStream("one one two three four five four four one".getBytes());
              OutputStream out = new ByteArrayOutputStream()) {
 
         System.setOut(new PrintStream(out));
         wrongStringFilter.dropAbuses(in, out, abuse);
-        assertThat(out.toString(), is("two five"));
+        assertThat(out.toString(), is("two five "));
 
-        final String target = "two five";
+        final String target = "two five ";
         assertThat(out.toString(), is(target));
 
         } catch (IOException e) {
