@@ -11,7 +11,7 @@ import java.util.Map;
  */
 @ThreadSafe
 public class UserStorage {
-    private volatile Map <Integer, User> users = new HashMap <>();
+    private volatile Map<Integer, User> users = new HashMap<>();
 
     /**
      * add any user'

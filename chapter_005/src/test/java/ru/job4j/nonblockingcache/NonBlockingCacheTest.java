@@ -73,7 +73,7 @@ public class NonBlockingCacheTest {
         nonBlockingCache.add(modelForTestThreads);
 
         Runnable r = () -> {
-            while(!Thread.currentThread().isInterrupted()) {
+            while (!Thread.currentThread().isInterrupted()) {
                 modelForTestThreads.setVer(modelForTestThreads.getVer() + 1);
                 try {
                     nonBlockingCache.update(modelForTestThreads);

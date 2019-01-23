@@ -12,7 +12,6 @@
     <groupId>ru.job4j</groupId>
     <artifactId>chapter_005</artifactId>
     <packaging>pom</packaging>
-
     <dependencies>
         <dependency>
             <groupId>net.jcip</groupId>
@@ -24,7 +23,34 @@
             <artifactId>chapter_004</artifactId>
             <version>2.0</version>
         </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
+        </dependency>
     </dependencies>
 
+
+
+    <build>
+        <directory>${project.basedir}/target</directory>
+        <outputDirectory>${project.build.directory}/target/classes</outputDirectory>
+        <testOutputDirectory>${project.build.directory}/target/test-classes</testOutputDirectory>
+        <sourceDirectory>${project.basedir}/src/main/java</sourceDirectory>
+        <scriptSourceDirectory>src/main/scripts</scriptSourceDirectory>
+        <testSourceDirectory>${project.basedir}/src/test/java</testSourceDirectory>
+
+        <resources>
+            <resource>
+                <directory>${project.basedir}/src/main/resources</directory>
+            </resource>
+        </resources>
+
+        <testResources>
+            <testResource>
+                <directory>${project.basedir}/src/test/resources</directory>
+            </testResource>
+        </testResources>
+    </build>
 
 </project>

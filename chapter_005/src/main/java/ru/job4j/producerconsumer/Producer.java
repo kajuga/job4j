@@ -3,9 +3,9 @@ package ru.job4j.producerconsumer;
 /**
  * Class produser - add 15 any values in my queue.
  */
-public class Producer extends Thread implements BlackFlag {
-    private final SimpleBlockingQueue <Integer> queue;
-    boolean alldone = BlackFlag.alldone;
+public class Producer extends Thread {
+    private final SimpleBlockingQueue<Integer> queue;
+    boolean alldone = false;
 
 
     public Producer(SimpleBlockingQueue<Integer> queue) {

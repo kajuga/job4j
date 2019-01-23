@@ -10,8 +10,8 @@ import java.util.function.UnaryOperator;
  */
 
 public class FunctionEvaluation {
-    List <Double> diapason(int start, int end, UnaryOperator <Double> unar) {
-        List <Double> result = new ArrayList <>();
+    List<Double> diapason(int start, int end, UnaryOperator<Double> unar) {
+        List<Double> result = new ArrayList<>();
         for (int index = start; index != end; index++) {
             result.add(unar.apply((double) index));
         }

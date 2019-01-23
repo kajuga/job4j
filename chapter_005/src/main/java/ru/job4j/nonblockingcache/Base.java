@@ -39,7 +39,7 @@ public class Base {
         this.ver = ver;
     }
 
-    public int countVersion(){
+    public int countVersion() {
        return ver++;
     }
 }

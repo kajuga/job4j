@@ -8,7 +8,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * Nonblocking cash for models storage realisation
  */
 public class NonBlockingCache {
-    private Map <Integer, Base> hashCash = new ConcurrentHashMap<>();
+    private Map<Integer, Base> hashCash = new ConcurrentHashMap<>();
 
     /**
      * adds model
@@ -25,7 +25,7 @@ public class NonBlockingCache {
      */
     public void update(Base model) throws OptimisticException {
         hashCash.computeIfPresent(model.getId(), (key, value) ->  {
-            if(hashCash.get(key).getVer() == model.getVer()) {
+            if (hashCash.get(key).getVer() == model.getVer()) {
                 model.countVersion();
                 return model;
             } else {

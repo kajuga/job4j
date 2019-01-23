@@ -31,7 +31,7 @@ public class StartUITest {
 
     private final PrintStream stdout = System.out;
     private final ByteArrayOutputStream out = new ByteArrayOutputStream();
-    private final Consumer<String> output = new Consumer <String>() {
+    private final Consumer<String> output = new Consumer<String>() {
         private final PrintStream stdout = new PrintStream(out);
 
         @Override

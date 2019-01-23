@@ -10,9 +10,9 @@ import java.util.Queue;
  * @param <E>
  */
 @ThreadSafe
-public class SimpleBlockingQueue<E> implements BlackFlag {
+public class SimpleBlockingQueue<E> {
     private volatile Queue<E> queue;
-    volatile boolean alldone = BlackFlag.alldone;
+    volatile boolean alldone = false;
 
     /**
      * Constructor.
@@ -55,7 +55,7 @@ public class SimpleBlockingQueue<E> implements BlackFlag {
         }
     }
 
-    public int sizeInformer(){
+    public int sizeInformer() {
         return this.queue.size();
     }
 
