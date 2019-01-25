@@ -12,19 +12,20 @@ public class Chat {
              BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("/home/kajuga/projects/job4j/chapter_005/src/main/java/ru/job4j/chatconsole/savedDialog.txt", true));
              Scanner scanner = new Scanner(System.in)) {
 
-            String humanText;
+
             String botTextLine;
-            ArrayList<String> stringArrayList = new ArrayList<> ();
+            ArrayList<String> stringArrayList = new ArrayList<>();
 
             while ((botTextLine = bufferedReader.readLine()) != null) {
                 stringArrayList.add(botTextLine);
             }
             boolean stopFlag = false;
-            while (!(humanText = scanner.nextLine()).equalsIgnoreCase("finish")) {
-                if (humanText.equalsIgnoreCase("stop")){
+            String humanText = scanner.nextLine();
+            while (!"finish".equalsIgnoreCase(humanText)) {
+                if ("stop".equalsIgnoreCase(humanText)) {
                     stopFlag = true;
                 }
-                if (humanText.equalsIgnoreCase("continue")){
+                if (humanText.equalsIgnoreCase("continue")) {
                     stopFlag = false;
                 }
                 bufferedWriter.write(humanText + "\n");
@@ -33,6 +34,7 @@ public class Chat {
                     System.out.println(botSay);
                     bufferedWriter.write(botSay + "\n");
                 }
+                humanText = scanner.nextLine();
             }
             bufferedWriter.write(humanText);
             bufferedWriter.flush();
