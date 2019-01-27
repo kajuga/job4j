@@ -2,19 +2,24 @@ package ru.job4j.chatconsole;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
 public class Chat {
 
+    public static void main(String[] args) throws IOException {
+        new Chat().chatter();
+    }
+
     public void chatter() {
-        try (BufferedReader bufferedReader = new BufferedReader(new FileReader("/home/kajuga/projects/job4j/chapter_005/src/main/java/ru/job4j/chatconsole/textForBot.txt"));
-             BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("/home/kajuga/projects/job4j/chapter_005/src/main/java/ru/job4j/chatconsole/savedDialog.txt", true));
+        try (BufferedReader bufferedReader = new BufferedReader(new FileReader("chapter_005/src/main/java/ru/job4j/chatconsole/textForBot.txt"));
+             BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("chapter_005/src/main/java/ru/job4j/chatconsole/savedDialog.txt", true));
              Scanner scanner = new Scanner(System.in)) {
 
 
             String botTextLine;
-            ArrayList<String> stringArrayList = new ArrayList<>();
+            List<String> stringArrayList = new ArrayList<>();
 
             while ((botTextLine = bufferedReader.readLine()) != null) {
                 stringArrayList.add(botTextLine);
@@ -30,7 +35,7 @@ public class Chat {
                 }
                 bufferedWriter.write(humanText + "\n");
                 if (!stopFlag) {
-                    String botSay = stringArrayList.get(new Random().nextInt(stringArrayList.size()));
+                    String botSay = stringArrayList.get(getIndex(stringArrayList));
                     System.out.println(botSay);
                     bufferedWriter.write(botSay + "\n");
                 }
@@ -41,5 +46,9 @@ public class Chat {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public int getIndex(List<String> stringArrayList){
+        return new Random().nextInt(stringArrayList.size());
     }
 }
