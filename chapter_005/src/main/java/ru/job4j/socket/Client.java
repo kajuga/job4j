@@ -1,93 +1,25 @@
 package ru.job4j.socket;
 
-import java.io.*;
-import java.net.InetAddress;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import java.net.Socket;
-import java.nio.Buffer;
 
 public class Client {
+    private Socket clientSocket;
+    private PrintWriter out;
+    private BufferedReader in;
 
-    public static void main(String[] args) {
-
-        int servPort = 5000;
-
-        String intetAdress = "127.0.0.1";
-
-        try {
-
-            InetAddress inetAddress = InetAddress.getByName(intetAdress);
-            System.out.println("Подключаемся к данному серверу: " +  servPort);
-            Socket socket = new Socket(intetAdress, servPort);
-
-            InputStream socketInpStream = socket.getInputStream();
-            OutputStream socketOutStream = socket.getOutputStream();
-
-            DataInputStream in = new DataInputStream(socketInpStream);
-            DataOutputStream out = new DataOutputStream(socketOutStream);
-
-            BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-            String string = null;
-            System.out.println("Введите фразу для передачи серверу:");
-
-            while (true) {
-                string = reader.readLine();
-                out.writeUTF(string);
-                out.flush();
-                string = in.readUTF();
-                System.out.println("Сервер прислал ответ: " + string);
-                System.out.println("Введите фразу для отправки на сервер:");
-
-            }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
+    public void startConnection(String ip, int port) throws IOException {
+        clientSocket = new Socket(ip, port);
+        out = new PrintWriter(clientSocket.getOutputStream(), true);
+        in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
     }
 
-
+    public String sendMessage(String msg) throws IOException {
+        out.println(msg);
+        String resp = in.readLine();
+        return resp;
+    }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -1,72 +1,35 @@
 package ru.job4j.socket;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.InputStream;
-import java.io.OutputStream;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.sql.SQLOutput;
 
 public class Server {
-    public static void main(String[] args) {
-        int port = 5000; //1025 - 65535
+    private ServerSocket serverSocket;
+    private Socket clientSocket;
+    private PrintWriter out;
+    private BufferedReader in;
 
-        try {
-            ServerSocket serverSocket = new ServerSocket(port);
-            System.out.println("Ждем подключения к серверу");
-            Socket socket = serverSocket.accept();
-            System.out.println("Подключение состоялось");
-
-            InputStream socketInpStream = socket.getInputStream();
-            OutputStream socketOutStream = socket.getOutputStream();
-
-            DataInputStream in = new DataInputStream(socketInpStream);
-            DataOutputStream out = new DataOutputStream(socketOutStream);
-
-            String str = null;
-
-            while (true) {
-
-                str = in.readUTF();
-                System.out.println("Мы получили следующее сообщение " + str);
-                System.out.println("Отправка обратно");
-                out.writeUTF(str);
-                out.flush();
+    public void start(int port) throws IOException {
+        serverSocket = new ServerSocket(port);
+        clientSocket = serverSocket.accept();
+        out = new PrintWriter(clientSocket.getOutputStream(), true);
+        in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+        String ask;
+        do {
+            ask = in.readLine();
+            if ("hello, Oracle".equals(ask)) {
+                out.println("Hello, dear friend, I'm a Oracle.");
+                out.println("");
             }
-
-
-
-
-
-
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
+        } while (!"exit".equals(ask));
     }
 
+    public static void main(String[] args) throws IOException {
+        Server server = new Server();
+        server.start(6666);
+    }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
