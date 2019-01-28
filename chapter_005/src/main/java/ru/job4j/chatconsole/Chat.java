@@ -17,7 +17,6 @@ public class Chat {
              BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("chapter_005/src/main/java/ru/job4j/chatconsole/savedDialog.txt", true));
              Scanner scanner = new Scanner(System.in)) {
 
-
             String botTextLine;
             List<String> stringArrayList = new ArrayList<>();
 
@@ -48,7 +47,7 @@ public class Chat {
         }
     }
 
-    public int getIndex(List<String> stringArrayList){
+    public int getIndex(List<String> stringArrayList) {
         return new Random().nextInt(stringArrayList.size());
     }
 }

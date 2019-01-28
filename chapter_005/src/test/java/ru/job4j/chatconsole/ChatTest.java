@@ -17,10 +17,17 @@ public class ChatTest {
 
     public static void main(String[] args) throws IOException {
 
-        Chat chat = new Chat();
+        Chat chat = new Chat() {
+
+            @Override
+            public int getIndex(List<String> stringArrayList) {
+                return super.getIndex(stringArrayList);
+            }
+
+        };
         Scanner scanner = new Scanner(System.in);
 
-        String path = "/home/kajuga/projects/job4j/chapter_005/src/test/java/ru/job4j/chatconsole/textForBot.txt";
+        String path = "ru/job4j/chatconsole/textForBot.txt";
         String lineFromFiles = new String(Files.readAllBytes(Paths.get(path)));
         List<String> stringList = new ArrayList<>(Arrays.asList(lineFromFiles.split("\n")));
 

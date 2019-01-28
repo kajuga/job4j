@@ -7,7 +7,7 @@ import static org.junit.Assert.*;
 public class ClientTest {
 
     @Test
-    public void givenGreetingClient_whenServerRespondsWhenStarted_thenCorrect() throws IOException {
+    public void givenGreetingClientwhenServerRespondsWhenStartedthenCorrect() throws IOException {
 //        new Thread(() -> {
 //            Server server = new Server();
 //            try {
