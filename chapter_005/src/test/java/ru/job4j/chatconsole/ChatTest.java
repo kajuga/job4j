@@ -1,43 +1,34 @@
 package ru.job4j.chatconsole;
 
-import java.io.File;
-import java.io.IOException;
-import java.nio.charset.Charset;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Scanner;
+import org.junit.Test;
 
 import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.*;
 
 public class ChatTest {
+    private String fileBotText = "textForBot.txt";
+    private String savedDialog = "chapter_005/src/test/java/ru/job4j/chatconsole/savedDialog.txt";
 
-    public static void main(String[] args) throws IOException {
+    @Test
+    public void whenThen() {
+        Chat chat = new Chat();
+        chat.start(fileBotText, savedDialog);
 
-        Chat chat = new Chat() {
-
-            @Override
-            public int getIndex(List<String> stringArrayList) {
-                return super.getIndex(stringArrayList);
-            }
-
-        };
-        Scanner scanner = new Scanner(System.in);
-
-        String path = "ru/job4j/chatconsole/textForBot.txt";
-        String lineFromFiles = new String(Files.readAllBytes(Paths.get(path)));
-        List<String> stringList = new ArrayList<>(Arrays.asList(lineFromFiles.split("\n")));
-
-        assertThat(stringList.get(0), is("We just wanna party"));
+    }
 
 
-        //и фиг его знает как корректно оттестить- "бот" рандомные фразы выдает; одну фразу оставить в тексте - тож не дело.
+
 
 
 
 
     }
-}
+
+
+
+/*
+        Client client = new Client();
+        client.startConnection("127.0.0.1", 6666);
+        String response = client.sendMessage("hello, Oracle");
+        assertEquals("Hello, dear friend, I'm a Oracle.", response);
+        client.sendMessage("exit");
+ */

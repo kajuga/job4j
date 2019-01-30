@@ -1,6 +1,6 @@
 package ru.job4j.chess.firuges.white;
 
-import jdk.nashorn.internal.runtime.regexp.joni.constants.CCSTATE;
+//import jdk.nashorn.internal.runtime.regexp.joni.constants.CCSTATE;
 import org.junit.Assert;
 import org.junit.Test;
 import ru.job4j.chess.firuges.Cell;

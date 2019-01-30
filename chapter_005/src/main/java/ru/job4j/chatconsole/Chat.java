@@ -7,44 +7,46 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class Chat {
+    private String botTextLine;
+    private String humanTextLine;
+    private boolean stopFlag = false;
+    private List<String> stringArrayList;
 
-    public static void main(String[] args) throws IOException {
-        new Chat().chatter();
-    }
 
-    public void chatter() {
-        try (BufferedReader bufferedReader = new BufferedReader(new FileReader("chapter_005/src/main/java/ru/job4j/chatconsole/textForBot.txt"));
-             BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("chapter_005/src/main/java/ru/job4j/chatconsole/savedDialog.txt", true));
+    public void start(String fileIn, String fileOut) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(fileIn));
+             BufferedWriter writer = new BufferedWriter(new FileWriter(fileOut, true));
              Scanner scanner = new Scanner(System.in)) {
 
-            String botTextLine;
-            List<String> stringArrayList = new ArrayList<>();
-
-            while ((botTextLine = bufferedReader.readLine()) != null) {
+            stringArrayList = new ArrayList<>();
+            while ((botTextLine = reader.readLine()) != null) {
                 stringArrayList.add(botTextLine);
             }
-            boolean stopFlag = false;
-            String humanText = scanner.nextLine();
-            while (!"finish".equalsIgnoreCase(humanText)) {
-                if ("stop".equalsIgnoreCase(humanText)) {
+            humanTextLine = scanner.nextLine();
+            while (!"finish".equalsIgnoreCase(humanTextLine)) {
+                if ("stop".equalsIgnoreCase(humanTextLine)) {
                     stopFlag = true;
                 }
-                if (humanText.equalsIgnoreCase("continue")) {
+                if (humanTextLine.equalsIgnoreCase("continue")) {
                     stopFlag = false;
                 }
-                bufferedWriter.write(humanText + "\n");
+                writer.write(humanTextLine + "\n");
                 if (!stopFlag) {
                     String botSay = stringArrayList.get(getIndex(stringArrayList));
                     System.out.println(botSay);
-                    bufferedWriter.write(botSay + "\n");
+                    writer.write(botSay + "\n");
                 }
-                humanText = scanner.nextLine();
+                humanTextLine = scanner.nextLine();
             }
-            bufferedWriter.write(humanText);
-            bufferedWriter.flush();
+            writer.write(humanTextLine);
+            writer.flush();
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public  void stop() {
+        stopFlag = true;
     }
 
     public int getIndex(List<String> stringArrayList) {

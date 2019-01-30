@@ -7,7 +7,6 @@ import javafx.scene.shape.Rectangle;
  */
 public class RectangleMove implements Runnable {
     private final Rectangle rect;
-
     public RectangleMove(Rectangle rect) {
         this.rect = rect;
     }

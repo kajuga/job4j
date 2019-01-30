@@ -29,28 +29,4 @@
             <version>4.12</version>
         </dependency>
     </dependencies>
-
-
-
-    <build>
-        <directory>${project.basedir}/target</directory>
-        <outputDirectory>${project.build.directory}/target/classes</outputDirectory>
-        <testOutputDirectory>${project.build.directory}/target/test-classes</testOutputDirectory>
-        <sourceDirectory>${project.basedir}/src/main/java</sourceDirectory>
-        <scriptSourceDirectory>src/main/scripts</scriptSourceDirectory>
-        <testSourceDirectory>${project.basedir}/src/test/java</testSourceDirectory>
-
-        <resources>
-            <resource>
-                <directory>${project.basedir}/src/main/resources</directory>
-            </resource>
-        </resources>
-
-        <testResources>
-            <testResource>
-                <directory>${project.basedir}/src/test/resources</directory>
-            </testResource>
-        </testResources>
-    </build>
-
 </project>
