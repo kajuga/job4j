@@ -1,5 +1,7 @@
 package ru.job4j.chatconsole;
 
+import jdk.internal.util.xml.impl.Input;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -10,24 +12,31 @@ public class Chat {
     private String botTextLine;
     private String humanTextLine;
     private boolean stopFlag = false;
-    private List<String> stringArrayList;
+    private List<String> stringArrayList = new ArrayList<>();
+
+    public static void main(String[] args) {
+        Chat chat = new Chat();
+        chat.start(chat.getClass().getClassLoader().getResource("textForBot.txt").getPath(),
+                chat.getClass().getClassLoader().getResource("savedDialog.txt").getPath(),
+                System.in);
+    }
 
 
-    public void start(String fileIn, String fileOut) {
+    public void start(String fileIn, String fileOut, InputStream in) {
         try (BufferedReader reader = new BufferedReader(new FileReader(fileIn));
-             BufferedWriter writer = new BufferedWriter(new FileWriter(fileOut, true));
-             Scanner scanner = new Scanner(System.in)) {
+            BufferedWriter writer = new BufferedWriter(new FileWriter(fileOut, true));
+            Scanner scanner = new Scanner(in)){
 
-            stringArrayList = new ArrayList<>();
             while ((botTextLine = reader.readLine()) != null) {
                 stringArrayList.add(botTextLine);
             }
+
             humanTextLine = scanner.nextLine();
             while (!"finish".equalsIgnoreCase(humanTextLine)) {
                 if ("stop".equalsIgnoreCase(humanTextLine)) {
                     stopFlag = true;
                 }
-                if (humanTextLine.equalsIgnoreCase("continue")) {
+                if ("continue".equalsIgnoreCase(humanTextLine)) {
                     stopFlag = false;
                 }
                 writer.write(humanTextLine + "\n");
@@ -39,10 +48,20 @@ public class Chat {
                 humanTextLine = scanner.nextLine();
             }
             writer.write(humanTextLine);
-            writer.flush();
+//            writer.flush();
+//            scanner.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public List botAnswersToArrayList(String botTextLine, BufferedReader reader) throws IOException {
+        List<String> result = new ArrayList<>();
+        while ((botTextLine = reader.readLine()) != null) {
+            result.add(botTextLine);
+        }
+        return result;
+
     }
 
     public  void stop() {
