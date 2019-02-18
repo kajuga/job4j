@@ -24,8 +24,8 @@ public class Chat {
 
     public void start(String fileIn, String fileOut, InputStream in) {
         try (BufferedReader reader = new BufferedReader(new FileReader(fileIn));
-            BufferedWriter writer = new BufferedWriter(new FileWriter(fileOut, true));
-            Scanner scanner = new Scanner(in)){
+             BufferedWriter writer = new BufferedWriter(new FileWriter(fileOut));
+             Scanner scanner = new Scanner(in)){
 
             while ((botTextLine = reader.readLine()) != null) {
                 stringArrayList.add(botTextLine);
@@ -54,6 +54,7 @@ public class Chat {
             e.printStackTrace();
         }
     }
+
 
     public List botAnswersToArrayList(String botTextLine, BufferedReader reader) throws IOException {
         List<String> result = new ArrayList<>();

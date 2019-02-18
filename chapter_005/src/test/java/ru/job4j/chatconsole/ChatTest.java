@@ -1,12 +1,14 @@
 package ru.job4j.chatconsole;
 
+import static org.junit.Assert.*;
+
+
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -15,31 +17,40 @@ import static org.hamcrest.core.Is.is;
 
 public class ChatTest {
 
-    private String fileBotText = "/home/kajuga/projects/job4j/chapter_005/src/test/resources/textForBot.txt";
-    private String savedDialog = "/home/kajuga/projects/job4j/chapter_005/src/main/resources/savedDialog.txt";
-    Chat chat = new Chat(){
-        @Override
-        public int getIndex(List<String> stringArrayList) {
-            return super.getIndex(stringArrayList);
-        }
-    };
-    String[] inputs = new String[] {"привет", "скажи что-нибудь", "стоп", "продолжить", "закончить"};
-
     @Test
-    public void whenUseChatThenOutputNotEmpty() {
-//            chat.start(fileBotText, savedDialog);
-//            chat.botAnswersToArrayList(fileBotText);
+    public void testChat() throws IOException {
+        Chat chat = new Chat(){
+            int index = 0;
+            @Override
+            public int getIndex(List<String> stringArrayList) {
+                return index++;
+            }
+        };
+        String fileIn = chat.getClass().getClassLoader().getResource("textForBot.txt").getPath();
+        String fileOut = chat.getClass().getClassLoader().getResource("savedDialog.txt").getPath();
+        InputStream inputStream = new FileInputStream(chat.getClass().getClassLoader().getResource("textScannerEmulator.txt").getPath());
+        chat.start(fileIn, fileOut, inputStream);
 
+        String expected = "hi, chatbot!\n" +
+                "We just wanna party\n" +
+                "tell me why?\n" +
+                "Party just for you\n" +
+                "stop\n" +
+                "continue\n" +
+                "We just want the money\n" +
+                "finish";
 
-
-
-//            List<String> allMessages = fileBotText.toString();
-//            assertThat(allMessages.size(), is(7));
-//            assertThat(allMessages.get(0), is("some"));
-//            assertThat(allMessages.get(2), is("STOP"));
-//            assertThat(allMessages.get(3), is("some"));
-//            assertThat(allMessages.get(4), is(Logic.CONTINUE));
-//            assertThat(allMessages.get(6), is(Logic.CLOSE));
+        String actual = "";
+        BufferedReader reader = new BufferedReader(new FileReader(fileOut));
+        String temp;
+        int index = 0;
+        while ((temp = reader.readLine()) !=null) {
+            if (index != 0) {
+                actual = actual.concat("\n");
+            }
+            actual = actual.concat(temp);
+            index++;
         }
-
+        Assert.assertEquals(expected, actual);
     }
+}
