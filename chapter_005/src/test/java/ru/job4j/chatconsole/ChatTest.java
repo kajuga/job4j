@@ -1,19 +1,9 @@
 package ru.job4j.chatconsole;
 
-import static org.junit.Assert.*;
-
-
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
-
 import java.io.*;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
-
-import static junit.framework.TestCase.assertNotNull;
-import static org.hamcrest.core.Is.is;
 
 public class ChatTest {
 
