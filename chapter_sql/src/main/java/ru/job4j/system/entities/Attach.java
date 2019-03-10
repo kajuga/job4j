@@ -1,5 +1,7 @@
 package ru.job4j.system.entities;
 
-public class Attach {
+import java.io.File;
 
+public class Attach {
+    private File file;
 }

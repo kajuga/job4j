@@ -1,8 +1,9 @@
 package ru.job4j.system.entities;
 
 public enum Rule {
-    ADMIN,
-    USER,
-    READER,
-    BANNED
+    READ,
+    WRITE,
+    EDIT,
+    CREATE,
+    DELETE
 }
