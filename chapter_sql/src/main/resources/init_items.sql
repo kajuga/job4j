@@ -56,24 +56,27 @@ CREATE TABLE category (
   id   SERIAL PRIMARY KEY,
   name VARCHAR(100)
 );
-INSERT INTO category (id, name) VALUES (1, 'OFFICE'), (2, 'ACCOUNT'), (3, 'SECURITY');
+INSERT INTO category (id, name) VALUES (1, 'DIRECTORATE');
+INSERT INTO category (id, name) VALUES (2, 'ACCOUNTING');
+INSERT INTO category (id, name) VALUES (3, 'SECURITY');
 
 CREATE TABLE status (
   id   SERIAL PRIMARY KEY,
   name VARCHAR(100)
 );
-INSERT INTO status (id, name) VALUES (1, 'CREATED');
-INSERT INTO status (id, name) VALUES (2, 'EDITED');
-INSERT INTO status (id, name) VALUES (3, 'FINISHED');
-INSERT INTO status (id, name) VALUES (4, 'REJECTED');
+INSERT INTO status (id, name) VALUES (1, 'SENT');
+INSERT INTO status (id, name) VALUES (2, 'RECEIVED');
+INSERT INTO status (id, name) VALUES (3, 'READ');
+INSERT INTO status (id, name) VALUES (4, 'FINISHED');
+INSERT INTO status (id, name) VALUES (5, 'REJECTED');
 
 CREATE TABLE attach (
   id   SERIAL PRIMARY KEY,
   name VARCHAR(100)
 );
 INSERT INTO attach (name) VALUES ('C:\\1.txt');
-INSERT INTO attach (name) VALUES ('C:\\2.txt');
-INSERT INTO attach (name) VALUES ('C:\\3.txt');
+INSERT INTO attach (name) VALUES ('C:\\2.jpg');
+INSERT INTO attach (name) VALUES ('C:\\3.doc');
 
 
 
@@ -88,12 +91,24 @@ INSERT INTO comment (id, text_comment) VALUES (3, 'commit_text_third');
 CREATE TABLE item (
   id          SERIAL PRIMARY KEY,
   user_id     INTEGER REFERENCES user (id),
-  comment_id  INTEGER REFERENCES comment (id),
-  attach_id   INTEGER REFERENCES attach (id),
   status_id   INTEGER REFERENCES status (id),
   category_id INTEGER REFERENCES category (id)
 );
-INSERT INTO
+
+INSERT INTO item VALUES (1, 1, 1, 1);
+
+CREATE TABLE item_comment (
+  item_id     INTEGER REFERENCES item (id),
+  comment_id  INTEGER REFERENCES comment (id)
+);
+
+INSERT INTO item_comment VALUES (1, 1);
+INSERT INTO item_comment VALUES (1, 2);
+-- аналогично с аттач
+CREATE TABLE item_attach (
+  item_id     INTEGER REFERENCES item (id),
+  attach_id  INTEGER REFERENCES attach (id)
+);
 
 
 --   private User user;

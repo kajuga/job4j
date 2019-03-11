@@ -1,8 +1,9 @@
 package ru.job4j.system.entities;
 
 public enum Status {
-    CREATED,
-    EDITED,
+    SENT,
+    RECEIVED,
+    READ,
     FINISHED,
     REJECTED
 }
