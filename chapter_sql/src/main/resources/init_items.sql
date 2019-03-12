@@ -1,13 +1,15 @@
-CREATE DATABASE sashok_database;
---drop DATABASE sashok_database;
+-- CREATE DATABASE sashok_database;
+-- drop DATABASE sashok_database;
 --CREATE USER sashok WITH password '111';
 --CREATE DATABASE sashok_database OWNER sashok;
 --GRANT ALL PRIVILEGES ON DATABASE sashok_database TO sashok;
+
 
 CREATE TABLE rule (
   id   SERIAL PRIMARY KEY,
   NAME VARCHAR(100)
 );
+
 INSERT INTO rule VALUES (1, 'READ');
 INSERT INTO rule VALUES (2, 'WRITE');
 INSERT INTO rule VALUES (3, 'EDIT');
@@ -45,7 +47,7 @@ INSERT INTO role_rule VALUES (3, 1);
 CREATE TABLE user (
   id      SERIAL PRIMARY KEY,
   name    VARCHAR(100),
-  role_id INTEGER REFERENCES roles (id)
+  role_id INTEGER REFERENCES role (id)
 );
 INSERT INTO user (id, name, role_id) VALUES (1, 'Abramovich', 1);
 INSERT INTO user (id, name, role_id) VALUES (2, 'Fedorov', 2);
@@ -93,26 +95,31 @@ CREATE TABLE item (
   user_id     INTEGER REFERENCES user (id),
   status_id   INTEGER REFERENCES status (id),
   category_id INTEGER REFERENCES category (id)
+--   comment_id  INTEGER REFERENCES comment (id),
+--   attach_id   INTEGER REFERENCES attach (id)
 );
-
-INSERT INTO item VALUES (1, 1, 1, 1);
+INSERT INTO item (id, user_id, status_id, category_id) VALUES (1, 1, 1, 1);
+INSERT INTO item (id, user_id, status_id, category_id) VALUES (2, 2, 1, 1);
 
 CREATE TABLE item_comment (
   item_id     INTEGER REFERENCES item (id),
   comment_id  INTEGER REFERENCES comment (id)
 );
+INSERT INTO item_comment (item_id, comment_id) VALUES (1, 1);
+INSERT INTO item_comment (item_id, comment_id) VALUES (1, 2);
+INSERT INTO item_comment (item_id, comment_id) VALUES (2, 3);
 
-INSERT INTO item_comment VALUES (1, 1);
-INSERT INTO item_comment VALUES (1, 2);
--- аналогично с аттач
 CREATE TABLE item_attach (
   item_id     INTEGER REFERENCES item (id),
   attach_id  INTEGER REFERENCES attach (id)
 );
+INSERT INTO item_attach (item_id, attach_id) VALUES (1, 3);
+INSERT INTO item_attach (item_id, attach_id) VALUES (2, 1);
 
-
---   private User user;
--- private List<Comment> comments;
--- private List<Attach> attaches;
--- private List<Status> status;
--- private Category category;
+-- DROP TABLE attach;
+-- DROP TABLE category;
+-- DROP TABLE comment;
+-- DROP TABLE role_rule;
+-- DROP TABLE rule;
+-- DROP TABLE status;
+-- DROP TABLE role;
