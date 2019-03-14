@@ -1,12 +1,8 @@
-package ru.job4j.testExercise;
+package ru.job4j.testexercise;
 
 import junit.framework.*;
-import java.io.File;
-import java.io.FilenameFilter;
-import java.util.ArrayList;
+
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class FileFinderTest extends TestCase {
 
@@ -54,20 +50,17 @@ public class FileFinderTest extends TestCase {
         try {
             result = finder.findAll(startPath + "/folder1/file11.txt");
             fail("������ ���� ���������� ����������");
-        }
-        catch(Exception err) {}
+        } catch (Exception err) { }
 
         try {
             result = finder.findAll("");
             fail("������ ���� ���������� ����������");
-        }
-        catch(Exception err) {}
+        } catch (Exception err) { }
 
         try {
             result = finder.findAll("������������");
             fail("������ ���� ���������� ����������");
-        }
-        catch(Exception err) {}
+        } catch (Exception err) { }
     }
 
 

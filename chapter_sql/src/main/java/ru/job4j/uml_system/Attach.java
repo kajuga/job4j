@@ -1,4 +1,4 @@
-package ru.job4j.system.entities;
+package ru.job4j.uml_system;
 
 import java.io.File;
 

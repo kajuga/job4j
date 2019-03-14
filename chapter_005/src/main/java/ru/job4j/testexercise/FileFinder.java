@@ -1,7 +1,6 @@
-package ru.job4j.testExercise;
+package ru.job4j.testexercise;
 
 import java.io.File;
-import java.io.FilenameFilter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -27,9 +26,9 @@ public class FileFinder {
     private long directoriesNumber = 0;
 
     //константы для определения объектов, которые нужно найти
-    private final int FILES = 0;
-    private final int DIRECTORIES = 1;
-    private final int ALL = 2;
+    private final int files = 0;
+    private final int directories = 1;
+    private final int all = 2;
 
     /** Создает новые экземпляры FileFinder */
     public FileFinder() {
@@ -43,7 +42,7 @@ public class FileFinder {
      * @throws java.lang.Exception если возникли ошибки в процессе поиска
      */
     public List findAll(String startPath) throws Exception {
-        return find(startPath, "", ALL);
+        return find(startPath, "", all);
     }
 
     /**
@@ -58,7 +57,7 @@ public class FileFinder {
      */
     public List findAll(String startPath, String mask)
             throws Exception {
-        return find(startPath, mask, ALL);
+        return find(startPath, mask, all);
     }
 
     /**
@@ -70,7 +69,7 @@ public class FileFinder {
      */
     public List findFiles(String startPath)
             throws Exception {
-        return find(startPath, "", FILES);
+        return find(startPath, "", files);
     }
 
     /**
@@ -85,7 +84,7 @@ public class FileFinder {
      */
     public List findFiles(String startPath, String mask)
             throws Exception {
-        return find(startPath, mask, FILES);
+        return find(startPath, mask, files);
     }
 
     /**
@@ -97,7 +96,7 @@ public class FileFinder {
      */
     public List findDirectories(String startPath)
             throws Exception {
-        return find(startPath, "", DIRECTORIES);
+        return find(startPath, "", directories);
     }
 
     /**
@@ -112,7 +111,7 @@ public class FileFinder {
      */
     public List findDirectories(String startPath, String mask)
             throws Exception {
-        return find(startPath, mask, DIRECTORIES);
+        return find(startPath, mask, directories);
     }
 
     /**
@@ -146,20 +145,19 @@ public class FileFinder {
     противном случае.
     */
     private boolean accept(String name) {
+        boolean temp = false;
         //если регулярное выражение не задано...
-        if(p == null) {
+        if (p == null) {
             //...значит объект подходит
             return true;
         }
         //создаем Matcher
         m = p.matcher(name);
         //выполняем проверку
-        if(m.matches()) {
-            return true;
+        if (m.matches()) {
+            temp = true;
         }
-        else {
-            return false;
-        }
+        return temp;
     }
 
     /*
@@ -169,15 +167,15 @@ public class FileFinder {
     private List find(String startPath, String mask, int objectType)
             throws Exception {
         //проверка параметров
-        if(startPath == null || mask == null) {
+        if (startPath == null || mask == null) {
             throw new Exception("Ошибка: не заданы параметры поиска");
         }
         File topDirectory = new File(startPath);
-        if(!topDirectory.exists()) {
+        if (!topDirectory.exists()) {
             throw new Exception("Ошибка: указанный путь не существует");
         }
         //если задано регулярное выражение, создаем Pattern
-        if(!mask.equals("")) {
+        if (!mask.equals("")) {
             p = Pattern.compile(mask,
                     Pattern.CASE_INSENSITIVE | Pattern.UNICODE_CASE);
         }
@@ -210,12 +208,12 @@ public class FileFinder {
         //получаем список всех объектов в текущей директории
         File[] list = topDirectory.listFiles();
         //просматриваем все объекты по-очереди
-        for(int i = 0; i < list.length; i++) {
+        for (int i = 0; i < list.length; i++) {
             //если это директория (папка)...
-            if(list[i].isDirectory()) {
+            if (list[i].isDirectory()) {
                 //...выполняем проверку на соответствие типу объекта
                 // и регулярному выражению...
-                if(objectType != FILES && accept(list[i].getName())) {
+                if (objectType != files && accept(list[i].getName())) {
                     //...добавляем текущий объект в список результатов,
                     //и обновляем значения счетчиков
                     directoriesNumber++;
@@ -223,12 +221,11 @@ public class FileFinder {
                 }
                 //выполняем поиск во вложенных директориях
                 search(list[i], res, objectType);
-            }
             //если это файл
-            else {
+            } else {
                 //...выполняем проверку на соответствие типу объекта
                 // и регулярному выражению...
-                if(objectType != DIRECTORIES && accept(list[i].getName())) {
+                if (objectType != directories && accept(list[i].getName())) {
                     //...добавляем текущий объект в список результатов,
                     //и обновляем значения счетчиков
                     filesNumber++;

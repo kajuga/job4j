@@ -22,7 +22,7 @@ public class Chat {
     public void start(String fileIn, String fileOut, InputStream in) {
         try (BufferedReader reader = new BufferedReader(new FileReader(fileIn));
              BufferedWriter writer = new BufferedWriter(new FileWriter(fileOut));
-             Scanner scanner = new Scanner(in)){
+             Scanner scanner = new Scanner(in)) {
 
             while ((botTextLine = reader.readLine()) != null) {
                 stringArrayList.add(botTextLine);
