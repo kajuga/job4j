@@ -58,8 +58,22 @@ UPDATE filters.product SET quantity = 51 WHERE name = 'Мороженное ва
 -- employee_id     INTEGER REFERENCES employee (id)
 ALTER TABLE filters.product ADD CONSTRAINT type_product FOREIGN KEY (type_id) REFERENCES filters.type (id);
 
--- Таблицы заполнены, перехожу к выполнению задания
-SELECT name FROM filters.product WHERE type_id = '4';
+
+-- 1. Написать запрос получение всех продуктов с типом "СЫР"
 SELECT p.name FROM filters.product as p LEFT JOIN filters.type as t ON p.type_id = t.id  WHERE t.name = 'Сыр';
+-- 2. Написать запрос получения всех продуктов, у кого в имени есть слово "мороженное"
 SELECT * FROM filters.product WHERE name LIKE '%Мороженное%';
+-- 3. Написать запрос, который выводит все продукты, срок годности которых заканчивается в следующем месяце.
 SELECT * FROM filters.product WHERE expired_date <= '2020-05-05';
+-- 4. Написать запрос, который выводит самый дорогой продукт.
+SELECT * FROM filters.product WHERE price = (SELECT max(price) FROM filters.product);
+-- 5. Написать запрос, который выводит количество всех продуктов определенного типа.
+SELECT SUM(p.quantity), t.name FROM filters.product AS p LEFT JOIN filters.type AS t ON p.type_id = t.id GROUP BY t.name;
+-- 6. Написать запрос получение всех продуктов с типом "СЫР" и "МОЛОКО"
+SELECT * FROM filters.product AS p LEFT JOIN filters.type AS t ON p.type_id = t.id WHERE t.name = 'Сыр' OR t.name ='Молоко';
+SELECT * FROM filters.product AS p LEFT JOIN filters.type AS t ON p.type_id = t.id WHERE t.name IN ('Сыр', 'Молоко');
+-- 7. Написать запрос, который выводит тип продуктов, которых осталось меньше 10 штук. (У меня в таблице масштабы другие, поэтому поставил <200)
+SELECT SUM(p.quantity), t.name FROM filters.product AS p LEFT JOIN filters.type AS t ON p.type_id = t.id GROUP BY t.name HAVING SUM(p.quantity) < 200;
+-- 8. Вывести все продукты и их тип.
+SELECT p.name, t.name FROM filters.product AS p LEFT JOIN filters.type AS t ON p.type_id = t.id;
+

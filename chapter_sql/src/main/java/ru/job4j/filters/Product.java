@@ -7,5 +7,4 @@ public class Product {
     private String expiredDate;
     private int quantity;
     private double price;
-
 }
