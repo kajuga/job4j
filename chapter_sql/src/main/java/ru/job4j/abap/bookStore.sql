@@ -35,5 +35,7 @@ INSERT INTO abap_testing.book (book_id, genre_id, quantity, price) VALUES (9, 6,
 UPDATE abap_testing.book SET price = 0 WHERE book_id = 9;
 
 -- составить запрос для поиска количества и общей стоимости книг каждого жанра
-SELECT g.genre_name, SUM(b.quantity), SUM(b.price) FROM abap_testing.genre AS g LEFT JOIN abap_testing.book AS b ON b.genre_id = g.genre_ID GROUP BY g.genre_name;
+SELECT g.genre_name, SUM(b.quantity), SUM(b.price)
+FROM abap_testing.genre AS g LEFT JOIN abap_testing.book AS b
+    ON b.genre_id = g.genre_ID GROUP BY g.genre_name;
 

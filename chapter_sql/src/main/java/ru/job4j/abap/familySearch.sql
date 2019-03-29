@@ -31,28 +31,44 @@ VALUES
 
 -- необходимо составить запросы, который вернут:
 -- a) Отца наибольшего количества детей
-
-SELECT d.full_name AS baby, f.full_name AS father
-FROM abap_testing.familyBonds AS d
-  INNER JOIN abap_testing.familyBonds AS f ON d.father = f.people_id;
-
-
-SELECT f.full_name AS father
+SELECT COUNT(d.people_id) AS count_baby, f.full_name AS father
 FROM abap_testing.familyBonds AS d
   INNER JOIN abap_testing.familyBonds AS f ON d.father = f.people_id
 GROUP BY f.people_id
-HAVING COUNT(d.people_id) IN (SELECT MAX(inner_table.count_baby)
-                              FROM (
-                                     SELECT COUNT(d.people_id) AS count_baby, f.full_name AS father
-                                     FROM abap_testing.familyBonds AS d
-                                       INNER JOIN abap_testing.familyBonds AS f ON d.father = f.people_id
-                                     GROUP BY f.people_id
-                                   ) AS inner_table);
-
+HAVING COUNT(d.people_id) = (SELECT MAX(i.count_baby)
+                             FROM (
+                               SELECT COUNT(d.people_id) AS count_baby, f.full_name AS father
+                               FROM abap_testing.familyBonds AS d
+                                 INNER JOIN abap_testing.familyBonds AS f ON d.father = f.people_id
+                               GROUP BY f.people_id
+                             ) as i);
 
 
 -- b) Семьи, в которых 3 и более ребенка
+select count(d.people_id) as child_count, m.full_name as mother, f.full_name as father
+from abap_testing.familybonds as d
+  left join abap_testing.familybonds as m on d.mother = m.people_id
+  left join abap_testing.familybonds as f on d.father = f.people_id
+where
+  (d.father is not null and d.mother is not null)
+  or
+  (d.father is null and d.mother is not null)
+  or
+  (d.father is not null and d.mother is null)
+group by m.people_id, f.people_id
+having count(d.people_id) >= 3;
 
 -- c) Мать с наименьшей разницей в возрасте с собственным ребенком
+select m.full_name as mother
+from abap_testing.familybonds as d
+  inner join abap_testing.familybonds as m on d.mother = m.people_id
+where m.age - d.age in (select max(m.age - d.age)
+                        from abap_testing.familybonds as d
+                          inner join abap_testing.familybonds as m on d.mother = m.people_id);
 
 -- d) Всех детей из неполных семей
+SELECT d.full_name AS no_any_parent_babies
+FROM abap_testing.familybonds as d
+WHERE  (d.father IS NULL AND d.mother IS NOT NULL)
+       OR
+       (d.father IS NOT NULL AND d.mother IS NULL);

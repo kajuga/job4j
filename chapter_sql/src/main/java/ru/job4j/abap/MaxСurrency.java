@@ -20,7 +20,6 @@ import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.text.ParseException;
 
-
 public class MaxСurrency {
 
 
@@ -35,7 +34,6 @@ public class MaxСurrency {
         DecimalFormatSymbols sfs = new DecimalFormatSymbols();
         sfs.setDecimalSeparator(',');
         df.setDecimalFormatSymbols(sfs);
-
 
         URL url = new URL("http://www.cbr.ru/scripts/XML_daily.asp");
         DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
