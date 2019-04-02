@@ -53,5 +53,22 @@ INSERT INTO car_storage.car (brand, body_type, engine, transmission) VALUES (1, 
 INSERT INTO car_storage.car (brand, body_type, engine, transmission) VALUES (5, 2, 2, 1);
 INSERT INTO car_storage.car (brand, body_type, engine, transmission) VALUES (6, 6, 2, 2);
 
-SELECT * FROM car_storage.car;
-SELECT brand.name, body.type, motor.type, transmission.type FROM car_storage.car AS car LEFT JOIN filters.type AS t ON p.type_id = t.id;
+-- 1. Вывести список всех машин и все привязанные к ним детали.
+SELECT bn.name AS BRAND, bt.type AS TYPE, mt.type AS MOTOR, tr.type AS TRANSMISSION
+FROM car_storage.car, car_storage.brand_name AS bn, car_storage.body_type AS bt,
+car_storage.motor AS mt, car_storage.transmission AS tr
+WHERE car_storage.car.brand = bn.id AND car_storage.car.body_type = bt.id AND
+car_storage.car.engine = mt.id AND car_storage.car.transmission = tr.id;
+-- AND
+SELECT bn.name AS BRAND, bt.type AS TYPE, mt.type AS MOTOR, tr.type AS TRANSMISSION FROM car_storage.car AS c
+  LEFT JOIN car_storage.brand_name AS bn ON c.brand = bn.id
+  LEFT JOIN car_storage.body_type AS bt ON c.body_type = bt.id
+  LEFT JOIN car_storage.motor AS mt ON c.engine = mt.id
+  LEFT JOIN car_storage.transmission AS tr ON c.transmission = tr.id;
+
+-- 2. Вывести отдельно детали, которые не используются в машине, кузова, двигатели, коробки передач.
+SELECT mt.type AS Неиспользуемые_детали FROM car_storage.motor AS mt LEFT JOIN car_storage.car AS c  ON c.id = mt.id WHERE c.id IS NULL
+UNION
+SELECT bt.type AS BODY FROM car_storage.body_type AS bt LEFT JOIN car_storage.car c ON c.id = bt.id WHERE c.id IS NULL
+UNION
+SELECT tr.type AS TRANSMISSIION FROM car_storage.transmission AS tr LEFT JOIN car_storage.car c ON c.id = tr.id;

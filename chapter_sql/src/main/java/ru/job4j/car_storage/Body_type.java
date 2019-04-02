@@ -7,5 +7,4 @@ public enum Body_type {
     LIMOUSINE,
     CAB,
     TRUCK
-
 }

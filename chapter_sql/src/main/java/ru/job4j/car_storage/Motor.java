@@ -6,6 +6,4 @@ public enum  Motor {
     GAS,
     HYBRID,
     ELECTRO
-
 }
-
