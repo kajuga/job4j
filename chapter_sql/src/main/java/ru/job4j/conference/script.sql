@@ -1,0 +1,2 @@
+select conference from stepic_coursesql.paper where conference not in (select value from stepic_coursesql.conference)
+union select conference from stepic_coursesql.paper group by conference having count(distinct location) > 1;

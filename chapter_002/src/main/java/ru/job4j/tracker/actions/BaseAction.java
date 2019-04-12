@@ -1,7 +1,7 @@
 package ru.job4j.tracker.actions;
 
+import ru.job4j.tracker.ITracker;
 import ru.job4j.tracker.Input;
-import ru.job4j.tracker.Tracker;
 
 import java.io.IOException;
 
@@ -16,7 +16,7 @@ public abstract class BaseAction implements UserAction {
     }
 
     @Override
-    public void execute(Input input, Tracker tracker) throws IOException {
+    public void execute(Input input, ITracker tracker) throws IOException {
 
     }
 

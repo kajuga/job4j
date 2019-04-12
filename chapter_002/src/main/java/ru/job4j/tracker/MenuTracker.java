@@ -12,10 +12,10 @@ import java.util.function.Consumer;
 public class MenuTracker {
     private final Consumer<String> output;
     private Input input;
-    private Tracker tracker;
+    private ITracker tracker;
     private UserAction[] actions = new UserAction[6];
 
-    public MenuTracker(Input input, Tracker tracker, Consumer<String> output) {
+    public MenuTracker(Input input, ITracker tracker, Consumer<String> output) {
         this.input = input;
         this.tracker = tracker;
         this.output = output;
@@ -52,7 +52,7 @@ public class MenuTracker {
         }
 
         @Override
-        public void execute(Input input, Tracker tracker) {
+        public void execute(Input input, ITracker tracker) {
             output.accept("------------ Добавление новой заявки --------------");
             String desc = null;
             String name = null;
@@ -77,7 +77,7 @@ public class MenuTracker {
             super(1, "Show all Items.");
         }
         @Override
-        public void execute(Input input, Tracker tracker) {
+        public void execute(Input input, ITracker tracker) {
             for (Item item : tracker.findAll()) {
                 output.accept(String.format("Name: %s| Desc: %s| Id: %s",
                         item.getName(), item.getDesc(), item.getId()));
@@ -95,7 +95,7 @@ public class MenuTracker {
         }
 
         @Override
-        public void execute(Input input, Tracker tracker) throws IOException {
+        public void execute(Input input, ITracker tracker) throws IOException {
             output.accept("------------ Редактирование содержимого заявки --------------");
             String oldId = null;
 
@@ -132,7 +132,7 @@ public class MenuTracker {
             super(3, "Delete Item.");
         }
 
-        public void execute(Input input, Tracker tracker, Consumer<String> output) {
+        public void execute(Input input, ITracker tracker, Consumer<String> output) {
             output.accept("------------ Удаление заявки из хранилища --------------");
             String id = null;
             try {
@@ -154,7 +154,7 @@ public class MenuTracker {
         }
 
         @Override
-        public void execute(Input input, Tracker tracker) {
+        public void execute(Input input, ITracker tracker) {
             output.accept("------------ Поиск заявки по id --------------");
             String id = null;
             try {
@@ -180,7 +180,7 @@ public class MenuTracker {
         }
 
         @Override
-        public void execute(Input input, Tracker tracker) {
+        public void execute(Input input, ITracker tracker) {
             output.accept("------------ Поиск заявки по name --------------");
             String name = null;
             try {

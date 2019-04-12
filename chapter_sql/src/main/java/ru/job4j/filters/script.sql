@@ -60,6 +60,7 @@ ALTER TABLE filters.product ADD CONSTRAINT type_product FOREIGN KEY (type_id) RE
 
 
 -- 1. Написать запрос получение всех продуктов с типом "СЫР"
+SELECT * FROM filters.product;
 SELECT p.name FROM filters.product as p LEFT JOIN filters.type as t ON p.type_id = t.id  WHERE t.name = 'Сыр';
 -- 2. Написать запрос получения всех продуктов, у кого в имени есть слово "мороженное"
 SELECT * FROM filters.product WHERE name LIKE '%Мороженное%';
