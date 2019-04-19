@@ -5,6 +5,8 @@ import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
 import ru.job4j.tracker.ITracker;
 import ru.job4j.tracker.Item;
+import ru.job4j.uml_system.Comment;
+
 import java.io.InputStream;
 import java.sql.*;
 import java.util.ArrayList;
@@ -75,23 +77,6 @@ public class TrackerSQL implements ITracker, AutoCloseable {
 
 
 
-//    public boolean init() {
-//        try (InputStream in = TrackerSQL.class.getClassLoader().getResourceAsStream("app.properties")) {
-//            Properties config = new Properties();
-//            config.load(in);
-//            Class.forName(config.getProperty("driver-class-name"));
-//            this.connection = DriverManager.getConnection(
-//                    config.getProperty("url"),
-//                    config.getProperty("username"),
-//                    config.getProperty("password")
-//            );
-//        } catch (Exception e) {
-//            throw new IllegalStateException(e);
-//        }
-//        return this.connection != null;
-//    }
-
-
     @Override
     public Item add(Item item) {
         return null;
@@ -110,15 +95,26 @@ public class TrackerSQL implements ITracker, AutoCloseable {
     @Override
     public Item[] findAll() {
         List<Item> items = new ArrayList<>();
-        try(Connection connection = DriverManager.getConnection(DATABASE_URL, USER, PASSWORD);) {
+        try(Connection connection = DriverManager.getConnection(DATABASE_URL, USER, PASSWORD)) {
             String sql = "SELECT * FROM tracker.item";
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(sql);
             while (resultSet.next()) {
-
                 Item item = new Item();
                 item.setId(String.valueOf(resultSet.getInt("id")));
                 item.setName(resultSet.getString("name"));
+                item.setDesc(resultSet.getString("description"));
+
+                String sqlComments = "SELECT * FROM tracker.comment WHERE item_id = ?";
+                PreparedStatement statementComments = connection.prepareStatement(sqlComments);
+                statementComments.setString(1, item.getId());
+                ResultSet resultSetComments = statement.executeQuery(sql);
+                List<Comment> comments = new ArrayList<>();
+                while (resultSetComments.next()) {
+                    Comment comment = new Comment();
+                    comments.add(comment);
+                }
+                item.setComments(comments.toArray(new Comment[comments.size()]);
 
 
 
