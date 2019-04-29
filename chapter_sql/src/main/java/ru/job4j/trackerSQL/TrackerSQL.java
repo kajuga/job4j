@@ -109,30 +109,19 @@ public class TrackerSQL implements ITracker, AutoCloseable {
                 PreparedStatement statementComments = connection.prepareStatement(sqlComments);
                 statementComments.setString(1, item.getId());
                 ResultSet resultSetComments = statement.executeQuery(sql);
-                List<Comment> comments = new ArrayList<>();
+//                List<String> comments = new ArrayList<>();
                 while (resultSetComments.next()) {
-                    Comment comment = new Comment();
-                    comments.add(comment);
+                    String comment = resultSetComments.getString("имя_столбца_из_таблицы_комментов");
                 }
-                item.setComments(comments.toArray(new Comment[comments.size()]);
-
-
 
                 String description = resultSet.getString("description");
-                String comments = resultSet.getString("comments");
                 Date date = resultSet.getDate("creation_date");
-
-
-
+                String comment = resultSetComments.getString("имя_столбца_из_таблицы_комментов");
                 items.add(item);
-
             }
-
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
 
         return items.toArray(new Item[items.size()]);
     }
