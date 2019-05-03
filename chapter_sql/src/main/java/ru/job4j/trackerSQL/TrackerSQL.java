@@ -86,6 +86,14 @@ public class TrackerSQL implements ITracker, AutoCloseable {
 
     @Override
     public void delete(String id) {
+        try(Connection connection = DriverManager.getConnection(DATABASE_URL, USER, PASSWORD)) {
+            String sql = "DELETE FROM tracker.item WHERE id = ?";
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1, Integer.valueOf(id));
+            preparedStatement.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
     }
 
