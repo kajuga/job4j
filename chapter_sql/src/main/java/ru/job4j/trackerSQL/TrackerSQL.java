@@ -76,7 +76,18 @@ public class TrackerSQL implements ITracker, AutoCloseable {
 
     @Override
     public Item add(Item item) {
-        return null;
+        try(Connection connection = DriverManager.getConnection(DATABASE_URL, USER, PASSWORD)) {
+            String sql = "INSERT INTO tracker.item (name, description, comments, creation_date) VALUES (?, ?, ?, {d ?})";
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, );
+
+
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+
     }
 
     @Override
