@@ -1,21 +1,16 @@
 package ru.job4j.trackerSQL;
 
-
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
 import ru.job4j.tracker.ITracker;
 import ru.job4j.tracker.Item;
-import ru.job4j.uml_system.Comment;
-
-import java.io.InputStream;
+import java.io.*;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Properties;
-
+import java.util.Scanner;
 
 public class TrackerSQL implements ITracker, AutoCloseable {
-
     private static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
     private static final String DATABASE_URL = "jdbc:postgresql://localhost:5432/job4j_database";
     private static final String USER = "postgres";
@@ -30,63 +25,43 @@ public class TrackerSQL implements ITracker, AutoCloseable {
         }
     }
 
-//    Connection connection;
-//    PreparedStatement preparedStatement;
-
     public static void main(String[] args) {
-        Connection connection = null;
-        Statement statement = null;
+        try (Connection connection = DriverManager.getConnection(DATABASE_URL, USER, PASSWORD);
+             BufferedReader sqlFile = new BufferedReader(new InputStreamReader(TrackerSQL.class.getClassLoader().getResourceAsStream("item-creator_MERGED.sql")));
+             Scanner scanner = new Scanner(sqlFile);
+             Statement statement = connection.createStatement()) {
 
-        try {
-            System.out.println("1");
-            String sql = "SELECT * FROM tracker.item";
-            System.out.println("2");
-            Class.forName(JDBC_DRIVER);
-            System.out.println("3");
-            connection = DriverManager.getConnection(DATABASE_URL, USER, PASSWORD);
-            System.out.println("4");
-            statement = connection.createStatement();
-            System.out.println("5");
-            ResultSet resultSet = statement.executeQuery(sql);
-            while (resultSet.next()) {
-                int id = resultSet.getInt("id");
-                String name = resultSet.getString("name");
-                String description = resultSet.getString("description");
-                String comments = resultSet.getString("comments");
-                Date date = resultSet.getDate("creation_date");
-
-                System.out.println("=====================================");
-                System.out.println("id " + id);
-                System.out.println("name " + name);
-                System.out.println("description " + description);
-                System.out.println("comments " + comments);
-                System.out.println("date " + date);
-                System.out.println("=====================================");
-
-
+            String line = "";
+            while (scanner.hasNextLine()) {
+                line = scanner.nextLine();
+                if (line.endsWith(";")) {
+                    line = line.substring(0, line.length() - 1);
+                }
+                statement.executeUpdate(line);
             }
-
-
         } catch (SQLException e) {
             e.printStackTrace();
-        } catch (ClassNotFoundException e) {
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
+
     @Override
     public Item add(Item item) {
-        try(Connection connection = DriverManager.getConnection(DATABASE_URL, USER, PASSWORD)) {
-            String sql = "INSERT INTO tracker.item (name, description, comments, creation_date) VALUES (?, ?, ?, {d ?})";
-            PreparedStatement preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setString(1, );
-
-
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
+//        try(Connection connection = DriverManager.getConnection(DATABASE_URL, USER, PASSWORD)) {
+//            String sql = "INSERT INTO tracker.item (name, description, comments, creation_date) VALUES (?, ?, ?, {d ?})";
+//            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+////            preparedStatement.setString(1, );
+//
+//
+//
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
+return null;
 
     }
 
