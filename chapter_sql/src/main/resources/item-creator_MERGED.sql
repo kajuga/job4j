@@ -1,4 +1,4 @@
-CREATE TABLE tracker.item (id SERIAL PRIMARY KEY NOT NULL, name VARCHAR(100), descripton VARCHAR(150), creation_date DATE NOT NULL);
+CREATE TABLE tracker.item (id SERIAL PRIMARY KEY NOT NULL, name VARCHAR(100), description VARCHAR(150), creation_date DATE NOT NULL);
 INSERT INTO tracker.item VALUES (1, 'Incoming mail', 'description_text_fifth', NOW());
 INSERT INTO tracker.item VALUES (2, 'Incoming mail', 'description_text_fourth', NOW());
 INSERT INTO tracker.item VALUES (3, 'Incoming mail', 'description_text_second', NOW());
