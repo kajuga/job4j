@@ -55,11 +55,7 @@ public class TrackerSQL implements ITracker, AutoCloseable {
             System.out.println(i);
 
         }
-
-
-
     }
-
 
     @Override
     public Item add(Item item) {
@@ -114,7 +110,7 @@ return null;
 
                 statementComments.setString(1, item.getId());
 
-                setInt(Integer.valueOf(item.getId()))
+//                setInt(Integer.valueOf(item.getId()))
 
 
                 ResultSet resultSetComments = statementComments.executeQuery();

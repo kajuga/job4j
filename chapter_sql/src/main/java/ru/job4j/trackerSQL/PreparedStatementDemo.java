@@ -20,7 +20,6 @@ public class PreparedStatementDemo {
         System.out.println("Creating connection...");
         connection = DriverManager.getConnection(DATABASE_URL, USER, PASSWORD);
 
-
         try {
             String SQL = "SELECT * FROM developers";
             preparedStatement = connection.prepareStatement(SQL);
@@ -74,7 +73,6 @@ public class PreparedStatementDemo {
                 connection.close();
             }
         }
-
         System.out.println("Thank You.");
     }
 }

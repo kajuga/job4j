@@ -5,7 +5,6 @@ import ru.job4j.tracker.*;
 import java.io.IOException;
 import java.util.function.Consumer;
 import java.util.function.Consumer;
-
 /**
  * @author Aleksandr Fedorov (msg2fedorov@gmail.com)
  * Consumer realisation
