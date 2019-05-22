@@ -20,7 +20,7 @@ import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.text.ParseException;
 
-public class MaxСurrency {
+public class Maxcurrency {
 
 
     public static void main(String[] args) throws SAXException, IOException, ParserConfigurationException, ParseException {
@@ -67,8 +67,8 @@ public class MaxСurrency {
                             }
                         }
 
-                        double cost = value/nominal;
-                        if (cost > max){
+                        double cost = value / nominal;
+                        if (cost > max) {
                             max = cost;
                             expensiveCurrency = charCode;
                         }

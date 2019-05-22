@@ -1,4 +1,4 @@
-package ru.job4j.uml_system;
+package ru.job4j.umlsystem;
 
 import java.io.File;
 

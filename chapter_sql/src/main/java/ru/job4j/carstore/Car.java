@@ -1,8 +1,8 @@
-package ru.job4j.car_storage;
+package ru.job4j.carstore;
 
 public class Car {
     private BrandName brand;
-    private Body_type body_type;
+    private BodyType bodyType;
     private Motor motor;
     private Transmission transmission;
 }

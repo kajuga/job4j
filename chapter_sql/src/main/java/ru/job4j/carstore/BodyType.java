@@ -1,6 +1,6 @@
-package ru.job4j.car_storage;
+package ru.job4j.carstore;
 
-public enum Body_type {
+public enum BodyType {
     SUV,
     JEEP,
     HATCHBACK,

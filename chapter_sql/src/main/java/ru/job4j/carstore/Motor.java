@@ -1,4 +1,4 @@
-package ru.job4j.car_storage;
+package ru.job4j.carstore;
 
 public enum  Motor {
     PETROL,
