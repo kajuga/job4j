@@ -1,10 +1,10 @@
-package ru.job4j.trackerSQL;
+package ru.job4j.trackersql;
 
 import ru.job4j.tracker.*;
 
 import java.io.IOException;
 import java.util.function.Consumer;
-import java.util.function.Consumer;
+
 /**
  * @author Aleksandr Fedorov (msg2fedorov@gmail.com)
  * Consumer realisation
@@ -12,7 +12,7 @@ import java.util.function.Consumer;
 
 public class StartUI {
     /**
-     *...
+     * ...
      */
     private final Consumer<String> output;
     /**
@@ -56,6 +56,6 @@ public class StartUI {
      * @param args
      */
     public static void main(String[] args) throws IOException {
-        new StartUI(new ValidateInput(new ConsoleInput()), new TrackerSQL(), System.out::println).init();
+        new StartUI(new ValidateInput(new ConsoleInput()), new Trackersql(), System.out::println).init();
     }
 }

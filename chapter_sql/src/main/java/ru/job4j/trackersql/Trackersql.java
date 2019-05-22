@@ -1,23 +1,21 @@
-package ru.job4j.trackerSQL;
+package ru.job4j.trackersql;
 
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
 import ru.job4j.tracker.ITracker;
 import ru.job4j.tracker.Item;
-import java.io.*;
+
 import java.sql.*;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
-public class TrackerSQL implements ITracker, AutoCloseable {
+public class Trackersql implements ITracker, AutoCloseable {
     private static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
     private static final String DATABASE_URL = "jdbc:postgresql://localhost:5432/job4j_database";
     private static final String USER = "postgres";
     private static final String PASSWORD = "postgres";
-    private static final Logger log = LogManager.getLogger(TrackerSQL.class);
+//    private static final Logger log = LogManager.getLogger(Trackersql.class);
 
     static {
         try {
@@ -29,7 +27,7 @@ public class TrackerSQL implements ITracker, AutoCloseable {
 
     public static void main(String[] args) {
 //        try (Connection connection = DriverManager.getConnection(DATABASE_URL, USER, PASSWORD);
-//             BufferedReader sqlFile = new BufferedReader(new InputStreamReader(TrackerSQL.class.getClassLoader().getResourceAsStream("item-creator_MERGED.sql")));
+//             BufferedReader sqlFile = new BufferedReader(new InputStreamReader(Trackersql.class.getClassLoader().getResourceAsStream("item-creator_MERGED.sql")));
 //             Scanner scanner = new Scanner(sqlFile);
 //             Statement statement = connection.createStatement()) {
 //
@@ -48,9 +46,9 @@ public class TrackerSQL implements ITracker, AutoCloseable {
 //        } catch (IOException e) {
 //            e.printStackTrace();
 //        }
-        TrackerSQL trackerSQL = new TrackerSQL();
+        Trackersql trackersql = new Trackersql();
 
-        Item[] temp = trackerSQL.findAll();
+        Item[] temp = trackersql.findAll();
         for (Item i : temp) {
             System.out.println(i);
 
@@ -69,7 +67,7 @@ public class TrackerSQL implements ITracker, AutoCloseable {
 //        } catch (SQLException e) {
 //            e.printStackTrace();
 //        }
-return null;
+        return null;
 
     }
 
@@ -80,7 +78,7 @@ return null;
 
     @Override
     public void delete(String id) {
-        try(Connection connection = DriverManager.getConnection(DATABASE_URL, USER, PASSWORD)) {
+        try (Connection connection = DriverManager.getConnection(DATABASE_URL, USER, PASSWORD)) {
             String sql = "DELETE FROM tracker.item WHERE id = ?";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setInt(1, Integer.valueOf(id));
@@ -88,14 +86,13 @@ return null;
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
     }
 
     @Override
     public Item[] findAll() {
         List<Item> items = new ArrayList<>();
-        try(Connection connection = DriverManager.getConnection(DATABASE_URL, USER, PASSWORD);
-            Statement statement = connection.createStatement();) {
+        try (Connection connection = DriverManager.getConnection(DATABASE_URL, USER, PASSWORD);
+             Statement statement = connection.createStatement()) {
             String sql = "SELECT * FROM tracker.item";
             ResultSet resultSet = statement.executeQuery(sql);
             while (resultSet.next()) {
@@ -105,13 +102,12 @@ return null;
                 item.setDesc(resultSet.getString("description"));
                 item.setCreated(LocalDate.now().toEpochDay());
 
-                String sqlComments = "SELECT comment as comment FROM tracker.comment WHERE item_id = ?";
+                String sqlComments = "SELECT comment AS comment FROM tracker.comment WHERE item_id = ?";
                 PreparedStatement statementComments = connection.prepareStatement(sqlComments);
 
                 statementComments.setString(1, item.getId());
 
 //                setInt(Integer.valueOf(item.getId()))
-
 
                 ResultSet resultSetComments = statementComments.executeQuery();
                 List<String> comments = new ArrayList<>();
@@ -125,7 +121,6 @@ return null;
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
         return items.toArray(new Item[items.size()]);
     }
 

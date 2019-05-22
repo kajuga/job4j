@@ -1,14 +1,13 @@
-package ru.job4j.trackerSQL;
+package ru.job4j.trackersql;
 
 import java.sql.*;
 
-public class PreparedStatementDemo {
+public class Preparedstatementdemo {
     static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
     static final String DATABASE_URL = "jdbc:mysql://localhost/PROSELYTE_TUTORIALS";
 
     static final String USER = "root";
     static final String PASSWORD = "pass";
-
 
     public static void main(String[] args) throws ClassNotFoundException, SQLException {
         Connection connection = null;
@@ -21,10 +20,10 @@ public class PreparedStatementDemo {
         connection = DriverManager.getConnection(DATABASE_URL, USER, PASSWORD);
 
         try {
-            String SQL = "SELECT * FROM developers";
-            preparedStatement = connection.prepareStatement(SQL);
+            String sql = "SELECT * FROM developers";
+            preparedStatement = connection.prepareStatement(sql);
             System.out.println("Initial developers table content:");
-            ResultSet resultSet = preparedStatement.executeQuery(SQL);
+            ResultSet resultSet = preparedStatement.executeQuery(sql);
             while (resultSet.next()) {
                 int id = resultSet.getInt("id");
                 String name = resultSet.getString("name");
@@ -38,19 +37,19 @@ public class PreparedStatementDemo {
                 System.out.println("\n============================\n");
             }
 
-            SQL = "Update developers SET salary=? WHERE specialty=?";
+            sql = "UPDATE developers SET salary=? WHERE specialty=?";
             System.out.println("Creating statement...");
             System.out.println("Executing SQL query...");
 
-            preparedStatement = connection.prepareStatement(SQL);
+            preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setInt(1, 2000);
             preparedStatement.setString(2, "java");
 
             System.out.println("Rows impacted: " + preparedStatement.executeUpdate());
 
             System.out.println("Final developers table content:");
-            SQL = "SELECT * FROM developers";
-            resultSet = preparedStatement.executeQuery(SQL);
+            sql = "SELECT * FROM developers";
+            resultSet = preparedStatement.executeQuery(sql);
             while (resultSet.next()) {
                 int id = resultSet.getInt("id");
                 String name = resultSet.getString("name");
@@ -69,7 +68,7 @@ public class PreparedStatementDemo {
             if (preparedStatement != null) {
                 preparedStatement.close();
             }
-            if(connection!=null){
+            if (connection != null) {
                 connection.close();
             }
         }

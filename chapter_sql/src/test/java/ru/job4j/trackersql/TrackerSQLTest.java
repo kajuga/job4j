@@ -1,16 +1,11 @@
-package ru.job4j.trackerSQL;
-
-import static org.junit.Assert.*;
-
-import org.junit.Test;
+package ru.job4j.trackersql;
 
 import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.*;
 
 public class TrackerSQLTest {
 //    @Test
 //    public void checkConnection() {
-//        TrackerSQL sql = new TrackerSQL();
+//        Trackersql sql = new Trackersql();
 //        assertThat(sql.init(), is(true));
 //    }
 }
