@@ -1,6 +1,7 @@
 package ru.job4j.tracker;
 
 import java.util.Arrays;
+import java.util.Date;
 
 public class Item {
     private String id;
@@ -72,7 +73,7 @@ public class Item {
                 + "id='" + id + '\''
                 + ", name='" + name + '\''
                 + ", desc='" + desc + '\''
-                + ", created=" + created
+                + ", created=" + new Date(created)
                 + ", comments=" + Arrays.toString(comments)
                 + '}';
     }

@@ -6,6 +6,7 @@ import ru.job4j.tracker.ITracker;
 import ru.job4j.tracker.Item;
 
 import java.sql.*;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -100,14 +101,14 @@ public class Trackersql implements ITracker, AutoCloseable {
                 item.setId(String.valueOf(resultSet.getInt("id")));
                 item.setName(resultSet.getString("name"));
                 item.setDesc(resultSet.getString("description"));
-                item.setCreated(LocalDate.now().toEpochDay());
+                item.setCreated(resultSet.getDate(4).toLocalDate().toEpochDay());
 
-                String sqlComments = "SELECT comment AS comment FROM tracker.comment WHERE item_id = ?";
+
+                String sqlComments = "SELECT comment FROM tracker.comment WHERE item_id = ?";
                 PreparedStatement statementComments = connection.prepareStatement(sqlComments);
 
-                statementComments.setString(1, item.getId());
+                statementComments.setInt(1, Integer.valueOf(item.getId()));
 
-//                setInt(Integer.valueOf(item.getId()))
 
                 ResultSet resultSetComments = statementComments.executeQuery();
                 List<String> comments = new ArrayList<>();
