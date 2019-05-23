@@ -1,5 +1,8 @@
 package ru.job4j.tracker;
 
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.Arrays;
 import java.util.Date;
 
@@ -73,7 +76,7 @@ public class Item {
                 + "id='" + id + '\''
                 + ", name='" + name + '\''
                 + ", desc='" + desc + '\''
-                + ", created=" + new Date(created)
+                + ", created=" + Instant.ofEpochMilli(created).atZone(ZoneId.systemDefault()).toLocalDate()
                 + ", comments=" + Arrays.toString(comments)
                 + '}';
     }

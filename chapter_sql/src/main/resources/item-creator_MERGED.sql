@@ -1,10 +1,10 @@
 -- в строку сделал, потомцу что у меня читает построчно отсюда
 CREATE TABLE tracker.item (id SERIAL PRIMARY KEY NOT NULL, name VARCHAR(100), description VARCHAR(150), creation_date DATE NOT NULL);
-INSERT INTO tracker.item VALUES (1, 'Incoming mail', 'description_text_fifth', NOW());
+INSERT INTO tracker.item VALUES (1, 'Incoming mail', 'description_text_fifth', 'Wed 17 Dec 03:27:13 2018 PST');
 INSERT INTO tracker.item VALUES (2, 'Incoming mail', 'description_text_fourth', NOW());
-INSERT INTO tracker.item VALUES (3, 'Incoming mail', 'description_text_second', NOW());
+INSERT INTO tracker.item VALUES (3, 'Incoming mail', 'description_text_second', 'Wed 12 Dec 07:37:14 1990 PST');
 INSERT INTO tracker.item VALUES (4, 'Incoming mail', 'description_text_third', NOW());
-INSERT INTO tracker.item VALUES (5, 'Incoming mail', 'description_text_first', NOW());
+INSERT INTO tracker.item VALUES (5, 'Incoming mail', 'description_text_first', 'Wed 11 Jan 11:32:17 1991 PST');
 INSERT INTO tracker.item VALUES (6, 'Incoming mail', 'description_text_fourth', NOW());
 CREATE TABLE tracker.comment (id SERIAL PRIMARY KEY NOT NULL, comment VARCHAR(250), item_id INTEGER REFERENCES tracker.item(id));
 INSERT INTO tracker.comment (id, comment, item_id) VALUES (1, 'commit_text_first', 3);
