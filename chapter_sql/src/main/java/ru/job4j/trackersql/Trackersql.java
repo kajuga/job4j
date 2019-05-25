@@ -52,11 +52,21 @@ public class Trackersql implements ITracker, AutoCloseable {
         Item[] temp = trackersql.findAll();
         for (Item i : temp) {
             System.out.println(i);
-
         }
-        //delete test
+        Item itemNew = new Item("NewTestItem", "blablabla", LocalDate.of(2019, 5, 4).toEpochDay());
+        String [] tempComments = {"Первый коммент нового итема", "Второй коммент нового итема"};
+        itemNew.setComments(tempComments);
+        System.out.println("======");
+
+        trackersql.add(itemNew);
+        Item[] temp2 = trackersql.findAll();
+        for (Item i : temp2) {
+            System.out.println(i);
+        }
+
+//        delete test
 //        System.out.println();
-//        trackersql.delete("4");
+//        trackersql.delete("6");
 //
 //        for (Item i : temp) {
 //            System.out.println(i);
@@ -66,17 +76,41 @@ public class Trackersql implements ITracker, AutoCloseable {
 
     @Override
     public Item add(Item item) {
+        PreparedStatement preparedStatement = null;
         try(Connection connection = DriverManager.getConnection(DATABASE_URL, USER, PASSWORD)) {
             String sqlItem = "INSERT INTO tracker.item (name, description, creation_date) VALUES (?, ?, ?)";
-            PreparedStatement preparedStatement = connection.prepareStatement(sqlItem);
+            preparedStatement = connection.prepareStatement(sqlItem);
             preparedStatement.setString(1, item.getName());
             preparedStatement.setString(2, item.getDesc());
             preparedStatement.setDate(3, new Date(item.getCreated()));
-            String sqlComments = "INSERT INTO tracker.comment (comment, item_id) VALUES (?, ?)";
+            preparedStatement.executeUpdate();
+            int idItem = -1;
+            try (ResultSet generatedKeys = preparedStatement.getGeneratedKeys()) {
+                if (generatedKeys.next()) {
+                    idItem = generatedKeys.getInt(1);
+                }
+            }
+            if (idItem != -1) {
+                String sqlComments = "INSERT INTO tracker.comment (comment, item_id) VALUES (?, ?)";
+                preparedStatement = connection.prepareStatement(sqlComments);
+                String[] itemComments = item.getComments();
+                for (String s : itemComments) {
+                    preparedStatement.setString(1, s);
+                    preparedStatement.setInt(2, idItem);
+                    preparedStatement.executeUpdate();
+                }
+            }
+
+
+
+
+
+
+
 //            preparedStatement.setString(1, );
 
 
-            preparedStatement.executeUpdate();
+//            preparedStatement.executeUpdate();
 //
 //item.setCreated(resultSet.getDate(4).getTime());
 //
