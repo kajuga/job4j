@@ -8,6 +8,7 @@ import ru.job4j.tracker.Item;
 import java.sql.*;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -48,25 +49,34 @@ public class Trackersql implements ITracker, AutoCloseable {
 //            e.printStackTrace();
 //        }
         Trackersql trackersql = new Trackersql();
+
         //select all testing
-        Item[] temp = trackersql.findAll();
-        for (Item i : temp) {
+//        Item[] temp = trackersql.findAll();
+//        for (Item i : temp) {
+//            System.out.println(i);
+//        }
+//        Item itemNew = new Item("NewTestItem", "blablabla", LocalDate.of(2019, 5, 4).atStartOfDay().atZone(ZoneId.systemDefault()).toInstant().toEpochMilli());
+//        String [] tempComments = {"Первый коммент нового итема", "Второй коммент нового итема"};
+//        itemNew.setComments(tempComments);
+//        System.out.println("======");
+//
+//        //add test
+//        trackersql.add(itemNew);
+//        Item[] temp2 = trackersql.findAll();
+//        for (Item i : temp2) {
+//            System.out.println(i);
+//        }
+        System.out.println("==== findByName ====");
+        ///findByName quickTest
+        Item[] temp3 = trackersql.findByName("Inner mail");
+        for (Item i : temp3) {
             System.out.println(i);
         }
-        Item itemNew = new Item("NewTestItem", "blablabla", LocalDate.of(2019, 5, 4).toEpochDay());
-        String [] tempComments = {"Первый коммент нового итема", "Второй коммент нового итема"};
-        itemNew.setComments(tempComments);
-        System.out.println("======");
 
-        trackersql.add(itemNew);
-        Item[] temp2 = trackersql.findAll();
-        for (Item i : temp2) {
-            System.out.println(i);
-        }
 
-//        delete test
+//        // delete test
 //        System.out.println();
-//        trackersql.delete("6");
+//        trackersql.delete("7");
 //
 //        for (Item i : temp) {
 //            System.out.println(i);
@@ -76,49 +86,35 @@ public class Trackersql implements ITracker, AutoCloseable {
 
     @Override
     public Item add(Item item) {
-        PreparedStatement preparedStatement = null;
-        try(Connection connection = DriverManager.getConnection(DATABASE_URL, USER, PASSWORD)) {
-            String sqlItem = "INSERT INTO tracker.item (name, description, creation_date) VALUES (?, ?, ?)";
-            preparedStatement = connection.prepareStatement(sqlItem);
+        String sqlItem = "INSERT INTO tracker.item (name, description, creation_date) VALUES (?, ?, ?)";
+        try(Connection connection = DriverManager.getConnection(DATABASE_URL, USER, PASSWORD);
+            PreparedStatement preparedStatement = connection.prepareStatement(sqlItem, Statement.RETURN_GENERATED_KEYS);) {
+
             preparedStatement.setString(1, item.getName());
             preparedStatement.setString(2, item.getDesc());
             preparedStatement.setDate(3, new Date(item.getCreated()));
             preparedStatement.executeUpdate();
             int idItem = -1;
-            try (ResultSet generatedKeys = preparedStatement.getGeneratedKeys()) {
-                if (generatedKeys.next()) {
-                    idItem = generatedKeys.getInt(1);
-                }
+            ResultSet generatedKeys = preparedStatement.getGeneratedKeys();
+            if (generatedKeys.next()) {
+                idItem = generatedKeys.getInt(1);
+                item.setId(String.valueOf(idItem));
             }
             if (idItem != -1) {
                 String sqlComments = "INSERT INTO tracker.comment (comment, item_id) VALUES (?, ?)";
-                preparedStatement = connection.prepareStatement(sqlComments);
-                String[] itemComments = item.getComments();
-                for (String s : itemComments) {
-                    preparedStatement.setString(1, s);
-                    preparedStatement.setInt(2, idItem);
-                    preparedStatement.executeUpdate();
+                try(PreparedStatement preparedStatementComments = connection.prepareStatement(sqlComments);){
+                    String[] itemComments = item.getComments();
+                    for (String s : itemComments) {
+                        preparedStatementComments.setString(1, s);
+                        preparedStatementComments.setInt(2, idItem);
+                        preparedStatementComments.executeUpdate();
+                    }
                 }
             }
-
-
-
-
-
-
-
-//            preparedStatement.setString(1, );
-
-
-//            preparedStatement.executeUpdate();
-//
-//item.setCreated(resultSet.getDate(4).getTime());
-//
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return null;
-
+        return item;
     }
 
     @Override
@@ -184,8 +180,38 @@ public class Trackersql implements ITracker, AutoCloseable {
 
     @Override
     public Item[] findByName(String key) {
-        return new Item[0];
+        List<Item> items = new ArrayList<>();
+        try (Connection connection = DriverManager.getConnection(DATABASE_URL, USER, PASSWORD);
+            Statement statement = connection.createStatement()) {
+            String sql = "SELECT * FROM tracker.item WHERE name = " + "'" + key + "'";
+            ResultSet resultSet = statement.executeQuery(sql);
+            while (resultSet.next()) {
+                Item item = new Item();
+                item.setId(String.valueOf(resultSet.getInt(1)));
+                item.setName(resultSet.getString(2));
+                item.setDesc(resultSet.getString(3));
+                item.setCreated(resultSet.getDate(4).getTime());
+
+                String sqlComments = "SELECT comment FROM tracker.comment WHERE item_id = " + item.getId();
+                try (Statement statementComments = connection.createStatement()) {
+                    ResultSet resultSetComments = statementComments.executeQuery(sqlComments);
+
+                    List<String> comments = new ArrayList<>();
+                    while (resultSetComments.next()) {
+                        String comment = resultSetComments.getString("comment");
+                        item.setComments(comments.toArray(new String[comments.size()]));
+                        comments.add(comment);
+                    }
+                }
+                items.add(item);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return items.toArray(new Item[items.size()]);
     }
+
+
 
     @Override
     public Item findById(String id) {
