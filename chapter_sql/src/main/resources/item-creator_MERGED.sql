@@ -5,7 +5,7 @@ INSERT INTO tracker.item (name, description, creation_date) VALUES ('Outcoming m
 INSERT INTO tracker.item (name, description, creation_date) VALUES ('Inner mail', 'description_text_second', 'Wed 12 Dec 07:37:14 1990 PST');
 INSERT INTO tracker.item (name, description, creation_date) VALUES ('Incoming mail', 'description_text_third', NOW());
 INSERT INTO tracker.item (name, description, creation_date) VALUES ('Unsorted mail', 'description_text_first', 'Wed 11 Jan 11:32:17 1991 PST');
-INSERT INTO tracker.item (name, description, creation_date) VALUES ('Incoming mail', 'description_text_fourth', NOW());
+INSERT INTO tracker.item (name, description, creation_date) VALUES ('Inner mail', 'description_text_fourth', NOW());
 CREATE TABLE tracker.comment (id SERIAL PRIMARY KEY NOT NULL, comment VARCHAR(250), item_id INTEGER REFERENCES tracker.item(id));
 INSERT INTO tracker.comment (comment, item_id) VALUES ('commit_text_first', 3);
 INSERT INTO tracker.comment (comment, item_id) VALUES ('commit_text_second', 2);
