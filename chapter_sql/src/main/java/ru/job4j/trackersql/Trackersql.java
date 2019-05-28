@@ -1,12 +1,8 @@
 package ru.job4j.trackersql;
 
-import org.apache.logging.log4j.Logger;
-import org.apache.logging.log4j.LogManager;
 import ru.job4j.tracker.ITracker;
 import ru.job4j.tracker.Item;
-
 import java.sql.*;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.ArrayList;
@@ -17,7 +13,6 @@ public class Trackersql implements ITracker, AutoCloseable {
     private static final String DATABASE_URL = "jdbc:postgresql://localhost:5432/job4j_database";
     private static final String USER = "postgres";
     private static final String PASSWORD = "postgres";
-//    private static final Logger log = LogManager.getLogger(Trackersql.class);
 
     static {
         try {
@@ -68,24 +63,27 @@ public class Trackersql implements ITracker, AutoCloseable {
 //        }
 
         //replace testing
-        Item itemNew = new Item("NewTestItem", "blablabla", LocalDate.of(2019, 5, 4).atStartOfDay().atZone(ZoneId.systemDefault()).toInstant().toEpochMilli());
-        String [] tempComments = {"Первый коммент нового итема", "Второй коммент нового итема"};
+        Item itemNew = new Item("NewTestItem", "blablabla", LocalDate.of(1945, 5, 9).atStartOfDay().atZone(ZoneId.systemDefault()).toInstant().toEpochMilli());
+        String[] tempComments = {"Первый коммент нового-замененного итема", "Второй коммент нового-замененного итема"};
         itemNew.setComments(tempComments);
-        System.out.println("======");
+        System.out.println("======итем создан, ехаем дальше========");
+        System.out.println();
+        System.out.println("===замена пятого итема вот этим новым ========");
+        trackersql.replace(String.valueOf(5), itemNew);
 
-        System.out.println("==== findByName ====");
-        ///findByName quickTest
-        Item[] temp3 = trackersql.findByName("Inner mail");
-        for (Item i : temp3) {
-            System.out.println(i);
-        }
-        System.out.println("Длина массива найденых item's");
-        System.out.println(temp3.length);
-
-        System.out.println("==== findBy Id ====");
-        ///findByName quickTest
-        Item finded = trackersql.findById("3");
-        System.out.println("Найдено: " + finded);
+//        System.out.println("==== findByName ====");
+//        ///findByName quickTest
+//        Item[] temp3 = trackersql.findByName("Inner mail");
+//        for (Item i : temp3) {
+//            System.out.println(i);
+//        }
+//        System.out.println("Длина массива найденых item's");
+//        System.out.println(temp3.length);
+//
+//        System.out.println("==== findBy Id ====");
+//        ///findByName quickTest
+//        Item finded = trackersql.findById("3");
+//        System.out.println("Найдено: " + finded);
 
 
 //        // delete test
@@ -134,26 +132,23 @@ public class Trackersql implements ITracker, AutoCloseable {
 
     @Override
     public void replace(String id, Item item) {
-        Item temp = item;
-        PreparedStatement preparedStatement = null;
-        ResultSet rs = null;
-        try (Connection connection = DriverManager.getConnection(DATABASE_URL, USER, PASSWORD)) {
+        String sqlItem = "UPDATE tracker.item SET name = ?, description = ?, creation_date = ? WHERE id = ?";
+        try (Connection connection = DriverManager.getConnection(DATABASE_URL, USER, PASSWORD);
+             PreparedStatement preparedStatementItem = connection.prepareStatement(sqlItem)){
+
+            preparedStatementItem.setString(1, item.getName());
+            preparedStatementItem.setString(2, item.getDesc());
+            preparedStatementItem.setDate(3, new Date(item.getCreated()));
+            preparedStatementItem.setInt(4, Integer.valueOf(id));
+            preparedStatementItem.executeUpdate();
+
             String oldCommentsErase = "DELETE FROM tracker.comment WHERE item_id = ?";
-            preparedStatement = connection.prepareStatement(oldCommentsErase);
-            preparedStatement.setInt(1, Integer.valueOf(id));
-            preparedStatement.executeUpdate();
-            String sqlItemReplace = "UPDATE tracker.item " +
-                    "SET name = ?, " +
-                    "description = ?, " +
-                    "creation_date = ? " +
-                    "WHERE id =" + "'" + id + "'";
-            preparedStatement.executeUpdate(sqlItemReplace);
-            while (rs.next()) {
-                rs.updateString(1, item.getName());
-                rs.updateString(2, item.getDesc());
-                rs.updateDate(3, new Date(item.getCreated()));
-                rs.updateRow();
+            try(PreparedStatement preparedStatementoldCommentsErase = connection.prepareStatement(oldCommentsErase);) {
+                preparedStatementoldCommentsErase.setInt(1, Integer.valueOf(id));
+                preparedStatementoldCommentsErase.executeUpdate();
             }
+
+
             String sqlComments = "INSERT INTO tracker.comment (comment, item_id) VALUES (?, ?)";
             try (PreparedStatement preparedStatementComments = connection.prepareStatement(sqlComments)) {
                 String[] itemComments = item.getComments();
@@ -163,14 +158,6 @@ public class Trackersql implements ITracker, AutoCloseable {
                     preparedStatementComments.executeUpdate();
                 }
             }
-
-
-
-
-
-
-
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
