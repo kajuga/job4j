@@ -3,7 +3,6 @@ package ru.job4j.trackersql;
 import org.junit.Assert;
 import org.junit.Test;
 import ru.job4j.tracker.Item;
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -11,7 +10,6 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Locale;
 import java.util.Properties;
-
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.*;
 
@@ -33,30 +31,40 @@ public class TrackerSQLTest {
     //Connection Test
     @Test
     public void checkConnection() {
-        if(connection==null)
+        if (connection == null) {
             try {
                 Locale.setDefault(Locale.ENGLISH);
                 connection = DriverManager.getConnection(DATABASE_URL, USER, PASSWORD);
             } catch (SQLException e) {
                 e.printStackTrace();
             }
-    }
+        }
 
-    //select all testing
-//        Item[] temp = trackersql.findAll();
-//        for (Item i : temp) {
-//            System.out.println(i);
-//        }
-//        Item itemNew = new Item("NewTestItem", "blablabla", LocalDate.of(2019, 5, 4).atStartOfDay().atZone(ZoneId.systemDefault()).toInstant().toEpochMilli());
-//        String [] tempComments = {"Первый коммент нового итема", "Второй коммент нового итема"};
-//        itemNew.setComments(tempComments);
-//        System.out.println("======");
-
-    /**
-     * Add testiong
-     */
-    @Test
-        public void testAdd () {
+        /**
+         * Select all testing
+         */
+//    @Test
+//    public void whenFindAll() {
+//        Trackersql trackersql = new Trackersql();
+//        Item itemOne = new Item("ItemOne", "blablabla", LocalDate.of(2019, 5, 4).atStartOfDay().atZone(ZoneId.systemDefault()).toInstant().toEpochMilli());
+//        String[] itemOneComments = {"Первый коммент итема №1", "Второй коммент итема №1"};
+//        itemOne.setComments(itemOneComments);
+//        Item itemTwo = new Item("ItemTwo", "arrggh!", LocalDate.of(1945, 5, 9).atStartOfDay().atZone(ZoneId.systemDefault()).toInstant().toEpochMilli());
+//        String[] itemTwoComments = {"Первый коммент итема #2", "Второй коммент итема #2", "Третий коммент итема #2"};
+//        itemTwo.setComments(itemTwoComments);
+//
+//        trackersql.add(itemOne);
+//        trackersql.add(itemTwo);
+//        Item[] actual = trackersql.findAll();
+//        Item[] expected = new Item[]{itemOne, itemTwo};
+//        assertArrayEquals(expected, actual);
+//    }
+//
+//    /**
+//     * Add testiong
+//     */
+//    @Test
+//        public void testAdd () {
 
 //        Item[] temp = trackersql.findAll();
 //        for (Item i : temp) {
@@ -114,18 +122,9 @@ public class TrackerSQLTest {
 //        }
 
 
-
-
-
+    }
 }
 
-
-
-
-
-
-
-}
 
 
 

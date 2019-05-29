@@ -2,12 +2,15 @@ package ru.job4j.trackersql;
 
 import ru.job4j.tracker.ITracker;
 import ru.job4j.tracker.Item;
+
 import java.sql.*;
-import java.time.LocalDate;
-import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
 
+
+/**
+ * Tracker realisation
+ */
 public class Trackersql implements ITracker, AutoCloseable {
     private static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
     private static final String DATABASE_URL = "jdbc:postgresql://localhost:5432/job4j_database";
@@ -22,87 +25,11 @@ public class Trackersql implements ITracker, AutoCloseable {
         }
     }
 
-    public static void main(String[] args) {
-//        try (Connection connection = DriverManager.getConnection(DATABASE_URL, USER, PASSWORD);
-//             BufferedReader sqlFile = new BufferedReader(new InputStreamReader(Trackersql.class.getClassLoader().getResourceAsStream("item-creator_MERGED.sql")));
-//             Scanner scanner = new Scanner(sqlFile);
-//             Statement statement = connection.createStatement()) {
-//
-//            String line = "";
-//            while (scanner.hasNextLine()) {
-//                line = scanner.nextLine();
-//                if (line.endsWith(";")) {
-//                    line = line.substring(0, line.length() - 1);
-//                }
-//                statement.executeUpdate(line);
-//            }
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        } catch (FileNotFoundException e) {
-//            e.printStackTrace();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-        Trackersql trackersql = new Trackersql();
-
-        //select all testing
-//        Item[] temp = trackersql.findAll();
-//        for (Item i : temp) {
-//            System.out.println(i);
-//        }
-//        Item itemNew = new Item("NewTestItem", "blablabla", LocalDate.of(2019, 5, 4).atStartOfDay().atZone(ZoneId.systemDefault()).toInstant().toEpochMilli());
-//        String [] tempComments = {"Первый коммент нового итема", "Второй коммент нового итема"};
-//        itemNew.setComments(tempComments);
-//        System.out.println("======");
-//
-//        //add test
-//        trackersql.add(itemNew);
-//        Item[] temp2 = trackersql.findAll();
-//        for (Item i : temp2) {
-//            System.out.println(i);
-//        }
-
-        //replace testing
-        Item itemNew = new Item("NewTestItem", "blablabla", LocalDate.of(1945, 5, 9).atStartOfDay().atZone(ZoneId.systemDefault()).toInstant().toEpochMilli());
-        String[] tempComments = {"Первый коммент нового-замененного итема", "Второй коммент нового-замененного итема"};
-        itemNew.setComments(tempComments);
-        System.out.println("======итем создан, ехаем дальше========");
-        System.out.println();
-        System.out.println("===замена пятого итема вот этим новым ========");
-        trackersql.replace(String.valueOf(5), itemNew);
-
-//        System.out.println("==== findByName ====");
-//        ///findByName quickTest
-//        Item[] temp3 = trackersql.findByName("Inner mail");
-//        for (Item i : temp3) {
-//            System.out.println(i);
-//        }
-//        System.out.println("Длина массива найденых item's");
-//        System.out.println(temp3.length);
-//
-//        System.out.println("==== findBy Id ====");
-//        ///findByName quickTest
-//        Item finded = trackersql.findById("3");
-//        System.out.println("Найдено: " + finded);
-
-
-//        // delete test
-//        System.out.println();
-//        System.out.println("============");
-//        trackersql.delete("7");
-//
-//        for (Item i : temp) {
-//            System.out.println(i);
-//        }
-
-    }
-
     @Override
     public Item add(Item item) {
         String sqlItem = "INSERT INTO tracker.item (name, description, creation_date) VALUES (?, ?, ?)";
         try (Connection connection = DriverManager.getConnection(DATABASE_URL, USER, PASSWORD);
              PreparedStatement preparedStatement = connection.prepareStatement(sqlItem, Statement.RETURN_GENERATED_KEYS)) {
-
             preparedStatement.setString(1, item.getName());
             preparedStatement.setString(2, item.getDesc());
             preparedStatement.setDate(3, new Date(item.getCreated()));
@@ -134,7 +61,7 @@ public class Trackersql implements ITracker, AutoCloseable {
     public void replace(String id, Item item) {
         String sqlItem = "UPDATE tracker.item SET name = ?, description = ?, creation_date = ? WHERE id = ?";
         try (Connection connection = DriverManager.getConnection(DATABASE_URL, USER, PASSWORD);
-             PreparedStatement preparedStatementItem = connection.prepareStatement(sqlItem)){
+             PreparedStatement preparedStatementItem = connection.prepareStatement(sqlItem)) {
 
             preparedStatementItem.setString(1, item.getName());
             preparedStatementItem.setString(2, item.getDesc());
@@ -143,7 +70,7 @@ public class Trackersql implements ITracker, AutoCloseable {
             preparedStatementItem.executeUpdate();
 
             String oldCommentsErase = "DELETE FROM tracker.comment WHERE item_id = ?";
-            try(PreparedStatement preparedStatementoldCommentsErase = connection.prepareStatement(oldCommentsErase);) {
+            try (PreparedStatement preparedStatementoldCommentsErase = connection.prepareStatement(oldCommentsErase);) {
                 preparedStatementoldCommentsErase.setInt(1, Integer.valueOf(id));
                 preparedStatementoldCommentsErase.executeUpdate();
             }
@@ -165,7 +92,6 @@ public class Trackersql implements ITracker, AutoCloseable {
 
     /**
      * Удаление карточик по id
-     *
      * @param id
      */
     @Override
@@ -187,7 +113,6 @@ public class Trackersql implements ITracker, AutoCloseable {
 
     /**
      * Find ALL
-     *
      * @return
      */
     @Override
@@ -221,6 +146,11 @@ public class Trackersql implements ITracker, AutoCloseable {
         return items.toArray(new Item[items.size()]);
     }
 
+    /**
+     * Find by name realisation
+     * @param key
+     * @return
+     */
     @Override
     public Item[] findByName(String key) {
         List<Item> items = new ArrayList<>();
@@ -256,11 +186,9 @@ public class Trackersql implements ITracker, AutoCloseable {
 
     /**
      * Find Item by ID
-     *
      * @param id
      * @return
      */
-
     @Override
     public Item findById(String id) {
         Item item = new Item();
