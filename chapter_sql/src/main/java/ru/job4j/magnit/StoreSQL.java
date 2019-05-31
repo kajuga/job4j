@@ -1,7 +1,5 @@
 package ru.job4j.magnit;
 
-import ru.job4j.tracker.Item;
-
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -14,13 +12,17 @@ public class StoreSQL implements AutoCloseable {
 
     public StoreSQL(Config config) {
         this.config = config;
+        try {
+            this.connect = DriverManager.getConnection(config.get("url"));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     public void generate(int size) {
-        try (Connection connection = DriverManager.getConnection(config.get("url"))) {
-//            PreparedStatement preparedStatement = connection.prepareStatement("CREATE TABLE entries (id INTEGER PRIMARY KEY, name VARCHAR (50));");
-//            выполняем наш preparedStatement
-//             preparedStatement.execute();
+//        close();
+        try (PreparedStatement preparedStatement = connect.prepareStatement("CREATE TABLE IF NOT EXISTS entries (id INTEGER PRIMARY KEY, name VARCHAR (50));");){
+            preparedStatement.execute();
 
 //            теперь давай генерируем 100 entry
             Entry[] array = new Entry[size];
@@ -30,7 +32,7 @@ public class StoreSQL implements AutoCloseable {
 
 //            try (PreparedStatement preparedStatementEntry = connection.prepareStatement("ЗДЕСЬ SQL НА INSERT в таблицу entry")) {
             String sqlEntry = "INSERT INTO entries (name) VALUES (?)";
-            try (PreparedStatement preparedStatementEntry = connection.prepareStatement(sqlEntry)) {
+            try (PreparedStatement preparedStatementEntry = connect.prepareStatement(sqlEntry)) {
 //                в цикле вствавь 100 разных объектов
                 for (int i = 0; i < array.length; i++) {
                     preparedStatementEntry.setString(1, array[i].getName());
@@ -65,20 +67,15 @@ public class StoreSQL implements AutoCloseable {
     public List<Integer> load() {
         return Collections.EMPTY_LIST;
     }
+
     @Override
-    public void close() throws Exception {
+    public void close() {
         if (connect != null) {
-            connect.close();
+            try {
+                connect.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
-    }
-
-    //ДОБАВИМ МЕТОД MAIN ДЛЯ ЗАПУСКА ПРОГРАММЫ
-    public static void main(String[] args) {
-
-        Config config = new Config();
-        config.init();
-        StoreSQL storeSql = new StoreSQL(config);
-        storeSql.generate(100);
-        System.out.println(storeSql.findAll());
     }
 }

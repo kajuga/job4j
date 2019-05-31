@@ -35,7 +35,7 @@ public class Entry {
         return "Entry{" +
                 " id= " + id +
                 ", name ='" + name + '\'' +
-                '}' + "\n";
+                '}';
     }
 
     //    public static void main(String[] args) {
