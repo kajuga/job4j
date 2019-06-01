@@ -1,5 +1,7 @@
 package ru.job4j.magnit;
 
+import ru.job4j.magnit.entity.Entry;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Collections;
