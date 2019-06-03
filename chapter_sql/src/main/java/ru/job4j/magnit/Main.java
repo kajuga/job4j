@@ -17,14 +17,14 @@ public class Main {
         try(StoreSQL storeSql = new StoreSQL(config);) {
             storeSql.generate(100);
             Entries entries = new Entries(storeSql.findAll());
-//            StoreXML storeXML = new StoreXML(new File(args[0]));
-//            storeXML.save(entries);
-            File file = new File("/home/kajuga/projects/job4j/chapter_sql/src/main/java/ru/job4j/magnit/entries.xml");
+            File fileSource = new File("/home/kajuga/projects/job4j/chapter_sql/src/main/java/ru/job4j/magnit/entries.xml");
+            File fileXsl = new File("/home/kajuga/projects/job4j/chapter_sql/src/main/java/ru/job4j/magnit/entries-scheme.xsl");
+            File fileResult = new File("/home/kajuga/projects/job4j/chapter_sql/src/main/java/ru/job4j/magnit/entries-after-convert.xml");
             JaxbParser jaxbParser = new JaxbParser();
-            jaxbParser.saveObject(file, entries);
+            jaxbParser.saveObject(fileSource, entries);
 
-
-            //System.out.println(storeSql.findAll());
+            ConvertXSQT convertXSQT = new ConvertXSQT();
+            convertXSQT.convert(fileSource, fileResult, fileXsl);
         }
     }
 }
