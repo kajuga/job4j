@@ -13,12 +13,13 @@ public class StoreXML {
         this.target = target;
     }
 
-    public boolean save(List<Entry> list){
+    public boolean save(List<Entry> list) {
 
         return true;
     }
 
     //    StoreXML(File target) - target - Файл куда будет сохраняться данные.
 //    Метод save(List<Entry> list) - сохраняет данные из list в файл target.
+// хрень какая то.
 
 }

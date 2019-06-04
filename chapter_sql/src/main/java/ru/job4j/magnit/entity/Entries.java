@@ -13,8 +13,7 @@ public class Entries {
     @XmlElement(name = "entry")
     private List<Entry> entries;
 
-    public Entries() {}
-
+    public Entries() { }
 
     public Entries(List<Entry> entries) {
         this.entries = entries;

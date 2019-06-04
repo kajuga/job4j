@@ -7,14 +7,14 @@ public class Config {
     private final Properties values = new Properties();
 
     public void init() {
-        //загружаю содержимое файла через экземпляр properties
+    //загружаю содержимое файла через экземпляр properties
         try (InputStream in = Config.class.getClassLoader().getResourceAsStream("sqlite.properties")) {
             values.load(in);
         } catch (Exception e) {
             throw new IllegalStateException(e);
         }
     }
-    //возвращает значение из фпйла-конфига по ключу
+    //возвращаю значение из фпйла-конфига по ключу
     public String get(String key) {
         return this.values.getProperty(key);
     }

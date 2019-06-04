@@ -6,7 +6,6 @@ import javax.xml.transform.stream.StreamSource;
 import java.io.*;
 
 public class ConvertXSQT {
-
     public void convert(File source, File dest, File scheme) {
 
         TransformerFactory factory = TransformerFactory.newInstance();

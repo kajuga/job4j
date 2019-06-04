@@ -12,7 +12,6 @@ public class Entry {
     private int indexNameLengthGenerator = 12;
     private String validCharacters = $('0', '9').join() + $('A', 'Z').join();
 
-
     public int getId() {
         return id;
     }
@@ -45,9 +44,12 @@ public class Entry {
 
     @Override
     public String toString() {
-        return "Entry{" +
-                " id= " + id +
-                ", name ='" + name + '\'' +
-                '}';
+        return "Entry {"
+                + " id = "
+                + id
+                + ", name ='"
+                + name
+                + '\''
+                + '}';
     }
 }

@@ -11,7 +11,6 @@ public class StoreSQL implements AutoCloseable {
     private final Config config;
     private Connection connect;
 
-
     public StoreSQL(Config config) {
         this.config = config;
         try {
@@ -23,12 +22,12 @@ public class StoreSQL implements AutoCloseable {
 
     public void generate(int size) {
 //        close();
-        try (PreparedStatement preparedStatement = connect.prepareStatement("CREATE TABLE IF NOT EXISTS entries (id INTEGER PRIMARY KEY, name VARCHAR (50));");){
+        try (PreparedStatement preparedStatement = connect.prepareStatement("CREATE TABLE IF NOT EXISTS entries(id INTEGER PRIMARY KEY, name VARCHAR (50));")) {
             preparedStatement.execute();
 
 //            теперь давай генерируем 100 entry
             Entry[] array = new Entry[size];
-            for(int i = 0; i < 100; i++){
+            for (int i = 0; i < 100; i++) {
                 array[i] = new Entry();
             }
 
@@ -64,7 +63,6 @@ public class StoreSQL implements AutoCloseable {
         }
         return entries;
     }
-
 
     public List<Integer> load() {
         return Collections.EMPTY_LIST;
