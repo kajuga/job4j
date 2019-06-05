@@ -65,11 +65,12 @@ public class Tracker implements ITracker {
      *
      * @param id Поле-ключ ячейки this.items.
      */
-    public void delete(String id) {
+    public boolean delete(String id) {
         int index = Arrays.asList(items).indexOf(findById(id));
         if (index >= 0 && index < items.length) {
             items[index] = null;
         }
+        return true;
     }
 
     /**

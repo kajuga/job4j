@@ -3,6 +3,9 @@ package ru.job4j.trackersql;
 import ru.job4j.tracker.*;
 
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.util.function.Consumer;
 
 /**
@@ -11,6 +14,20 @@ import java.util.function.Consumer;
  */
 
 public class StartUI {
+
+    private static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
+    private static final String DATABASE_URL = "jdbc:postgresql://localhost:5432/job4j_database";
+    private static final String USER = "postgres";
+    private static final String PASSWORD = "postgres";
+
+    static {
+        try {
+            Class.forName(JDBC_DRIVER);
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
     /**
      * ...
      */
@@ -56,6 +73,10 @@ public class StartUI {
      * @param args
      */
     public static void main(String[] args) throws IOException {
-        new StartUI(new ValidateInput(new ConsoleInput()), new Trackersql(), System.out::println).init();
+        try(Connection connection = DriverManager.getConnection(DATABASE_URL, USER, PASSWORD);) {
+            new StartUI(new ValidateInput(new ConsoleInput()), new Trackersql(connection), System.out::println).init();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }

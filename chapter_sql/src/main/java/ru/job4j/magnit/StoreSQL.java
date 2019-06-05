@@ -32,13 +32,19 @@ public class StoreSQL implements AutoCloseable {
             }
 
 //            try (PreparedStatement preparedStatementEntry = connection.prepareStatement("ЗДЕСЬ SQL НА INSERT в таблицу entry")) {
-            String sqlEntry = "INSERT INTO entries (name) VALUES (?)";
-            try (PreparedStatement preparedStatementEntry = connect.prepareStatement(sqlEntry)) {
-//                в цикле вствавь 100 разных объектов
-                for (int i = 0; i < array.length; i++) {
-                    preparedStatementEntry.setString(1, array[i].getName());
-                    preparedStatementEntry.executeUpdate();
+            StringBuilder sqlEntry = new StringBuilder();
+            for (int i = 0; i < array.length; i++) {
+                if (i != 0){
+                    sqlEntry.append(System.lineSeparator());
                 }
+                sqlEntry.append("INSERT INTO entries (name) VALUES ('").append(array[i].getName()).append("');");
+            }
+
+
+            try (PreparedStatement preparedStatementEntry = connect.prepareStatement(sqlEntry.toString())) {
+                connect.setAutoCommit(true);
+                preparedStatementEntry.executeUpdate();
+
             }
         } catch (SQLException e) {
             e.printStackTrace();
