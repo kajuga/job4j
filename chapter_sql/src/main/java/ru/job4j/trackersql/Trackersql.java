@@ -12,7 +12,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-
 /**
  * Tracker realisation
  */
@@ -121,7 +120,6 @@ public class Trackersql implements ITracker, AutoCloseable {
 
     /**
      * Find ALL
-     *
      * @return
      */
     @Override

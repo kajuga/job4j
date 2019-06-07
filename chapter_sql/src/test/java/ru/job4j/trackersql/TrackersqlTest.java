@@ -10,6 +10,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Properties;
@@ -47,7 +48,8 @@ public class TrackersqlTest {
     public static void setTableItems() {
         try (PreparedStatement ps =
                      connection.prepareStatement(
-                             "    CREATE TABLE tracker.item (id SERIAL PRIMARY KEY NOT NULL, name VARCHAR(100), description VARCHAR(150), creation_date DATE NOT NULL);\n" +
+                             "    CREATE TABLE IF NOT EXISTS item (id SERIAL PRIMARY KEY NOT NULL, name VARCHAR(100), description VARCHAR(150), creation_date DATE NOT NULL);"
+                                     +
                                      "    INSERT INTO tracker.item (name, description, creation_date) VALUES ('Incoming mail', 'description_text_fifth', 'Wed 17 Dec 03:27:13 2018 PST');\n" +
                                      "    INSERT INTO tracker.item (name, description, creation_date) VALUES ('Outcoming mail', 'description_text_fourth', NOW());\n" +
                                      "    INSERT INTO tracker.item (name, description, creation_date) VALUES ('Inner mail', 'description_text_second', 'Wed 12 Dec 07:37:14 1990 PST');\n" +
@@ -90,16 +92,21 @@ public class TrackersqlTest {
     @Test
     public void whenAddFiveElementsDeleteOneThenFourElements() throws SQLException {
         try (Trackersql tracker = new Trackersql(connection)) {
+//             connection.prepareStatement("INSERT INTO tracker.item (name, description, creation_date) VALUES ('Incoming mail', 'description_text_fifth', 'Wed 17 Dec 03:27:13 2018 PST');\n" +
+//            "INSERT INTO tracker.item (name, description, creation_date) VALUES ('Outcoming mail', 'description_text_fourth', NOW());");
 
-            Item first = new Item("firstTestItem", "firstTestDescription");
-            Item second = new Item("secondTestItem", "secondTestDescription");
-            tracker.add(first);
-            tracker.add(second);
-//            Item[] expect = new Item[];
-            Item[] result = tracker.findAll();
+//            Item first = new Item("Incoming mail", "description_text_fifth");
+//            Item second = new Item("secondTestItem", "secondTestDescription");
+//            tracker.add(first);
+//            tracker.add(second);
+//            setTableItems();
+            int expect = 6;
+            int result = tracker.findAll().length;
+            for (int i = 0; i < tracker.findAll().length; i++) {
+                System.out.println(new Item[i]);
+            }
 
-            assertEquals(result.length, first);
-            assertEquals(result.length, second);
+            assertEquals(expect, result);
 
         } catch (Exception e) {
             e.printStackTrace();
