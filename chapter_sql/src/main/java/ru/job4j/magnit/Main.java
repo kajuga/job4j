@@ -13,9 +13,9 @@ public class Main {
         try (StoreSQL storeSql = new StoreSQL(config);) {
             storeSql.generate(100);
             Entries entries = new Entries(storeSql.findAll());
-            File fileSource = new File("/home/kajuga/projects/job4j/chapter_sql/src/main/java/ru/job4j/magnit/entries.xml");
-            File fileXsl = new File("/home/kajuga/projects/job4j/chapter_sql/src/main/java/ru/job4j/magnit/entries-scheme.xsl");
-            File fileResult = new File("/home/kajuga/projects/job4j/chapter_sql/src/main/java/ru/job4j/magnit/entries-after-convert.xml");
+            File fileSource = new File(Main.class.getClassLoader().getResource("magnit/entries.xml").getFile());
+            File fileXsl = new File(Main.class.getClassLoader().getResource("magnit/entries-scheme.xsl").getFile());
+            File fileResult = new File(Main.class.getClassLoader().getResource("magnit").getPath() + "/entries-after-convert.xml");
             JaxbParser jaxbParser = new JaxbParser();
             jaxbParser.saveObject(fileSource, entries);
 

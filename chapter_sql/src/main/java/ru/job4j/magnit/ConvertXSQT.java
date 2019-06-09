@@ -5,9 +5,11 @@ import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 import java.io.*;
 
+/**
+ * Convertor
+ */
 public class ConvertXSQT {
     public void convert(File source, File dest, File scheme) {
-
         TransformerFactory factory = TransformerFactory.newInstance();
         Transformer transformer = null;
         try {
