@@ -11,6 +11,8 @@
     <groupId>ru.job4j</groupId>
     <artifactId>chapter_sql</artifactId>
     <packaging>pom</packaging>
+
+
     <dependencies>
         <dependency>
             <groupId>net.jcip</groupId>
@@ -39,6 +41,32 @@
             <version>4.12</version>
         </dependency>
     </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.liquibase</groupId>
+                <artifactId>liquibase-maven-plugin</artifactId>
+                <version>3.6.2</version>
+                <configuration>
+                    <changeLogFile>${basedir}/db/${db.file-set}</changeLogFile>
+                    <url>${db.url}</url>
+                    <driver>${db.driver}</driver>
+                    <username>${db.username}</username>
+                    <password>${db.password}</password>
+                    <changelogSchemaName>tracker</changelogSchemaName>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>process-resources</phase>
+                        <goals>
+                            <goal>update</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
 </project>
 
 

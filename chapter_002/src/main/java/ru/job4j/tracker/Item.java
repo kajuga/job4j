@@ -71,6 +71,24 @@ public class Item {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Item)) return false;
+
+        Item item = (Item) o;
+
+        if (!getName().equals(item.getName())) return false;
+        return getDesc() != null ? getDesc().equals(item.getDesc()) : item.getDesc() == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = getName().hashCode();
+        result = 31 * result + (getDesc() != null ? getDesc().hashCode() : 0);
+        return result;
+    }
+
+    @Override
     public String toString() {
         return "Item{"
                 + "id='" + id + '\''

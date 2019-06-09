@@ -2,7 +2,6 @@ package ru.job4j.trackersql;
 
 import ru.job4j.tracker.ITracker;
 import ru.job4j.tracker.Item;
-
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -33,13 +32,14 @@ public class Trackersql implements ITracker, AutoCloseable {
 
     /**
      * Add realisation
+     *
      * @param item
      * @return
      */
     @Override
     public Item add(Item item) {
-        try (PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO tracker.item (name, description, creation_date) " +
-                "VALUES (?, ?, ?)", Statement.RETURN_GENERATED_KEYS)) {
+        try (PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO tracker.item (name, description, creation_date) "
+                + "VALUES (?, ?, ?)", Statement.RETURN_GENERATED_KEYS)) {
             preparedStatement.setString(1, item.getName());
             preparedStatement.setString(2, item.getDesc());
             preparedStatement.setDate(3, new Date(item.getCreated()));
@@ -54,10 +54,12 @@ public class Trackersql implements ITracker, AutoCloseable {
                 String sqlComments = "INSERT INTO tracker.comment (comment, item_id) VALUES (?, ?)";
                 try (PreparedStatement preparedStatementComments = connection.prepareStatement(sqlComments)) {
                     String[] itemComments = item.getComments();
-                    for (String s : itemComments) {
-                        preparedStatementComments.setString(1, s);
-                        preparedStatementComments.setInt(2, idItem);
-                        preparedStatementComments.executeUpdate();
+                    if (itemComments != null) {
+                        for (String s : itemComments) {
+                            preparedStatementComments.setString(1, s);
+                            preparedStatementComments.setInt(2, idItem);
+                            preparedStatementComments.executeUpdate();
+                        }
                     }
                 }
             }
@@ -69,14 +71,15 @@ public class Trackersql implements ITracker, AutoCloseable {
 
     /**
      * Replace realisation
+     *
      * @param id
      * @param item
      */
     @Override
     public void replace(String id, Item item) {
-        try (PreparedStatement preparedStatementItem = connection.prepareStatement("UPDATE tracker.item SET " +
-                "name = ?, description = ?, creation_date = ? " +
-                "WHERE id = ?")) {
+        try (PreparedStatement preparedStatementItem = connection.prepareStatement("UPDATE tracker.item SET "
+                + "name = ?, description = ?, creation_date = ? "
+                + "WHERE id = ?")) {
             preparedStatementItem.setString(1, item.getName());
             preparedStatementItem.setString(2, item.getDesc());
             preparedStatementItem.setDate(3, new Date(item.getCreated()));
@@ -89,10 +92,12 @@ public class Trackersql implements ITracker, AutoCloseable {
             }
             try (PreparedStatement preparedStatementComments = connection.prepareStatement("INSERT INTO tracker.comment (comment, item_id) VALUES (?, ?)")) {
                 String[] itemComments = item.getComments();
-                for (String s : itemComments) {
-                    preparedStatementComments.setString(1, s);
-                    preparedStatementComments.setInt(2, Integer.valueOf(id));
-                    preparedStatementComments.executeUpdate();
+                if (itemComments != null) {
+                    for (String s : itemComments) {
+                        preparedStatementComments.setString(1, s);
+                        preparedStatementComments.setInt(2, Integer.valueOf(id));
+                        preparedStatementComments.executeUpdate();
+                    }
                 }
             }
         } catch (SQLException e) {
@@ -120,6 +125,7 @@ public class Trackersql implements ITracker, AutoCloseable {
 
     /**
      * Find ALL
+     *
      * @return
      */
     @Override
@@ -153,6 +159,7 @@ public class Trackersql implements ITracker, AutoCloseable {
 
     /**
      * Find by name realisation
+     *
      * @param key
      * @return
      */
@@ -202,6 +209,12 @@ public class Trackersql implements ITracker, AutoCloseable {
         return item;
     }
 
+    /**
+     * Return all comments of item
+     *
+     * @param itemId
+     * @return
+     */
     private String[] getCommentsByItem(String itemId) {
         String sqlComments = "SELECT comment FROM tracker.comment WHERE item_id = " + itemId;
         try (Statement statementComments = connection.createStatement()) {

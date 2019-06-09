@@ -73,7 +73,7 @@ public class StartUI {
      * @param args
      */
     public static void main(String[] args) throws IOException {
-        try(Connection connection = DriverManager.getConnection(DATABASE_URL, USER, PASSWORD);) {
+        try (Connection connection = DriverManager.getConnection(DATABASE_URL, USER, PASSWORD);) {
             new StartUI(new ValidateInput(new ConsoleInput()), new Trackersql(connection), System.out::println).init();
         } catch (SQLException e) {
             e.printStackTrace();
