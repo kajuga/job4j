@@ -28,9 +28,6 @@
                 <db.file-set>master-test.xml</db.file-set>
                 <db.schema>tracker-test</db.schema>
             </properties>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
         </profile>
         <profile>
             <id>production</id>
@@ -48,10 +45,11 @@
                 <activeByDefault>true</activeByDefault>
             </activation>
             <properties>
-                <db.url>jdbc:postgresql://localhost/tracker</db.url>
+                <db.url>jdbc:postgresql://localhost:5432/job4j_database-test</db.url>
                 <db.username>postgres</db.username>
-                <db.password>password</db.password>
+                <db.password></db.password>
                 <db.driver>org.postgresql.Driver</db.driver>
+                <db.file-set>master-production.xml</db.file-set>
             </properties>
         </profile>
     </profiles>
