@@ -19,6 +19,7 @@ public class Item {
     public Item(String name) {
         this.name = name;
     }
+
     public Item(String name, String desc) {
         this.name = name;
         this.desc = desc;
@@ -72,12 +73,18 @@ public class Item {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Item)) return false;
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof Item)) {
+            return false;
+        }
 
         Item item = (Item) o;
 
-        if (!getName().equals(item.getName())) return false;
+        if (!getName().equals(item.getName())) {
+            return false;
+        }
         return getDesc() != null ? getDesc().equals(item.getDesc()) : item.getDesc() == null;
     }
 
