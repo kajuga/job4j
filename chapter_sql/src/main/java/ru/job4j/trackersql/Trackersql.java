@@ -188,7 +188,7 @@ public class Trackersql implements ITracker, AutoCloseable {
     public Item findById(String id) {
         Item item = null;
         try (PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM tracker.item WHERE id = ?")) {
-            preparedStatement.setString(1, id);
+            preparedStatement.setInt(1, Integer.valueOf(id));
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 item = buildItem(resultSet);
