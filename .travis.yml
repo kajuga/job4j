@@ -7,7 +7,8 @@ services:
 - postgresql
 
 before install:
-- psql -c 'create database tracker;' -U postrgress
+- psql -c 'create database job4j_database-test;' -U postrgress
+- psql -c 'CREATE SCHEMA tracker;' -U postrgress
 
 # после выполнения сборки запустить скрипт, который будет собирать статистику по JaCoCo
 # Здесь используется сторонни сервис https://codecov.io/
