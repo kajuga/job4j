@@ -1,3 +1,4 @@
+-- inserting some date
 INSERT INTO tracker.company (name) VALUES ('Sberbank');
 INSERT INTO tracker.company (name) VALUES ('Tinkoff');
 INSERT INTO tracker.company (name) VALUES ('Innova');
