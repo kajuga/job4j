@@ -6,7 +6,7 @@ sudo: false
 services:
 - postgresql
 
-before install:
+before_install:
 - psql -c 'create database job4j_database-test;' -U postrgress
 - psql -c 'CREATE SCHEMA tracker;' -U postrgress
 

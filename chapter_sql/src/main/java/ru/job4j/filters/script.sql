@@ -74,7 +74,8 @@ SELECT SUM(p.quantity), t.name FROM filters.product AS p LEFT JOIN filters.type 
 SELECT * FROM filters.product AS p LEFT JOIN filters.type AS t ON p.type_id = t.id WHERE t.name = 'Сыр' OR t.name ='Молоко';
 SELECT * FROM filters.product AS p LEFT JOIN filters.type AS t ON p.type_id = t.id WHERE t.name IN ('Сыр', 'Молоко');
 -- 7. Написать запрос, который выводит тип продуктов, которых осталось меньше 10 штук. (У меня в таблице масштабы другие, поэтому поставил <200)
-SELECT SUM(p.quantity), t.name FROM filters.product AS p LEFT JOIN filters.type AS t ON p.type_id = t.id GROUP BY t.name HAVING SUM(p.quantity) < 200;
+SELECT SUM(p.quantity), t.name FROM filters.product AS p LEFT JOIN filters.type AS t ON p.type_id = t.id
+GROUP BY t.name HAVING SUM(p.quantity) < 200;
 -- 8. Вывести все продукты и их тип.
 SELECT p.name, t.name FROM filters.product AS p LEFT JOIN filters.type AS t ON p.type_id = t.id;
 
