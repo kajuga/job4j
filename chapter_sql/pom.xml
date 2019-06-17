@@ -10,7 +10,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>ru.job4j</groupId>
     <artifactId>chapter_sql</artifactId>
-    <packaging>pom</packaging>
+<!--    <packaging>pom</packaging>-->
 
 
     <dependencies>
